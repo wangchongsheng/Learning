@@ -105,6 +105,9 @@ Day 36
 				select tid,tname from teacher where tname like "李%"
 			查找姓李的老师的个数
 				select COUNT(tid) as c  from teacher where tname like "李%"
+		5、查询学习课程编号1又学习课程编号2的学生
+			SELECT B.student_id, COUNT(B.student_id) FROM (SELECT student_id,course_id FROM score WHERE course_id = 1 OR course_id = 2) AS B
+			GROUP BY B.student_id HAVING count(B.student_id) > 1;
 	- 内容补充
 三、Python操作MySQL
 		pip3 install pymysql
