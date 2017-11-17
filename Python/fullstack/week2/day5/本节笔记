@@ -1,0 +1,51 @@
+列表
+增加
+    a.append()追加
+    a.insert（index, '内容'）
+    aextend 扩展
+
+删除
+    remove("内容")
+    pop(index)
+    del a, del a[index]
+    a.clear() 清空
+
+修改
+    a[index] = "新的值"
+    a[start:end] = [a,b,c]
+
+查找
+    a.index("内容")
+
+排序
+    sort ()
+    reverse（）
+
+身份判断
+    >>> type(a) is list
+    True
+    >>>
+
+
+购物车程序
+    salary = 5000
+    1. iPhone6s 5800
+    2. mac book 9000
+    3.coffee    32
+    4.python book  80
+    5.bicyle    1500
+>>> 1
+   余额不足，-3000
+>>> 5
+已加入bicyle到你的购物车，当前余额：3500
+>>> quit
+打印出购物车清单，价格，以及余额。
+你已购入买以下商品
+bicyle  1500
+coffee  32
+你的余额为：2970
+欢迎下次光临。
+
+
+字典
+三级菜单

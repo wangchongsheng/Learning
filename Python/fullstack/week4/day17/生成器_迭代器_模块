@@ -1,0 +1,66 @@
+
+
+#作业
+1.home
+2.finace
+3.book
+>>:2
+    检测是否登陆，如果没登录，就调用登陆验证接口
+
+列表生成式
+[x*2 for x in range(10)]
+
+1.生成器
+生成器生成的只是一个对象，并不是值
+生成器就是一个可迭代对象（Iterable）
+生成器的两种创建方式：
+     1.(x * 2 for x in range(5))   >>>>>generator object
+     2.def f():
+            yield 2
+
+            f() >>>>>>>generator object
+
+生成器的方法：
+    next(f()) --------计算出一个值
+
+    注意：生成器再创建的时候已经决定了能计算出值的个数，
+         调用next次数超过计算值的个数，就会报错StopIteration
+
+遍历所有元素可以通过for循环：
+    for i in [1,2,3]:
+        print i
+
+for 循环内部的三件事：
+    1.调用可迭代对象的iter()方法,返回一个迭代器对象
+    2.不断调用迭代器对象的next方法
+    3.处理StopIteration
+
+        while:
+            try:
+                i = next(list_Iterator)
+            except StopIteration:
+                break
+
+send():
+
+    f().send(None) #等价于next(f())
+
+
+yield伪并发
+
+2.迭代器
+    生成器都是迭代器，迭代器不一定是生成器
+    什么是迭代器？
+        满足两个条件：1.内部有iter方法 2.内部有next方法
+
+# list,tunple,dict,string:Iterable（可迭代对象）
+
+
+
+1.凡是可作用于for循环的对象
+
+3.模块
+    time, random, json pickle
+
+
+

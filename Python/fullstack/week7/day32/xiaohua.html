@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+
+<title>学海无涯 &#8211; 书山有路勤为径，学海无涯苦作舟</title>
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="学海无涯 &raquo; Feed" href="https://blog.csking.cn/?feed=rss2" />
+<link rel="alternate" type="application/rss+xml" title="学海无涯 &raquo; 评论Feed" href="https://blog.csking.cn/?feed=comments-rss2" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blog.csking.cn\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8.3"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,56826,8203,55356,56819),0,0),c=j.toDataURL(),b!==c&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55358,56794,8205,9794,65039),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55358,56794,8203,9794,65039),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='crayon-css'  href='https://blog.csking.cn/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-theme-classic-css'  href='https://blog.csking.cn/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-font-monaco-css'  href='https://blog.csking.cn/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='https://blog.csking.cn/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='wordpress-popular-posts-css-css'  href='https://blog.csking.cn/wp-content/plugins/wordpress-popular-posts/public/css/wpp.css?ver=4.0.12' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='https://blog.csking.cn/wp-content/plugins/wp-syntax/css/wp-syntax.css?ver=1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='opensans-css'  href='https://fonts.googleapis.com/css?family=Open+Sans&#038;ver=4.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='vidaloka-css'  href='https://fonts.googleapis.com/css?family=Playfair+Display%3A400%2C700&#038;ver=4.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-css'  href='https://blog.csking.cn/wp-content/themes/fashionate/dist/css/bootstrap.css?ver=4.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css'  href='https://blog.csking.cn/wp-content/themes/fashionate/dist/css/font-awesome.css?ver=4.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='owlcarousel-css'  href='https://blog.csking.cn/wp-content/themes/fashionate/dist/css/owl.carousel.css?ver=4.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='fashionate-styles-css'  href='https://blog.csking.cn/wp-content/themes/fashionate/style.css?ver=4.8.3' type='text/css' media='all' />
+<script type='text/javascript' src='https://blog.csking.cn/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/blog.csking.cn\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"\u4f7f\u7528 %s \u590d\u5236\uff0c\u4f7f\u7528 %s \u7c98\u8d34\u3002","minimize":"\u70b9\u51fb\u5c55\u5f00\u4ee3\u7801"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta'></script>
+<link rel='https://api.w.org/' href='https://blog.csking.cn/index.php?rest_route=/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blog.csking.cn/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://blog.csking.cn/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.8.3" />
+	<style type="text/css">
+			.site-title a,
+		.site-description {
+			color: #000000;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #f5f5f5; background-image: url("https://blog.csking.cn/wp-content/uploads/2017/11/500395639_banner.jpg"); background-position: center center; background-size: auto; background-repeat: no-repeat; background-attachment: fixed; }
+</style>
+<link rel="icon" href="https://blog.csking.cn/wp-content/uploads/2017/11/cropped-deb3280b744ec5e766257c0513853843-1-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="https://blog.csking.cn/wp-content/uploads/2017/11/cropped-deb3280b744ec5e766257c0513853843-1-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://blog.csking.cn/wp-content/uploads/2017/11/cropped-deb3280b744ec5e766257c0513853843-1-180x180.jpg" />
+<meta name="msapplication-TileImage" content="https://blog.csking.cn/wp-content/uploads/2017/11/cropped-deb3280b744ec5e766257c0513853843-1-270x270.jpg" />
+</head>
+
+<body class="home blog custom-background hfeed">
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#main">Skip to content</a>
+	<header class="bg">
+
+		<nav class="navbar navbar-default top-bg" style="
+		
+				background-image:url(https://blog.csking.cn/wp-content/uploads/2017/11/cropped-500395639_banner-2.jpg);
+				">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+
+      						
+						<a  class="navbar-brand" href="https://blog.csking.cn/"><img class="site-logo" src=""/>
+						</a>
+						<h2 class="site-title">
+							<a href="https://blog.csking.cn/">学海无涯								
+							</a>
+						</h2>
+						<p class="site-description">书山有路勤为径，学海无涯苦作舟</p>
+				</div>
+
+				<div class="collapse navbar-collapse navbar-responsive-collapse ">
+
+					
+					<ul class="navbar-right social-menu top-social-link" >
+						<!-- 						<li><a target="_blank" href="#"><i class="fa fa-lg fa-facebook"></i></a></li>
+																		<li><a target="_blank" href="http://www.twitter.com/themexpert"><i class="fa fa-lg fa-twitter"></i></a></li>
+																		<li><a target="_blank" href="http://www.google.com/themexpert"><i class="fa fa-lg fa-google-plus"></i></a></li>
+																		<li><a target="_blank" href="http://www.linkedin.com/themexpert"><i class="fa fa-lg fa-linkedin"></i></a></li>
+						-->
+						<strong><font size="+10">
+						<li><a target="_blank" href="https://blog.csking.cn/wp-login.php">登陆</a></li>
+						<li><a target="_blank" href="https://blog.csking.cn/wp-login.php?action=register">注册</a></li>
+						</font></strong>
+					</ul>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				
+
+				</div>
+
+
+			</div><!-- /.container-fluid -->
+
+
+		</nav>
+
+
+
+	</header>
+
+	<div id="content" class="site-content">
+
+    <div class="container tx-sticky-part">
+        <div class="row selected-cat">
+              <!--  <div class="home-sticky">
+            
+            <div class="col-sm-12 col-md-6 ">
+                <div class="sticky-slide">
+                                    </div>
+               
+            </div>
+            <div class="col-sm-12 col-md-6 tx-sticky-description">
+
+
+                <h2 class="tx-home-description tx-title">书山有路勤为径，学海无涯苦作舟</h2>
+
+            </div>
+        </div>
+-->
+                        <div class="col-md-4 col-sm-12">
+                <a class="tx-link" href="https://blog.csking.cn/?cat=7">
+
+                    <div class="tx-cat-details">
+                        <span class="label label-primary">
+                             Linux                        </span>
+
+                        <h5 class="tx-home-description tx-title"></h5>
+                    </div>
+               
+                </a>
+            </div>
+
+                        <div class="col-md-4 col-sm-12">
+                <a class="tx-link" href="https://blog.csking.cn/?cat=13">
+
+                    <div class="tx-cat-details">
+                        <span class="label label-primary">
+                             Python                        </span>
+
+                        <h5 class="tx-home-description tx-title"></h5>
+                    </div>
+
+                </a>
+            </div>
+            
+                        <div class="col-md-4 col-sm-12">
+                <a class="tx-link" href="https://blog.csking.cn/?cat=9">
+
+                    <div class="tx-cat-details">
+                        <span class="label label-primary">
+                             MySQL                        </span>
+
+                        <h5 class="tx-home-description tx-title"></h5>
+                    </div>
+                </a>
+            </div>
+            
+
+
+
+        </div><!--end of container-->
+
+    </div>
+
+
+
+
+
+
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+
+            <div class="container tx-blog-section">
+                <div class="row">
+                    
+                    
+                                            <div class="col-md-8">
+                                                        <div class="list-blog">
+    <article id="post-529" class="post-529 post type-post status-publish format-standard hentry category-linux category-shell category-tools">
+
+            <div class="entry-content">
+                
+                <div class="shadow-box">
+                    <div class="entry-header">
+                        <h2 class="entry-title tx-title"><a class="tx-link" href="https://blog.csking.cn/?p=529" >Linux下Rsync+Inotify-tools实现数据实时同步</a></h2>                            <div class="entry-meta">
+                                <span class="cat-links tx-link"><i class="fa fa-folder-open"></i> <a href="https://blog.csking.cn/?cat=7" rel="category">Linux</a>, <a href="https://blog.csking.cn/?cat=15" rel="category">Shell</a>, <a href="https://blog.csking.cn/?cat=11" rel="category">Tools</a> </span><span class="comments-link tx-link"><i class="fa fa-comments"></i> <a href="https://blog.csking.cn/?p=529#respond"> Leave a Comment <span class="screen-reader-text"> on Linux下Rsync+Inotify-tools实现数据实时同步 </span></a></span><span class="posted-on"> <i class="fa fa-calendar"></i>&nbsp;  <a href="https://blog.csking.cn/?p=529" rel="bookmark"><time class="entry-date published" datetime="2017-11-09T13:54:42+00:00">2017年11月9日</time><time class="updated" datetime="2017-11-09T16:29:38+00:00">2017年11月9日</time></a></span><span class="byline"> <i class="fa fa-user"></i><span class="author vcard"><a class="url fn n" href="https://blog.csking.cn/?author=1">admin</a></span></span>                            </div><!-- .entry-meta -->
+                                                </div><!-- .entry-header -->
+                    <div class="blog-content">
+                        <p>服务器环境：Linux CentOS 7 服务器A：192.168.0.100（服务端） 服务器B：.</p>
+
+                    
+                        <div class="post-link pull-left">
+                            <a class="tx-link read-more btn" href="https://blog.csking.cn/?p=529">Read More</a>
+
+                        </div><!--end of post-link-->
+
+                        <div class="edit">  
+                                                    </div>
+                    </div>
+                </div>
+
+
+        </div><!-- .entry-content -->
+
+
+    </article><!-- #post-## -->
+
+</div>
+<div class="list-blog">
+    <article id="post-509" class="post-509 post type-post status-publish format-standard hentry category-tools tag-zabbix">
+
+            <div class="entry-content">
+                
+                <div class="shadow-box">
+                    <div class="entry-header">
+                        <h2 class="entry-title tx-title"><a class="tx-link" href="https://blog.csking.cn/?p=509" >Zabbix3.0微信接收监控报警</a></h2>                            <div class="entry-meta">
+                                <span class="cat-links tx-link"><i class="fa fa-folder-open"></i> <a href="https://blog.csking.cn/?cat=11" rel="category">Tools</a> </span><span class="comments-link tx-link"><i class="fa fa-comments"></i> <a href="https://blog.csking.cn/?p=509#respond"> Leave a Comment <span class="screen-reader-text"> on Zabbix3.0微信接收监控报警 </span></a></span><span class="posted-on"> <i class="fa fa-calendar"></i>&nbsp;  <a href="https://blog.csking.cn/?p=509" rel="bookmark"><time class="entry-date published updated" datetime="2017-11-02T00:24:21+00:00">2017年11月2日</time></a></span><span class="byline"> <i class="fa fa-user"></i><span class="author vcard"><a class="url fn n" href="https://blog.csking.cn/?author=1">admin</a></span></span>                            </div><!-- .entry-meta -->
+                                                </div><!-- .entry-header -->
+                    <div class="blog-content">
+                        <p>系统环境：Centos 7 软件版本：Zabbix3.0 &#8212;&#8212;&#8212;.</p>
+
+                    
+                        <div class="post-link pull-left">
+                            <a class="tx-link read-more btn" href="https://blog.csking.cn/?p=509">Read More</a>
+
+                        </div><!--end of post-link-->
+
+                        <div class="edit">  
+                                                    </div>
+                    </div>
+                </div>
+
+
+        </div><!-- .entry-content -->
+
+
+    </article><!-- #post-## -->
+
+</div>
+<div class="list-blog">
+    <article id="post-469" class="post-469 post type-post status-publish format-standard hentry category-linux category-tools tag-zabbix">
+
+            <div class="entry-content">
+                
+                <div class="shadow-box">
+                    <div class="entry-header">
+                        <h2 class="entry-title tx-title"><a class="tx-link" href="https://blog.csking.cn/?p=469" >Zabbix监控TCP端口</a></h2>                            <div class="entry-meta">
+                                <span class="cat-links tx-link"><i class="fa fa-folder-open"></i> <a href="https://blog.csking.cn/?cat=7" rel="category">Linux</a>, <a href="https://blog.csking.cn/?cat=11" rel="category">Tools</a> </span><span class="comments-link tx-link"><i class="fa fa-comments"></i> <a href="https://blog.csking.cn/?p=469#comments"><span class="screen-reader-text">Zabbix监控TCP端口</span>有1条评论</a></span><span class="posted-on"> <i class="fa fa-calendar"></i>&nbsp;  <a href="https://blog.csking.cn/?p=469" rel="bookmark"><time class="entry-date published" datetime="2017-11-01T22:32:55+00:00">2017年11月1日</time><time class="updated" datetime="2017-11-03T11:32:28+00:00">2017年11月3日</time></a></span><span class="byline"> <i class="fa fa-user"></i><span class="author vcard"><a class="url fn n" href="https://blog.csking.cn/?author=1">admin</a></span></span>                            </div><!-- .entry-meta -->
+                                                </div><!-- .entry-header -->
+                    <div class="blog-content">
+                        <p>创建一个shell脚本,并设置权限 在zabbix客户端的配置文件中添加以下内容： 登陆zabbix.</p>
+
+                    
+                        <div class="post-link pull-left">
+                            <a class="tx-link read-more btn" href="https://blog.csking.cn/?p=469">Read More</a>
+
+                        </div><!--end of post-link-->
+
+                        <div class="edit">  
+                                                    </div>
+                    </div>
+                </div>
+
+
+        </div><!-- .entry-content -->
+
+
+    </article><!-- #post-## -->
+
+</div>
+<div class="list-blog">
+    <article id="post-465" class="post-465 post type-post status-publish format-standard hentry category-mysql category-shell category-tools tag-zabbix">
+
+            <div class="entry-content">
+                
+                <div class="shadow-box">
+                    <div class="entry-header">
+                        <h2 class="entry-title tx-title"><a class="tx-link" href="https://blog.csking.cn/?p=465" >Zabbix监控MySQL性能</a></h2>                            <div class="entry-meta">
+                                <span class="cat-links tx-link"><i class="fa fa-folder-open"></i> <a href="https://blog.csking.cn/?cat=9" rel="category">MySQL</a>, <a href="https://blog.csking.cn/?cat=15" rel="category">Shell</a>, <a href="https://blog.csking.cn/?cat=11" rel="category">Tools</a> </span><span class="comments-link tx-link"><i class="fa fa-comments"></i> <a href="https://blog.csking.cn/?p=465#respond"> Leave a Comment <span class="screen-reader-text"> on Zabbix监控MySQL性能 </span></a></span><span class="posted-on"> <i class="fa fa-calendar"></i>&nbsp;  <a href="https://blog.csking.cn/?p=465" rel="bookmark"><time class="entry-date published" datetime="2017-11-01T21:56:17+00:00">2017年11月1日</time><time class="updated" datetime="2017-11-03T11:32:02+00:00">2017年11月3日</time></a></span><span class="byline"> <i class="fa fa-user"></i><span class="author vcard"><a class="url fn n" href="https://blog.csking.cn/?author=1">admin</a></span></span>                            </div><!-- .entry-meta -->
+                                                </div><!-- .entry-header -->
+                    <div class="blog-content">
+                        <p>由于MySQL5.7版本以上在命令行中不允许使用明文密码，所以需要将用户名和密码存在文件中： 认证信.</p>
+
+                    
+                        <div class="post-link pull-left">
+                            <a class="tx-link read-more btn" href="https://blog.csking.cn/?p=465">Read More</a>
+
+                        </div><!--end of post-link-->
+
+                        <div class="edit">  
+                                                    </div>
+                    </div>
+                </div>
+
+
+        </div><!-- .entry-content -->
+
+
+    </article><!-- #post-## -->
+
+</div>
+<div class="list-blog">
+    <article id="post-461" class="post-461 post type-post status-publish format-standard hentry category-linux category-shell">
+
+            <div class="entry-content">
+                
+                <div class="shadow-box">
+                    <div class="entry-header">
+                        <h2 class="entry-title tx-title"><a class="tx-link" href="https://blog.csking.cn/?p=461" >建立IPIP隧道</a></h2>                            <div class="entry-meta">
+                                <span class="cat-links tx-link"><i class="fa fa-folder-open"></i> <a href="https://blog.csking.cn/?cat=7" rel="category">Linux</a>, <a href="https://blog.csking.cn/?cat=15" rel="category">Shell</a> </span><span class="comments-link tx-link"><i class="fa fa-comments"></i> <a href="https://blog.csking.cn/?p=461#comments"><span class="screen-reader-text">建立IPIP隧道</span>有1条评论</a></span><span class="posted-on"> <i class="fa fa-calendar"></i>&nbsp;  <a href="https://blog.csking.cn/?p=461" rel="bookmark"><time class="entry-date published" datetime="2017-11-01T21:37:27+00:00">2017年11月1日</time><time class="updated" datetime="2017-11-03T16:25:50+00:00">2017年11月3日</time></a></span><span class="byline"> <i class="fa fa-user"></i><span class="author vcard"><a class="url fn n" href="https://blog.csking.cn/?author=1">admin</a></span></span>                            </div><!-- .entry-meta -->
+                                                </div><!-- .entry-header -->
+                    <div class="blog-content">
+                        
+                    
+                        <div class="post-link pull-left">
+                            <a class="tx-link read-more btn" href="https://blog.csking.cn/?p=461">Read More</a>
+
+                        </div><!--end of post-link-->
+
+                        <div class="edit">  
+                                                    </div>
+                    </div>
+                </div>
+
+
+        </div><!-- .entry-content -->
+
+
+    </article><!-- #post-## -->
+
+</div>
+
+                                <div class="pagination">
+                                    
+	<nav class="navigation pagination" role="navigation">
+		<h2 class="screen-reader-text">文章导航</h2>
+		<div class="nav-links"><span class='page-numbers current'>1</span>
+<a class='page-numbers' href='https://blog.csking.cn/?paged=2'>2</a>
+<span class="page-numbers dots">&hellip;</span>
+<a class='page-numbers' href='https://blog.csking.cn/?paged=7'>7</a>
+<a class="next page-numbers" href="https://blog.csking.cn/?paged=2">下一个</a></div>
+	</nav>                                </div>
+
+
+                                                        </div>
+                                                    <div class="col-md-4">
+                                
+<aside id="secondary" class="widget-area">
+	<section id="text-3" class="widget widget_text"><h2 class="widget-title">关于本站</h2>			<div class="textwidget"><p><strong>姓名：王崇胜</strong></p>
+<p><strong>Github</strong>:<a href="https://github.com/wangchongsheng" target="_blank" rel="noopener">https://github.com/wangchongsheng</a></p>
+</div>
+		</section><section id="search-5" class="widget widget_search"><form method="get" class="search-form custom-search" action="https://blog.csking.cn/">
+
+    <input type="search" class="search-field " placeholder="Search" value="" name="s" title="Search for:" />
+
+
+    <button type="submit" class="fa fa-search search-submit">	</button>
+</form>
+</section><section id="categories-3" class="widget widget_categories"><h2 class="widget-title">分类目录</h2>		<ul>
+	<li class="cat-item cat-item-7"><a href="https://blog.csking.cn/?cat=7" >Linux</a> (14)
+</li>
+	<li class="cat-item cat-item-9"><a href="https://blog.csking.cn/?cat=9" >MySQL</a> (4)
+</li>
+	<li class="cat-item cat-item-35"><a href="https://blog.csking.cn/?cat=35" >Network</a> (3)
+</li>
+	<li class="cat-item cat-item-13"><a href="https://blog.csking.cn/?cat=13" >Python</a> (4)
+</li>
+	<li class="cat-item cat-item-15"><a href="https://blog.csking.cn/?cat=15" >Shell</a> (11)
+</li>
+	<li class="cat-item cat-item-11"><a href="https://blog.csking.cn/?cat=11" >Tools</a> (4)
+</li>
+		</ul>
+</section><section id="archives-4" class="widget widget_archive"><h2 class="widget-title">文章归档</h2>		<ul>
+			<li><a href='https://blog.csking.cn/?m=201711'>2017年十一月</a>&nbsp;(7)</li>
+	<li><a href='https://blog.csking.cn/?m=201710'>2017年十月</a>&nbsp;(26)</li>
+		</ul>
+		</section><section id="tag_cloud-3" class="widget widget_tag_cloud"><h2 class="widget-title">标签</h2><div class="tagcloud"><a href="https://blog.csking.cn/?tag=ip" class="tag-cloud-link tag-link-21 tag-link-position-1" style="font-size: 8pt;" aria-label="IP (1个项目)">IP</a>
+<a href="https://blog.csking.cn/?tag=ipset" class="tag-cloud-link tag-link-31 tag-link-position-2" style="font-size: 8pt;" aria-label="ipset (1个项目)">ipset</a>
+<a href="https://blog.csking.cn/?tag=iptables" class="tag-cloud-link tag-link-33 tag-link-position-3" style="font-size: 8pt;" aria-label="iptables (1个项目)">iptables</a>
+<a href="https://blog.csking.cn/?tag=linux" class="tag-cloud-link tag-link-17 tag-link-position-4" style="font-size: 14.3pt;" aria-label="Linux (2个项目)">Linux</a>
+<a href="https://blog.csking.cn/?tag=mysql" class="tag-cloud-link tag-link-29 tag-link-position-5" style="font-size: 18.5pt;" aria-label="MySQL (3个项目)">MySQL</a>
+<a href="https://blog.csking.cn/?tag=python" class="tag-cloud-link tag-link-25 tag-link-position-6" style="font-size: 14.3pt;" aria-label="python (2个项目)">python</a>
+<a href="https://blog.csking.cn/?tag=shell" class="tag-cloud-link tag-link-19 tag-link-position-7" style="font-size: 14.3pt;" aria-label="Shell (2个项目)">Shell</a>
+<a href="https://blog.csking.cn/?tag=zabbix" class="tag-cloud-link tag-link-27 tag-link-position-8" style="font-size: 22pt;" aria-label="zabbix (4个项目)">zabbix</a></div>
+</section>		<section id="recent-posts-4" class="widget widget_recent_entries">		<h2 class="widget-title">近期文章</h2>		<ul>
+					<li>
+				<a href="https://blog.csking.cn/?p=529">Linux下Rsync+Inotify-tools实现数据实时同步</a>
+						</li>
+					<li>
+				<a href="https://blog.csking.cn/?p=509">Zabbix3.0微信接收监控报警</a>
+						</li>
+					<li>
+				<a href="https://blog.csking.cn/?p=469">Zabbix监控TCP端口</a>
+						</li>
+					<li>
+				<a href="https://blog.csking.cn/?p=465">Zabbix监控MySQL性能</a>
+						</li>
+					<li>
+				<a href="https://blog.csking.cn/?p=461">建立IPIP隧道</a>
+						</li>
+				</ul>
+		</section>		</aside><!-- #secondary -->
+                            </div>
+                                            </div>
+                </div>
+
+
+        </main><!-- #main -->
+    </div><!-- #primary -->
+
+
+	</div><!-- #content -->
+
+	<footer id="colophon" class="site-footer">
+	 	<div class="site-info">
+
+			<div class="container">
+				<div class="row footer-bootom">
+					<!-- <div class=" col-sm-6"> -->
+
+						<p class="gl-copy-right" align="center">
+							<span class="copyright">
+								蜀ICP备17027599号-1								
+							</span>
+							Copyright2017 <a href="https://www.csking.cn" target="_blank">小柒网</a> All Rights Reserved,
+							Brought you by <a href="https://www.themexpert.com" target="_blank">ThemeXpert</a> 
+						</p>
+						
+					<!--</div> -->
+					<!--<div class="col-sm-6">
+						
+						<ul class="text-right social-menu" >
+															<li><a target="_blank" href="#"><i class="fa fa-lg fa-facebook"></i></a></li>
+																																		</ul>
+
+					</div> -->
+
+				</div>
+			</div>
+
+
+		</div><!-- .site-info -->
+
+	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/blog.csking.cn\/index.php?rest_route=\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"\u8bf7\u9a8c\u8bc1\u60a8\u4e0d\u662f\u4e00\u4e2a\u673a\u5668\u4eba"}}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.1'></script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-content/plugins/wp-syntax/js/wp-syntax.js?ver=1.1'></script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-content/themes/fashionate/dist/js/navigation.js?ver=20151215'></script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-content/themes/fashionate/dist/js/skip-link-focus-fix.js?ver=20151215'></script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-content/themes/fashionate/dist/js/bootstrap.js?ver=20120206'></script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-content/themes/fashionate/dist/js/owl.carousel.js?ver=20120206'></script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-content/themes/fashionate/dist/js/fashionate.js?ver=20120206'></script>
+<script type='text/javascript' src='https://blog.csking.cn/wp-includes/js/wp-embed.min.js?ver=4.8.3'></script>
+
+</body>
+</html>

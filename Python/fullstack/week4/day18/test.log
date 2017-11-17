@@ -1,0 +1,17 @@
+2017-09-27 09:21:58,780 root WARNING warning message
+2017-09-27 09:21:58,780 root ERROR error message
+2017-09-27 09:21:58,781 root CRITICAL critical message
+2017-09-27 09:29:55,334 root DEBUG debug message
+2017-09-27 09:29:55,334 root INFO info message
+2017-09-27 09:29:55,334 root WARNING warning message
+2017-09-27 09:29:55,334 root ERROR error message
+2017-09-27 09:29:55,334 root CRITICAL critical message
+2017-09-27 09:46:20,767 root CRITICAL critical message
+2017-09-27 09:46:55,974 root INFO info message
+2017-09-27 09:46:55,974 root WARNING warning message
+2017-09-27 09:46:55,974 root ERROR error message
+2017-09-27 09:46:55,974 root CRITICAL critical message
+2017-09-27 10:15:55,052 root INFO info message
+2017-09-27 10:15:55,065 root WARNING warning message
+2017-09-27 10:15:55,066 root ERROR error message
+2017-09-27 10:15:55,066 root CRITICAL critical message

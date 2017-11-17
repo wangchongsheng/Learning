@@ -1,0 +1,25 @@
+
+
+二进制
+    --->ASCII:只能存英文和拉丁字符，一个字符占一个字节，8位
+        --->GB2312: 存6700+中文,  1980
+            --->GBK1.0 : 2W+字符, 1995
+                --->gb18030:2W7+, 2000
+
+        --->unicode:utf-32:一个字符占4个字节
+        --->unicode:utf-16:一个字符占2个字节或2个以上, 65535个字符
+        --->unicode:utf-8:一个英文用ASCII码来存,一个中文占3个字节,
+
+编码 encode
+解码 decode
+
+in python2
+默认 ASCLL
+
+encode('utf8') --> decode('GBK')
+
+in python3
+默认 unicode
+encode 在编码的同时,会把数据转换成数据类型
+
+b = byte = 字节 = [0-255]

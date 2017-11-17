@@ -1,0 +1,36 @@
+SOCK_STREAM  :TCP
+SOCK_Dgram   :UDP
+
+family = AF_INET :服务器直接按的通信 （IPv4）默认
+family = AF_INET6 :服务器直接按的通信 (IPv6)
+family = AF_UNIX : UNIX不通进程之间的通信
+
+client SK
+<socket.socket fd=344, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0>
+server:
+<socket.socket fd=328, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 8000), raddr=('127.0.0.1', 60553)>
+
+PS：两个sk没有任何关系
+
+server下的方法
+
+    bind()
+    listen()
+    accept()
+
+    recv ()
+    send(string)
+    sendall ()
+
+
+client 下的方法
+
+    connect（）
+    recv ()
+    send (string)
+    sendall() #传送的内容一定时byte类型
+
+    close()
+
+
+  四字口诀：一收一发

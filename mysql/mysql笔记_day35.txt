@@ -1,0 +1,388 @@
+
+一、数据库管理系统DBMS
+	DBMS是个软件
+	
+	目录结构：
+		bin
+		config
+		db （保存数据）
+		  - admin
+			- 123asda.txt{用户名，密码，类型}
+			- 12asdsa.txt {用户名，密码，类型}
+		  - course
+		  - school
+		src
+		
+	写程序：
+		a. 数据库再本地
+			1、找到目录
+			2、添加数据
+		b. 数据库再远程
+			1、socket连接上远程机器
+			2、socket发发送您{命令}
+	
+
+	需要做什么？
+	a. 
+		A. 程序
+			程序，socket客户端
+		B，数据
+			socket服务端
+		C，制作一套规则
+			add|...
+			delete|...
+			......
+		D，socket客户端和服务端用户认证，授权，限制
+		
+	
+	有人搞了一套软件：
+		A. 程序
+			程序，socket客户端
+		B，数据
+			socket服务端
+		C，制作一套规则
+			add|...
+			delete|...
+			......
+		D，socket客户端和服务端用户认证，授权，限制
+		
+		-- SQL server(收费)，Oracle，sqlite，access。。。。MySQL
+		
+		都分了服务端和客户端
+		
+二、MySQL的安装
+	1、下载
+		Linux 安装，编译包或者二进制包
+	2、编译或解压安装到到指定目录
+	3、运行服务器端
+		a.初始化数据库
+			mysqld --initialize
+		b.启动服务
+			service mysqld start
+	4.将bin目录加入环境变量中
+	
+三、MySQL数据库
+
+1、概念
+	数据库 		文件夹
+	数据表		文件
+	数据行		文件中的一行数据
+	
+2、初试：
+	
+		show databases;                 #查看根目录的所有文件夹
+		
+		create databases databasesname; # 创建文件夹
+		
+		use databasesname; 				# 使用选中数据库，进入目录
+		
+		show tables;					# 查看当前数据库下都有哪些表
+		
+		create table 表名(nid int,name varchar(20), pwd varchar(64));  #创建数据库表
+		
+		select * from 表名;				# 查看表中的所有数据
+		
+		insert into 表名(nid,name,pwd) values(1,'alice','123');         #插入数据
+		
+		-- select * from 表名;
+		
+3、用户授权：
+	用户管理的特殊命令：
+		创建用户
+			create user '用户名'@'IP地址' identified by '密码';
+			
+		删除用户
+			drop user '用户名'@'IP地址';
+		
+		修改用户
+			rename user '用户名'@'IP地址';to '新用户名'@'IP地址';;
+		修改密码
+		    set password for '用户名'@'IP地址' = Password('新密码')
+	
+	授权管理：
+		默认，什么都没有
+		
+		grant 权限 on 数据库.表 to '用户名'@'IP地址';
+		
+		select 查
+		
+		insert 插入
+		
+		
+		
+		数据库.表
+			test.tb1
+			test.*
+			*.*
+			
+		'用户'@'IP地址'
+			csking@locahost
+			
+		
+		
+		======================重要，远程连接
+
+
+小结：
+	a.减少重复操作文件，直接将命令发送给MySQL服务端，自动操作
+	b.数据库，表，行
+	c.开户和授权
+		密码，必须用引号
+		其他，推荐用引号
+	
+	d.客户端连接(MySQL提供的客户端)
+	1、
+		mysql -u root -h 192.168.0.91 -P 端口
+		
+	2、初试：
+	
+		show databases;                 #查看根目录的所有文件夹
+		
+		create databases databasesname; # 创建文件夹
+		
+		use databasesname; 				# 使用选中数据库，进入目录
+		
+		show tables;					# 查看当前数据库下都有哪些表
+		
+		create table 表名(nid int,name varchar(20), pwd varchar(64));  #创建数据库表
+		
+		select * from 表名;				# 查看表中的所有数据
+		
+		insert into 表名(nid,name,pwd) values(1,'alice','123');         #插入数据
+		
+		-- select * from 表名;
+		
+	3、语句结尾的分号;;;
+	
+四、SQL语句
+	
+	数据库级别
+		SHOW DATABASES;
+		
+		CREATE DATABASE 数据库名称;
+		CREATE DATABASE 数据库名称 DEFAULT CHARSET utf8 COLLATE ust8_general_ci;
+		
+		USE 数据库名称;
+		
+		drop database 数据库名称;
+	表级表
+		
+		show tables;
+		desc tb1;
+		
+		***create table tb1(nid int,name varchar(20));
+		#事物，原子操作，回滚 
+		
+		a.默认值
+		b.是否可以为空
+		c.自增列(一张表只能有一个自增列，数字，必须是索引---主键)
+		d.主键：
+			一张表只能有一个主键，唯一不能重复，不能为null，- 一般情况下将自增列设置主键
+		  唯一列：
+				可以为null，一张表可以有多个唯一列
+				1，2，3，4，null
+			-- 约束
+			-- 索引，加速查找
+			
+			
+			create table xxx(
+				nid int not null primary key,
+				...
+			)
+			
+			
+			create table sudent(
+				name varchar(10) not null,
+				num  int not null,
+				age int,
+				gender int,
+				primary key (name,num)   #name和num列联合成一个主键key
+			)
+			
+			# 主键：
+					不能为null,
+					不能重复,
+					一张表只有一个主键(可以多列组成主键)
+			
+				create table tb1(
+					nid int not null auto_increment primary  key,
+					name varchar(16),
+					age int  default 19
+					)engine=innodb default charset=utf8;
+			
+			# 一般用法：
+					nid int auto_increment primary key,
+		e. 外键foreign key, 一对多
+			alter table userinfo add constraint fk_u_p foreign key userinfo(part_nid) rereferences part(nid);
+			
+			两张表建立约束
+			
+			-- 约束
+			-- foreign key, 一对多
+		f:数据类型
+			数值：
+				bit	二进制
+				
+				tinyint
+				smallint
+				int
+				bigint
+					- 范围不一样
+					
+				decimal   -- 精确的   (底层内部是通过字符串存储，精确)
+				float	  浮点型，不精确的
+				double
+		
+		create table tb12(num decimal(6,2));  #表示能保存6位数，后两位为小数  #8888.88
+		
+			字符串：
+				# 定长
+				char
+				create table tb12(n char(7))
+				insert ssss  #实际占7个位置
+				# 查找速度快，浪费空间
+				
+				
+				# 变长
+				varchar
+				create table tb12(n char(7))
+				insert ssss  #实际占4个位置
+				# 查找速度慢，节省空间
+				text
+				mediumtext
+				longtext
+			
+			二进制数据：
+				TinyBlog、Blob、MediumBlob、LongBlob
+				#上传文件
+				#强制二进制方式
+				#将上传文件保存再硬盘,
+				
+			时间：
+				DATE
+					YYYY-MM-DD(1000-01-01/9999-12-31)
+				TIME 
+					HH:MM:SS
+				
+				DATETIME
+					YYYY-MM-DD HH:MM:SS
+				
+				TIMESTAMP
+					YYYYMMDD HHMMSS
+					
+			enum
+				# 创建一个枚举
+				CREATE TABLE shirts(
+					name varchar(40),
+					size ENUM('x-small','small','medium','large','x-large')
+				);
+				
+				insert into shirts(name,size) values('dress shirts','large');
+ 
+			set 集合
+				CREATE TABLE myset(col SET('a','b','c','d'));
+				INSERT INTO myset(col) values('a,d') 
+				
+				
+		drop table tb1;		# 直接删除表
+		
+		delete from tb1;	# 清空表内容
+		truncate table tb1; # 清空表内容，速度快，自增回到原点
+		
+		select * from tb1;  # 查看表中的所有数据
+		
+		修改表结构：
+			添加列：alter table 表名 add 列名 类型
+			删除列：alter table 表名 drop column 列名
+			修改列：
+					alter table 表名 modify column 列名 类型;  -- 类型
+					alter table 表名 change 原列名 新列名 类型; -- 列名，类型 
+			添加主键：
+					alter table 表名 add primary key;
+			删除主键：
+					alter table 表名 drop primary key;
+					alter table 表名 modify 列名 int，drop primary key;
+					
+			添加外键：alter table 从表 add constraint 外键名称(例如:FK_从表_主表) foreign key 从表(外键字段) references 主表(主键字段)
+			删除外键：alter table 表名 drop foreign key 外键名称
+			
+			修改默认值：ALTER TABLE test_tb1 ALTER i SET DEFAULT 1000;
+			删除默认值：ALTER TABLE test_tb1 ALITE i DROP DEFAULT;
+			
+		
+	数据行级别 ****
+		select * from tb1;  # 查看表中的所有数据
+		
+		
+		# 增
+			insert into 表(列名，列名...) values(值,值,值...)
+			insert into 表(列名，列名...) values(值,值,值...),(值,值,值...)
+			insert into 表(列名，列名...) values(列名,列名) from 表
+			
+		# 删
+			delete from 表;
+			delete from 表 where id =1 and name = 'Alice';
+			
+		# 改
+			update 表 set name = 'Alice' where id>1;
+		# 查
+			select * from 表;
+			select * from 表 where id > 1;
+			select nid,age,gender as gg from 表 where id > 1;
+	
+		# 其他
+			连表操作：
+				# 连表
+				select * from a,b where a,.x = b.o;
+				select * from userinfo,part where userinfo.part_nid = part.nid;
+				
+				# join
+				
+				selec * from a LEFT JOIN b ON a.x =b.o
+				select * from userinfo left join part on userinfo.part_nid = part.nid;
+				
+			
+Day 35	
+==========今日内容整理=============
+1、数据库概念，很多
+2、数据库，表，行
+3、启动服务器端，再启动客户端连接服务端
+	- 用户管理
+	- 权限管理
+4、SQL语句
+	数据库操作 *
+	表操作 **
+		- 是否可以为空
+		- 默认值
+		- 主键
+		- 外键
+		- 自增
+		- 数据类型（char,varchar）
+	数据行：
+		增删改查
+		其他：
+		limit offset
+		left join
+		order by 
+		group by , having   max,min,sum,count
+		#条件，模糊
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	inforbright
+
+		

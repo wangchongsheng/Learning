@@ -1,0 +1,132 @@
+标识符
+1.字母数字下划线组成
+2.不能以数字开头
+3.区分大小写
+4.不能以保留字命名
+False None True  and as assert break class continue
+def del elif else except finally for
+from
+global
+if
+import in is lambda nonlocal
+not
+or
+pass
+raise
+return
+try while
+with yield
+5.描述性单词命名的变量，不用中文，不要拼音
+
+6.驼峰式，下划线分割（推荐）
+查看python风格指南
+
+lint 代码检查
+
+算数运算符：+ - * / // % **
+赋值运算符：= += -= *= /= //= **=
+比较运算符：> < >= <= != ==
+逻辑运算符：and or not
+优先级：()
+身份运算符：is , is not
+成员运算符：in , not in
+
+type()
+
+注释：
+单行注释：#
+多行注释：'''内容'''，"""内容"
+作用：解释代码的作用
+
+特殊注释：
+#!/usr/bin/env python3.4
+
+流控制之if语句
+if ...:
+    ...
+if ...:
+    ...
+else:
+    ...
+
+if ...:
+    ...
+elif ...:
+    ...
+
+if ...:
+    ...
+elif ...:
+    ...
+else:
+    ...
+
+缩进：
+语句强制缩进，推荐使用4个空格；
+制表符table和空格不能混合使用
+
+序列
+>>>range(10)
+[0,1,2,3,4,5,6,7,8,9]
+字符串也是特殊序列
+
+流程控制--for循环
+for i in range(10):
+    print(i)
+else:
+
+while循环
+while True:
+    .....
+else:
+    .....
+
+数据类型：整数int 浮点数float 复数complex
+字符串:'string',"string",'''string'''
+'he\'s sad'  反斜杠转义字符
+format()  格式化字符串
+join()  拼接字符串
+
+列表
+['','']
+元组
+('','') 特殊的列表，不能做增删改查，可以做分片处理
+字典
+{'key':'value',}
+特点：无序，键唯一
+
+布尔值：只有两个值：True和False
+值表示为False：
+None
+False
+任何表示0的数字类型：0，0j
+任何空序列：'',(),[] #空字符串，空元组，空列表
+任何空映射：{} #空子典、空集合
+其他都为True
+
+
+文件操作
+操作步骤：打开文件-->操作文件夹-->关闭文件
+1.打开文件,拿到文件句柄并赋值给一个变量
+2.通过句柄对文件进行操作
+3.关闭文件
+
+文件模式：
+    r(read)从文件开头开始读取
+    w(write)先格式化文件，在从开头读取
+    a(append)从文件最后一个光标开始添加
+    r+,读写模式 w+写读模式 a+追加和读模式
+
+f = open('txt','r')
+f.read()
+f.close()
+
+with语句
+with open('txt','r') as f:
+    f.read()
+
+
+
+
+
+

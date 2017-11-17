@@ -1,0 +1,64 @@
+元组
+    里面的数据不能修改，只能读取
+    列表支持增删改查
+
+不可变类型：整型，字符串，元组
+可变类型：列表，字典
+
+字典
+    键值不可修改
+    特点：无序，键唯一
+
+    创建的两种方式
+        dic ={'name':'Alice'}
+        dic2 = dict((('name','Alice'),))
+#增
+dic ={'name':'Alice'}
+dic['age']=18
+print(dic)
+{'name': 'Alice', 'age': 18}
+
+#如果键已经存在的键，就返回对应的键值。
+dic.setdefault('age','18')
+print(dic)
+
+#键值不存在，增加键值，再返回值
+dic.setdefault('hobby','gril')
+print(dic)
+
+#改
+dic4 = {'hobby': 'gril', 'name': 'Alice', 'age': 18}
+dic5 = {'name':'Luci'}
+dic4.update(dic5)
+print(dic4)
+
+#查询
+dic3 = {'hobby': 'gril', 'name': 'Alice', 'age': 18}
+print(dic3['name'])
+print(list(dic3.keys()))
+print(list(dic3.values()))
+print(list(dic3.items()))
+
+#删除
+#clear pop popitem del
+dic5 = {'name': 'Luci', 'hobby': 'gril', 'age': 18}
+dic5.clear()  #清空字典
+print(dic5)
+del dic5['name'] #删除字典中指定键值对
+print(dic5)
+
+print(dic5.pop('age')) #删除字典中指定键值对,并返回键值对的值
+ret = dic5.pop('age')
+print(ret)
+print(dic5)
+
+a = dic5.popitem() #随机删除某组键值对，并以元组方式返回值
+print(a, dic5)
+
+del dic5  #删除整个字典
+print(dic5)
+
+程序：三级菜单
+1.打印省市县三级菜单
+2.可返回上一级
+3.可随时退出程序

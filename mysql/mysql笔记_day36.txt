@@ -1,0 +1,131 @@
+Day 36
+=======================================
+知识回顾
+1、增删改查
+2、其他：
+		分组：
+			group by
+			xxx 	having  聚合条件...
+		
+		分页：
+			前几行, select .... limit 3;
+			limit 3,4		 #第三行开始，取4行
+			limit 4 offset 3 # 。。。
+			
+		连表：
+			left outer join on
+			# 表1 left join 表2 on
+			# 如果表1中的数据多，表2少，null
+			
+			right outer join
+			
+			inner join
+			#如果表1中的数据多，表2少，null
+		
+		排序：
+			desc
+			asc
+			
+			nid		name
+			 1		alice
+			 2		eric
+			 3		alex
+			 4		tony
+			 # 从小到底，id从小到大排序
+			 select * from tb order by name asc ,nid desc,sid asc;
+		
+		union
+		
+		条件：
+			> < = >= != <=
+			in(1,2,3,4)
+			not in (...)
+			in (select nid from tb)
+3、连表、外键 ****
+	一对多
+	
+=================
+
+
+
+一、Navicat
+	上一节：基于命令操作
+	Navicat，用于连接数据库
+			- 查找
+			- 修改
+			- 根性
+			....
+			# 可视化操作：--->sql语句
+			
+	安装Navicat
+	
+	简化简单操作：
+		创建表
+		修改表结构
+		插入
+		查询
+		更新
+		删除
+	复杂操作：
+	。。。
+	查询编辑器
+	
+	====》 
+	a = input('请输入用户名：')
+	b = input('请输入密码：')
+	c = input('请输入邮箱：')
+	
+	insert table userinfo(name,pwd,email) values(a,b,c)
+	
+	
+	
+	
+二、练习题
+	- 练习
+	
+		数据库：
+			导入
+			导出
+		命令：
+			mysqldump -uroot -p666 dbname > 123.sql
+			mysqldump -uroot -p666 dbname < 123.sql
+		1、导入数据
+			mysqldump
+		2、 。。。
+		3、
+			-- avg获取平均数
+				select student_id,avg(num) from score GROUP BY student_id HAVING avg(num) > 60
+			-- 连表查询
+				select * from socre join on stundent on socre.student_id = stundent.sid
+				
+			-- 临时表
+				select * from (select nid,name,age from tb1 where id > 10) as t
+		4、
+			查找姓李的老师
+				select tid,tname from teacher where tname like "李%"
+			查找姓李的老师的个数
+				select COUNT(tid) as c  from teacher where tname like "李%"
+	- 内容补充
+三、Python操作MySQL
+		pip3 install pymysql
+		
+		pynysql
+		
+			sql 。。。。
+四、
+作业：用户管理
+	参考表结构：
+		用户类型：（管理员，普通用户）
+		用户信息
+		权限
+		用户类型&权限
+	
+	功能：
+	
+		# 登陆、注册、找回密码
+		# 用户管理
+		# 用户类型
+		# 权限管理
+		# 分配权限
+		
+	特别的：程序进一个可执行文件
