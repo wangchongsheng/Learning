@@ -108,6 +108,36 @@ Day 36
 		5、查询学习课程编号1又学习课程编号2的学生
 			SELECT B.student_id, COUNT(B.student_id) FROM (SELECT student_id,course_id FROM score WHERE course_id = 1 OR course_id = 2) AS B
 			GROUP BY B.student_id HAVING count(B.student_id) > 1;
+		
+		6、查询学过李平老师所教的课程
+			SELECT student_id from score WHERE course_id in (
+				SELECT cid from course left JOIN teacher on course.teacher_id = teacher.tid WHERE teacher.tname ="李平老师"
+			) GROUP BY  student_id
+		
+		7、查询课程成绩小于60分的学生学号以及姓名：
+			- group by
+			SELECT student_id,sname from (SELECT student_id from score where num < 60 GROUP BY student_id) as S
+			LEFT JOIN student on S.student_id = student.sid
+			
+			-  DISTINGCT 去重
+			SELECT student_id,sname from (SELECT DISTINCT student_id from score WHERE num < 60) as S
+			LEFT JOIN student on S.student_id = student.sid
+		
+		8、查询没有选全课程的同学的学号和姓名
+			SELECT student_id,COUNT(student_id) from score GROUP BY student_id HAVING COUNT(student_id) < (select COUNT(1) as C from course)
+		
+		9、查询至少有一门课域学号001的同学所学的课程相同的同学的学号和姓名;
+			SELECT student_id FROM score WHERE student_id != 1 and course_id in (SELECT course_id from score WHERE student_id = 1) GROUP BY student_id
+		
+		10、查询至少学过学号为001同学所有课程的其他同学的学号和姓名
+			SELECT student_id,count(student_id) from score where course_id in 
+			(SELECT course_id from score where student_id=1) GROUP BY student_id
+			HAVING COUNT(student_id) = (SELECT COUNT(1) from score where student_id=1)
+			
+		11、查询与学号002所学课程相同的同学。
+			SELECT student_id from score GROUP BY student_id HAVING COUNT(student_id) =
+			(SELECT COUNT(1) as a  from score WHERE student_id = 2)
+			
 	- 内容补充
 三、Python操作MySQL
 		pip3 install pymysql
