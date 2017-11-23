@@ -11,7 +11,7 @@ echo "            MySQL installation             "
 echo "==========================================="
 
 base_dir="/opt/sygamer/src/"
-data_dir="/data/mysql"
+data_dir="/data/mysql/"
 tar_dir="${base_dir}mysql-5.7.17/"
 ins_dir="${base_dir}mysql/"
 mysqld="/etc/rc.d/init.d/mysqld"
@@ -95,6 +95,32 @@ ln -s /opt/sygamer/src/mysql/bin/mysql /usr/bin/mysql
 ln -s /opt/sygamer/src/mysql/bin/mysqladmin /usr/bin/mysqladmin
 ln -s /opt/sygamer/src/mysql/bin/mysqldump /usr/bin/mysqldump
 #Modify my.cnf file
+cat > /etc/my.cnf <<EOF
+[mysqld]
+port = 3306
+socket = /tmp/mysql.sock
+ 
+basedir = ${base_dir}
+datadir = ${data_dir}
+pid-file = ${data_dir}mysql.pid
+user = mysql
+#The server ID must be modified
+server-id = 91
+ 
+log_bin = mysql-bin
+relay-log = mysql-relay-bin
+log-slave-updates
+ 
+sync_binlog=1
+#setting offset
+auto_increment_offset=1
+auto_increment_increment=1
+ 
+#setting log path
+ 
+log_error = ${data_dir}mysql-error.log
+slow_query_log_file = ${data_dir}mysql-slow.log
+EOF
 #initialize msyql
 /opt/sygamer/src/mysql/bin/mysqld --initialize
 
