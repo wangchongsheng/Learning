@@ -1,0 +1,59 @@
+Saltstack安装部署
+系统环境: CentOS7
+软件版本：Version 7
+一、安装Saltstack
+
+1.	设置salts tack安装源
+[saltstack-repo]
+name=SaltStack repo for RHEL/CentOS $releasever
+baseurl=https://repo.saltstack.com/yum/redhat/$releasever/$basearch/latest
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.saltstack.com/yum/redhat/$releasever/$basearch/latest/SALTSTACK-GPG-KEY.pub
+
+2.	建立本地缓存
+yum clean all
+yum makecache
+
+3.	安装salt-minion, salt-master
+
+    yum install salt-master
+    yum install salt-minion
+    yum install salt-ssh
+    yum install salt-syndic
+yum install salt-cloud
+
+4. 配置master开机自动启动:
+systemctl enable salt-master.service
+
+5. 启动Minion:
+systemctl start salt-minion.service
+
+二、配置Salt
+1.修改/etc/salt/master 配置文件中的"interface"指令进行如下修改，更新完配置文件后，需要重启Salt master以使其生效配置.
+- #interface: 0.0.0.0
++ interface: 0.0.0.0
+2. 修改 /etc/salt/minion 配置文件中的"master"指令，更新完配置后，需要重启Salt minion以使配置生效
+- #master: salt
++ master: 192.168.0.100   //master端IP
+
+三、salt证书管理
+在Master端看到Minion的证书签证请求。下面我们需要对这台Minion进行签售证书：
+SaltStack@Master: salt-key -L #查看当前证书签证情况
+Accepted Keys:
+Unaccepted Keys:
+Minion
+Rejected Keys:
+SaltStack@Master: salt-key -A -y #同意签证所有没有接受的签证请求
+SaltStack@Master: salt-key -L
+Accepted Keys:
+Minion
+Unaccepted Keys:
+Rejected Keys:
+
+四、测试：
+执行第一条SaltStack命令
+[root@120 ~]# salt '*' test.ping             
+120.24.56.150:
+True
+到此我们的saltstack服务器部署就完成了

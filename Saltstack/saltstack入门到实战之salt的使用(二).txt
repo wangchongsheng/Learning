@@ -1,0 +1,75 @@
+一、常用日常命令参数
+通过以下命令查看Saltstack安装部署的时候分别装了那些命令(yum安装方式)
+1.	Master端
+[root@120 ~]# rpm -ql salt-master
+/etc/rc.d/init.d/salt-master #salt-master	服务启动脚本
+/etc/salt/master #salt master				配置文件
+/usr/bin/salt #salt master 					核心操作命令
+/usr/bin/salt-cp #salt 						文件传输命令
+/usr/bin/salt-key #salt 					证书管理命令
+/usr/bin/salt-master #salt master 			服务命令
+/usr/bin/salt-run #salt master runner		命令
+/usr/bin/salt-unity
+
+	所有options操作参数：
+[root@120 ~]#  salt -h
+Usage: salt [options] '<target>' <function> [arguments]
+Options:
+	--version 								查看SaltStack程序的版本号
+	--versions-report 						查看SaltStack程序以及依赖包的版本号
+	-h, --help 查看帮助信息
+	-c CONFIG_DIR, --config-dir=CONFIG_DIR 	指定配置文件目录
+	-t TIMEOUT, --timeout=TIMEOUT 			指定Timeout时间(默认是5s)
+	--hard-crash 							捕捉到original异常不退出(默认关闭
+	-s, --static 							以组的形式返回所有Minion的数据
+	--async 								异步执行
+	-v, --verbose verbose					模式
+	--show-timeout 							显示minion timeout状态
+	--show-jid 								显示任务jid
+	-b BATCH, --batch=BATCH 				按照百分比执行任务
+	-a EAUTH, --auth=EAUTH, --eauth=EAUTH, --external-auth=EAUTH	指定外部认证方式
+	-T, --make-token 						生成Master token
+	--return=RETURNER 						指定SaltStack return
+	-d, --doc 								查看指定模块或者所有模块文档
+	--args-separator=ARGS_SEPARATOR 		设置多个传参直接分隔符
+	--summary 								显示汇总信息
+	--username=USERNAME 					指定外部认证用户名
+	--password=PASSWORD 					指定外部认证密码
+
+	所有日志相关参数:
+	
+Logging Options:
+
+    -l LOG_LEVEL, --log-level=LOG_LEVEL		指定日志级别
+    --log-file=LOG_FILE						指定日志记录文件
+    --log-file-level=LOG_LEVEL_LOGFILE		指定各个级别的日志记录文件
+
+	所有操作目标参数：
+Target Options:
+	-E, --pcre 					正则匹配
+	-L, --list 					列表匹配
+	-G, --grain grains			匹配
+	--grain-pcre grains			加正则匹配
+	-N, --nodegroup 			组匹配
+	-R, --range 				范围匹配
+	-C, --compound 				合匹配(指定多个匹配)
+	-I, --pillar pillar			值匹配
+	-S, --ipcidr minions		网段地址匹配
+	
+	所有输出参数：
+Output Options:
+	--out=OUTPUT, --output=OUTPUT 	指定输出格式
+	--out-file=OUTPUT_FILE 			指定输出文件
+	--no-color, --no-colour 		关闭所有颜色显示
+	--force-color, --force-colour 	强制输出颜色显示
+	--state-output=STATE_OUTPUT 	指定states输出格式
+	
+2.Minion端
+[root@120 ~]# rpm -ql salt-minion
+/etc/salt/minion		#配置文件
+/usr/bin/salt-call		#拉去命令
+/usr/bin/salt-minion	#服务命令
+
+二、熟悉SaltStack配置文件
+	SaltStack的配置文件分别为Mater(/etc/salt/master)和(/etc/salt/minion)
+
