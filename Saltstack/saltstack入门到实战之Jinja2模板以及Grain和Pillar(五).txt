@@ -1,1 +1,52 @@
-单独
+1. Jinja2 变量
+例：
+[root@120 salt]# vim var.sls
+{% set var= 'hello world!' %}
+test_var:
+  cmd.run:
+    - name: echo "var is {{ var }}"
+Jinja2的变量类型分为以下几种：
+#  字符串类型：
+{% set var= 'good' %}
+{{ var }}
+#  列表类型
+{% set list = ['1', '2', '3'] %}
+{{list[1]}}
+#字典类型：
+{% set dict = {'name': 'Alice', 'age': '18'} %}
+{{ dict['name'] }}
+
+2.流程控制性语句
+For
+例：
+遍历序列中的每一项
+{% for user in users %}
+  {{ user }}
+{% endfor %}
+
+遍历字典：
+{% for key, value in my_dict.iteritems() %}
+{{ key }}
+{{ value }}
+{% endfor %}
+与python不同的是循环中不能有break或continue但是你可以再迭代中过滤序列来跳过项目。
+比如下面这个例子中跳过了所有隐藏的用户
+{% for user in users if not user.hidden %}
+  {{ user.username }}
+ {% endfor %}
+ 
+If
+Jinja2中的if语句与python中的类似：再最简单的形式中，测试一个变量是否未定义，为空或者false
+{% if users %}
+{% for user in users %}
+  {{ user.username }}
+{% endfor %}
+{% endif %}
+ 
+多个条件判断
+{% if Kenny.sick %}
+  Kenny is sick
+{% elif Kenny.dead %}
+#https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json
+
+Credentials Binding Plugin
