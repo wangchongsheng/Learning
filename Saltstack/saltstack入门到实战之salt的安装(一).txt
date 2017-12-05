@@ -21,7 +21,7 @@ yum makecache
     yum install salt-minion
     yum install salt-ssh
     yum install salt-syndic
-yum install salt-cloud
+	yum install salt-cloud
 
 4. 配置master开机自动启动:
 systemctl enable salt-master.service

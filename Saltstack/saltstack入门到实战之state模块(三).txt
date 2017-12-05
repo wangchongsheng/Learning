@@ -1,0 +1,195 @@
+install_httpd:
+  pkg.installed:
+    - name: httpd
+#一个键值对用多个value
+my_dictionary:
+  - list_value_one
+  - list_value_two
+  - list_value_three
+#sls配置文件的格式
+<ID Declaration>:
+  <State Module>.<Function>:
+    - name: <name>
+    - <Function Arg>
+    - <Function Arg>
+    - <Function Arg>
+    - <Requisite Declaration>:
+      - <Requisite Reference>
+
+#每个ID可以必须独一无二，<ID Declaration>可以包含字母数字空格和下划线
+
+#以下是其他几种方式的写法:推荐使用inline function and names这种写法
+#standard declaretion
+
+<ID Declaration>:
+  <State Module>
+    - <Function>
+    - <Function Arg>
+    - <Function Arg>
+    - <Function Arg>
+    - <Name>: <name>
+    - <Requisite Declaration>:
+      - <Requisite Reference>
+      - <Requisite Reference>
+#
+# inline function and names
+
+<ID Declaration>:
+  <State Module>.<Function>
+    - <Function Arg>
+    - <Function Arg>
+    - <Function Arg>
+    - <Names>:
+      - <name>
+      - <name>
+      - <name>
+    - <Requisite Declaration>:
+      - <Requisite Reference>
+      - <Requisite Reference>
+# multiple states for single id
+
+<ID Declaration>:
+  <State Module>:
+  - <Function>
+  - <Function Arg>
+  - <name>: <name>
+  - <Requisite Declaration>:
+    - <Requisite Reference>
+  <State Module>:
+    - <Function>
+    - <Function Arg>
+    - <Names>:
+      - <name>
+      - <name>
+    - <Requisite Declaration>:
+      - <Requisite Reference>
+#
+#
+#常用状态模块的用法
+1.file模块
+file.managed 下发文件，确保文件存在
+
+/etc/foo.conf
+  file.managed:
+    - source
+      - salt://foo.conf
+    - user: foo
+    - group: users
+    - mode: 644
+# file.directory 建立目录：
+/srv/stuff/substuf:
+  file.directory:
+    - user: fred
+    - group: users
+    - mode: 755
+    - makedirs: True
+#file.symlink 建立软连接:
+/etc/grub.conf:
+  file.symlink:
+    - target: /boot/grup/grup.conf
+#file.recurse下发整个目录：
+/opt/code/flask:
+  file.recurse:
+    - source: salt://code/flask
+    - include-empty: True
+2.pkg模块
+pkg.installed 软件安装：
+mypkgs:
+  pkg.installed：
+    - pkgs:
+      - foo
+      - bar: 1.2.3-4
+      - baz
+指定安装版本：
+mypkgs:
+  pkg.installed:
+    - pkgs:
+      - foo
+      - bar: '>=1.2.3-4'
+      - baz
+指定安装的rpm来源
+mypkgs:
+  pkg.installed:
+    - sources:
+      - foo: salt//rpms/foo.rpm
+      - bar: http://somesite.org/bar.rpm
+      - baz: ftp://someothersite.org/baz.rpm
+      - qux: /minion/path/to/qux.qpm
+指定安装最新版的软件：
+pkg.latest
+  mypkgs:
+    pkg.latest:
+      - pkgs:
+        - foo
+        - bar
+        - baz
+3.service模块
+启动redis服务：
+redis:
+  service.runnning:
+    - enable: True
+    - reload: True
+    - watch:
+      - pkg: redis
+4. cron 模块
+没五分钟执行一次指定任务：
+date > /tmp/crontest:
+  cron.present:
+    - user: root
+    - minute: '*/5'
+5.user模块
+user.present 建立用户：
+user.present:
+  - fullname: test
+  - shell: /bin/bash
+  - home: /home/test
+  - uid: 4000
+  - gid: 4000
+  - groups:
+    - wheel
+    - storage
+    - games
+6.sysctl模块
+调整内核参数
+vm.swappiness:
+  sysctl.present:
+    - value: 20
+7.pip模块
+pip.install安装python模块
+django:
+  pip.installed:
+    - name: django >= 1.6, <= 1.7
+    - require:
+      - pkg: python-pip
+#使用requisites对状态进行排序控制
+以安装apache为例：
+install_httpd:
+  pkg.installed:
+    - name: httpd
+httpd_running:
+  service.running:
+    - name: httpd
+    - enable: True
+    - require:
+      - pkg: install_httpd
+这段代码可以看出分别做了两个事情，分别是安装httpd和启动http，并且两个状态有先后顺序之分，必须先安装完成httpd软件才能启动httpd，通过quire指定httpd runnning 必须在install——httpd安装完成后才能执行
+再对以上代码进行扩展
+install_httpd:
+  pkg.installed:
+    - name: httpd
+httpd_running:
+  service.running:
+    - name: httpd
+    - enable: True
+    - require:
+      - pkg: install_httpd
+    - watch:
+      - file: httpd_conf
+httpd_conf:
+  file.manages:
+   - name: /etc/httpd/conf/httpd.conf
+   - source: salt://httpd.conf
+   - user: root
+   - group: root
+   - mode: 600
+该状态比之前多加入一个httpd.conf文件下发的配置,整个流程是首先安装httpd软件，然后确保httpd启动，最后对比需要下发的http.conf文件是否相同，如果不同就下发文件，下发文件后需要触发httpd进程的重新载入加载新的配置。

@@ -1,0 +1,60 @@
+通过salt构建LAMP环境，首先,创建lamp.sls，执行如下命令:
+#vim lamp.sls
+
+install_httpd:
+  pkg.installed:
+    - name: httpd
+
+httpd_running:
+  service.running:
+    - name: httpd
+	- enable: True
+	- require:
+	  - pkg: install_httpd
+	- watch:
+	  - file: httpd_conf
+	  - file: php_conf
+	  
+httpd_conf:
+  file.managed:
+    - name: /etc/httpd/conf/httppd.conf
+	- source: salt://httpd.conf
+	- user: root
+	- group: root
+	- mode: 600
+
+install_php:
+  pkg.installed:
+  - name: php_all
+  - pkgs:
+    - php
+    - php-mysql
+    - php-common
+    - php-gd
+    - php-mbstring
+    - php-mcrypt
+    - php-devel
+    - php-xml
+  - require:
+    - pkg: install_httpd
+php_conf:
+  file.managed:
+    - name: /etc/php.ini
+    - source: salt://php.ini
+    - user: root
+    - group: root
+    - mode: 600
+install_mysql:
+  pkg.installed:
+    - name: mysql
+    - pkgs:
+      - mysql
+      - mysql-server
+      - mysql-devel
+mysql_running:
+  service.running:
+    - name: mysqld
+整个状态文件分成几个部分，分别是安装http和下发http.conf配置，确保httpd服务启动部分，以及部署PHP下发php的配置文件，最后是安装mysql和下发配置文件以及启动MySQL服务。
+复制对应的几个配置文件httpd.conf、php.ini、my.cnf到/srv/salt下面，执行如下命令：
+salt "*" state.sls lamp
+到此，批量部署LAMP环境就完成了
