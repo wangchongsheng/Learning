@@ -1,3 +1,4 @@
+一、Jinja2模板
 1. Jinja2 变量
 例：
 [root@120 salt]# vim var.sls
@@ -43,10 +44,479 @@ Jinja2中的if语句与python中的类似：再最简单的形式中，测试一
 {% endfor %}
 {% endif %}
  
-多个条件判断
+多个条件判断：
 {% if Kenny.sick %}
-  Kenny is sick
+    Kenny is sick
 {% elif Kenny.dead %}
-#https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json
+    You killed kenny! You bastard!!!
+{% else %}
+    Kenny looks okey  -- sp far
+{% endif %}
+二、Grain 和Pillar
+1.Grain 相关基本命令
+列出所有miminon上的Grains项：
+salt "minion-one" grains.ls
 
-Credentials Binding Plugin
+查询minion上某一具体Grain的值：
+salt "minion-one" grains.item cpu_model
+
+列出对应minion上所有Grain的详细信息
+salt "minion-one" grains.items
+
+2.设置Grains数据
+(1)命令行方式
+
+单个值设置:
+[root@120 ~]# salt "minion-one" grains.setval my_grain bar
+minion-one:
+    ----------
+    my_grain:
+        bar
+
+多个值设置：
+[root@120 ~]#  salt "minion-one" grains.setval my_grain "{'key1':'1','key2':'2'}"
+minion-one:
+    ----------
+    my_grain:
+        ----------
+        key1:
+            1
+        key2:
+            2
+
+列表结构设置：
+[root@120 ~]# salt "minion-one" grains.setval dict '["one","two","three"]'
+minion-one:
+    ----------
+    dict:
+        - one
+        - two
+        - three
+设置成功后可通过以下命令进行查询
+[root@120 ~]# salt "minion-one" grains.item my_grain                        
+minion-one:
+    ----------
+    my_grain:
+        bar
+[root@120 ~]# salt "minion-one" grains.item key
+minion-one:
+    ----------
+    key:
+        ----------
+        key1:
+            1
+        key2:
+            2
+[root@120 ~]# salt "minion-one" grains.item dict
+minion-one:
+    ----------
+    dict:
+        - one
+        - two
+        - three
+查看对应的minion的/etc/salt/grains,可以发现已经写入了Grains数据：
+[root@120 ~]# salt "minion-one" cmd.run "cat /etc/salt/grains"
+minion-one:
+    dict:
+    - one
+    - two
+    - three
+    key:
+      key1: '1'
+      key2: '2'
+    my_grain: bar
+
+(2)grains_module的方式设置
+首先，在master上设置对应的目录：
+[root@120 ~]# mkdir -pv /srv/salt/_grains
+其次，写入一个简单模块
+[root@120 ~]# vim /srv/salt/_grains/first_grain_mod.py
+import time
+def now():
+    grains = {}
+    grains['now'] = time.time()
+    return grains
+然后，同步模块到minion
+[root@120 ~]# salt "minion-one" saltutil.sync_all
+minion-one:
+    ----------
+    grains:
+        - grains.first_grain_mod
+    log_handlers:
+    modules:
+    output:
+重载一次模块：
+[root@120 ~]# salt "minion-one" sys.reload_modules
+minion-one:
+    True
+查看新设置的Grains：
+[root@120 ~]# salt "minion-one" grains.item now
+minion-one:
+    ----------
+    now:
+        1512699522.96
+(3)minion端设置
+通过修改minion的配置文件可以自定义Grains，登陆到一台minion上
+[root@localhost ~]# vim /etc/salt/minion.d/grain.conf
+grains:
+  new_grain: bar
+  new_grain_dict:
+    - one
+    - two
+    - three
+然后重启salt-minon 加载新配置文件
+[root@localhost ~]# service salt-minion restart
+登陆master，查看Grains
+[root@120 ~]# salt "minion-one" grains.item new_grain
+minion-one:
+    ----------
+    new_grain:
+        bar
+[root@120 ~]# salt "minion-one" grains.item new_grain_dict
+minion-one:
+    ----------
+    new_grain_dict:
+        - one
+        - two
+        - three
+
+(4)删除自定义Grains
+通过garains.setval设置的Grain可以直接通过下面的命令删除
+[root@120 ~]# salt "minion-one" grains.delval my_grain
+minion-one:
+    None
+[root@120 ~]# salt "minion-one" grains.delval my_grain_dict
+minion-one:
+    None
+3.Pillar的概念
+(1)Pillar相关的基本命令
+列出对应minion上所有的Pillar详细信息
+[root@120 ~]# salt "minion-one" pillar.items
+查询minion上某一具体Grain的值:
+[root@120 ~]# salt "minion-one" pillar.items foo
+4.设置Pillar数据
+假设有三台minion，每天minion都需要从master获取自己需要的密钥，私钥传输过程中必须加密，且私钥不能够让任何minion获取到。
+首先建立目录，然后为每个minion编写对应的sls文件：
+[root@120 ~]#  mkdir -pv /srv/pillar/
+[root@120 ~]# vim minion_one_key.sls
+private_key:minion_one_key
+[root@120 ~]# vim minion_two_key.sls
+private_key:minion_two_key
+[root@120 ~]# vim minion_three_key.sls
+private_key:minion_three_key
+
+建立入口文件
+[root@120 ~]# vim /srv/pillar/top.sls
+base:
+  'minion-one':
+    - minion_one_key
+  'minion-two':
+    - minion_two_key
+  'minion-three':
+    - minion_tree_key
+设置完成后执行刷新Pillar数据：
+[root@120 pillar]# salt '*' saltutil.refresh_pillar
+minion-one:
+    True
+minion-two:
+    True
+查看所有Pillar数据 
+[root@120 pillar]# salt "*" pillar.items
+120.24.56.150:
+    ----------
+    private_key:
+        minion_three_key
+minion-two:
+    ----------
+    private_key:
+        minion_two_key
+minion-one:
+    ----------
+    private_key:
+        minion_one_key
+
+三、用Jinja2配合Grain和Pillar扩展SLS配置文件
+1.扩展apache.sls配置文件
+根据不同的系统环境，判断出不同的操作
+install_apache
+  pkg.installed:
+{% if grains['os_family'] == 'Debian' %}
+    - name: apache2
+{% if grains['os_family'] == 'RedHat' %}
+    - name: httpd
+{% endif %}
+执行下面命令测试：
+[root@120 ~]# salt -L "minion-one" state.sls apache
+minion-one:
+----------
+          ID: install_apache
+    Function: pkg.installed
+        Name: httpd
+      Result: True
+     Comment: The following packages were installed/updated: httpd
+     Started: 11:48:33.617434
+    Duration: 61908.916 ms
+     Changes:   
+              ----------
+              apr:
+                  ----------
+                  new:
+                      1.4.8-3.el7_4.1
+                  old:
+              apr-util:
+                  ----------
+                  new:
+                      1.5.2-6.el7
+                  old:
+              httpd:
+                  ----------
+                  new:
+                      2.4.6-67.el7.centos.6
+                  old:
+              httpd-tools:
+                  ----------
+                  new:
+                      2.4.6-67.el7.centos.6
+                  old:
+              mailcap:
+                  ----------
+                  new:
+                      2.1.41-2.el7
+                  old:
+
+Summary for minion-one
+------------
+Succeeded: 1 (changed=1)
+Failed:    0
+------------
+Total states run:     1
+Total run time:  61.909 s
+
+2.多系统Vim安装实例：
+根据不同的系统，下发不同的配置文件：
+[root@120 ~]# vim /srv/salt/vim.sls
+vim:
+  pkg:
+    - installed
+    {% if grainds['os_family'] == 'RedHat' %}
+    - name: vim-enhanced
+    {% elif grains['os_family'] == 'Debian' %}
+    - name: vim-nox
+    {% endif %}
+{% if granis['os'] == 'Arch' %}
+/etc/vimrc
+  file:
+    - managed
+    - source: salt://vim/vimrc
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - makedirs: True
+    - require:
+      - pkg: vim
+{% endif %}
+3.iptables 配置实例
+在不同操作系统下发不同位置的iptables文件
+[root@120 ~]# vim /srv/salt/iptables.sls
+iptables:
+  pkg:
+    - installed
+  service:
+    - running
+    - watch:
+      - pkg: iptables
+      - file: iptables
+  file:
+    - managed
+    - source: salt://iptables/iptables
+    {% if grains['os'] == 'CentOS' or grains['os'] == 'Fedora' %}
+    - name: /etc/sysconfig/iptables
+    {% elif grains['os'] = 'Arch' %}
+    - name: /etc/conf.d/iptables
+    {% endif %}
+4.通过Plillar扩展SLS配置
+在minion上根据各自的Pillar值建立相关用户
+[root@120 ~]# vim /srv/salt/adduser.sls
+{% for i in pillar['user'] %}
+add_{{ i }}:
+  user.present:
+    - name: {{ i }}
+{% endfor %}
+执行以下命令
+[root@120 ~]# salt "*" state.sls adduser
+
+
+四、用Jinja2配合Grain和Pillar动态下发配置文件
+1.一个简单模板下发实例
+编辑状态文件：
+[root@120 ~]# vim /srv/salt/template.sls
+template_test:
+  file.managed:
+    - source: salt://test.j2
+    - name: /tmp/test.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+httpd_conf:
+  file.managed:
+    - name: /etc/httpd/conf/httppd.conf
+	- source: salt://httpd.conf
+	- user: root
+	- group: root
+	- mode: 600
+编辑模板文件：
+[root@120 ~]# vim /srv/salt/test.j2
+cpu_num = {{ grains['num_cpus'] }}
+mem_total = {{ grains['mem_total'] }}
+hostname = {{ grains['host'] }}
+user = {{ pillar['user'][0] }}
+测试模板文件下发：
+[root@120 salt]# salt "minion-one" state.sls template
+minion-one:
+----------
+          ID: template_test
+    Function: file.managed
+        Name: /tmp/test.conf
+      Result: True
+     Comment: File /tmp/test.conf updated
+     Started: 15:13:11.231523
+    Duration: 320.584 ms
+     Changes:   
+              ----------
+              diff:
+                  New file
+              mode:
+                  0644
+
+Summary for minion-one
+------------
+Succeeded: 1 (changed=1)
+Failed:    0
+------------
+Total states run:     1
+Total run time: 320.584 ms
+登陆到minion-one,查看下发的配置文件：
+[root@localhost ~]# cat /tmp/test.conf 
+cpu_num = 2
+mem_total = 3935
+hostname = localhost
+user = web1
+
+2.实战PPTP VPN 服务部署
+建立文件夹
+[root@120 pptp]#mkdir -p /srv/salt/pptp
+
+编辑pptp状态文件，内容包括相关软件的部署以及相关配置文件的下发
+[root@120 pptp]# vim pptp.sls 
+pptpd:
+  pkg:
+    - installed
+  service.running:
+    - enable: True
+    - wacth:
+      - file: pptpd
+      - file: pptpd-secrets
+      - file: pptpd-options
+  file.managed:
+    - name: /etc/pptpd.conf
+    - source: salt://pptp/pptpd.conf
+    - template: jinja
+    - require:
+      - pkg: pptpd
+
+pptpd-secrets:
+  file.managed:
+    - name: /etc/ppp/chap-secrets
+    - mode: 600
+    - source: salt://pptp/chap-secrets
+    - template: jinja
+
+pptpd-options:
+  file.managed:
+    - name: /etc/ppp/options
+    - template: jinja
+    - source: salt://pptp/options
+
+编辑pptp相关配置模板文件：
+[root@120 pptp]# vim pptpd.conf 
+option /etc/ppp/pptp-options
+logwtmp
+localip {{ pillar['pptp']['localip'] }}
+remoteip {{ pillar['pptp']['remoteip'] }}
+
+[root@120 pptp]# vim chap-secrets 
+{% for user, secret in pillar['pptp']['users'].iteritems() %}
+{{ user }} pptpd {{ secret }} *
+{% endfor %}
+
+[root@120 pptp]# vim options 
+asyncmap 0
+{% for server in pillar['bind'][nameservers] %}
+ms-dns {{ server }}
+{% endfor %}
+
+asyncmap 0
+noauth
+crtscts
+locak
+hide-password
+modem
+lcp-echo-interval 30
+lcp-echo-failure 4
+noipx
+测试：
+salt "minion-one" state.sls pptp/pptp
+
+3.实战sshd动态白名单部署
+编辑sshd.sls文件，完成ssh软件的安装下发SSHD下发sshd的配置文件，并且确保服务状态
+[root@120 ssh]# vim sshd.sls 
+ssh:
+  pkg.installed:
+    - name: openssh-server
+  service.running:
+    - enable: True
+    - watch:
+      - file: ssh
+      - pkg: ssh
+  file.managed:
+      - name: /etc/ssh/sshd_config
+      - source: salt://ssd/sshd_config
+  - template: jinja
+编辑sshd_config配置文件，具体内容根据实际情况编写
+
+4.nginx代理服务器的批量部署
+首先，编辑nginx状态文件，install_nginx是安装nginx，nginx_running是复制进程管理,nginx_conf下发nginx主配置模板,vhost——conf下发vhost配置文件。
+[root@120 salt]# vim nginx.sls
+install_nginx:
+  pkg.installed:
+    - name: nginx
+
+nginx_running:
+  service.running:
+    - name: nginx
+    - enable: True
+    - require:
+      - pkg: install_nginx
+    - watch:
+      - file: nginx_conf
+      - file: vhost_conf
+
+nginx_config:
+  file.managed:
+    - name: /etc/nginx/nginx.conf
+    - source: salt://nginx.j2
+    - user: root
+    - group: root
+    - template: jinja
+    - mode: 644
+
+vhost_conf
+  file.managed:
+    - name: /etc/nginx/conf.d/vhost.conf
+    - source: salt://nginx_vhost.conf
+    - user: root
+    - group: root
+    - mode: 644
+然后，编辑nginx配置文件
