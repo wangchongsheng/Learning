@@ -1,1 +1,108 @@
 一、用top.sls文件管理状态文件
+通过top.sls文件对之前的LAMP环境和Nginx代理的状态配置文件进行整合：
+[root@120 ~]# mkdir -p /srv/salt/lamp
+[root@120 ~]# mkdir -p /srv/salt/nginx
+
+将之前的代码放入对应目录，注意调整lamp.sls和nginx.sls中source的路径
+[root@120 salt]# tree .
+.
+├── lamp
+│   ├── httpd.conf
+│   ├── lamp.sls
+│   ├── my.cnf
+│   └── php.ini
+├── nginx
+│   ├── nginx.j2
+│   ├── nginx.sls
+│   └── vhost.conf
+
+编写tip.sls入口文件
+[root@120 salt]# vim top.sls
+base:
+  "minion-one":
+    - nginx.nginx
+  "minion-two":
+    - match: list
+	- lamp.lamp
+
+执行以下命令，对环境进行部署
+[root@120 salt]# salt "*" state.highstate
+
+二、状态文件的拆分和复用
+虽然上面的案例已经可以对多个状态文件进行管理整合，但是还存在以下两个问题：
+1.模块的结构
+
+首先将模块的目录结构化，将文件放入对应的目录：
+[root@120 salt]#  mkdir - p /srv/salt/nginx/{templates,file}
+[root@120 salt]#  mv nginx/vhost.conf /srv/salt/nginx/file/
+[root@120 salt]#  mv nginx/nginx.j2 /srv/salt/nginx/templates/
+
+将nginx.sls进行拆分，将软件安装，服务器的管理以及配置文件的下发分别拆分到单独文件中。
+建立sls文件：
+[root@120 salt]# touch nginx/{initial，install_nginx,nginx_conf，nginx_running，vhost.conf}.sls
+
+用init文件做入口文件：
+[root@120 nginx]# vim init.sls
+include：
+  - .install_nginx
+  - .nginx_running
+  - .nginx_conf
+  - .vhost.conf
+  
+安装nginx软件：
+[root@120 nginx]# vim install_nginx.sls
+install_nginx:
+  pkg.installed:
+    - name: nginx
+
+nginx的服务管理:
+[root@120 nginx]# vim nginx_running.sls
+nginx_running:
+  service.running:
+    - name: nginx
+	- enable: True
+	- require:
+	  - pkg.install_nginx
+	- watch:
+	  - file: nginx_conf
+	  - file: vhost_conf
+
+nginx的模板配置管理:
+[root@120 nginx]# vim nginx_conf.sls
+nginx_conf:
+  file.managed:
+    - name: /etc/nginx/nginx.conf
+	- source: salt://nginx/templates/nginx.j2
+	- user: root
+	- group: root
+	- templates: jinja
+    - mode: 644
+
+nginx虚拟主机文件的管理：
+[root@120 nginx]# vim vhost_conf.sls
+vhost_conf:
+  file.managed:
+    - name: /etc/nginx/conf.d/vhost.conf
+	- source: salt://nginx/file/vhost.conf
+	- user: root
+	- group: root
+	- mode: 644
+修改top.sls文件
+[root@120 nginx]# vim top.sls
+base:
+  "minion-one":
+    - nginx
+  "minion-two":
+    - match: list
+	- lamp.lamp
+最后执行以下命令：
+[root@120 nginx]# salt "*" state.highstate
+
+2.复用问题
+首先，将之前的LAMP模块分别拆成httpd模块，PHP模块和MySQL模块
+HTTP模块
+
+
+
+
+

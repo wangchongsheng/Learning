@@ -520,3 +520,62 @@ vhost_conf
     - group: root
     - mode: 644
 然后，编辑nginx配置文件
+[root@120 salt]#  vim nginx.j2
+#user {{pillar['user'][0]}};
+worker_processes {{ granis['num_cpus'] }};
+{% if grains['num_cpus'] == 4 %}
+worker_cpu_affinity 1000 0100 0010 0001;
+{% elif grains['num_cpus'] == 8 %}
+worker_cpu_affinity 000000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;
+{% endif %}
+pid /var/run/nginx.pid;
+error_log /var/log/nginx/error.log;
+
+events{
+        use epoll;
+        worker_connections 51200;
+}
+
+http{
+        include /etc/nginx/mime.types;
+        default_type    application/octet-stream;
+        charset utf-8;
+        log_format main '$remote_addr - $remote_user [$time_local] "$request"'
+                        '$status $body_bytes_sent "$http_referer"'
+                        '"$http_user_agent" "$http_x_forwarded_for"';
+        access_log /var/log/nginx/access.log main;
+
+        server_names_hash_bucket_size 128;
+        client_header_buffer_size 32k;
+        large_client_header_buffers 4 32k;
+        client_body_buffer_size 8192k;
+
+        sendfile on;
+
+        #timeouts
+        keepalive_timeout 0;
+
+        #TCP Options
+        tcp_nopush on;
+        client_max_body_size 51200k;
+        include /etc/nginx/conf.d/*.conf;
+}
+
+编辑vhost配置文件：
+[root@120 salt]#  vim vhost.conf
+server {
+  listen 80;
+  server_name www.test.com;
+  location / {
+  proxy_pass		http://localhost:8080
+  proxy_set_header	Host			$host;
+  proxy_set_header	X-Real-IP		$remote_addr;
+  proxy_set_header	X_Forwarded-For	$proxy_add_x_forwarded_for;
+  }
+ 
+}
+执行以下命令进行测试：
+[root@120 salt]# salt "minion-one" state.sls nginx
+如果需要批量部署，则执行以下命令：
+[root@120 salt]# salt "m*" state.sls nginx
+
