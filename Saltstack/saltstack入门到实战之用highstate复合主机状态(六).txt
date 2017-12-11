@@ -33,7 +33,7 @@ base:
 1.模块的结构
 
 首先将模块的目录结构化，将文件放入对应的目录：
-[root@120 salt]#  mkdir - p /srv/salt/nginx/{templates,file}
+[root@120 salt]#  mkdir -p /srv/salt/nginx/{templates,file}
 [root@120 salt]#  mv nginx/vhost.conf /srv/salt/nginx/file/
 [root@120 salt]#  mv nginx/nginx.j2 /srv/salt/nginx/templates/
 
@@ -99,10 +99,306 @@ base:
 [root@120 nginx]# salt "*" state.highstate
 
 2.复用问题
-首先，将之前的LAMP模块分别拆成httpd模块，PHP模块和MySQL模块
-HTTP模块
+首先，将之前的LAMP模块分别拆成httpd模块、PHP模块和MySQL模块
+
+http模块：
+
+init文件：
+[root@120 httpd]# vim init.sls
+include:
+  - .install_httpd
+  - .httpd_running
+  - .httpd_conf
+  
+httpd软件安装：
+[root@120 httpd]# vim install_httpd.sls
+install_httpd:
+  pkg.installed:
+    - name:httpd
+
+httpd服务管理
+[root@120 httpd]# vim httpd_running.sls
+httpd_running:
+  - name: httpd
+  - enable: True
+  - require:
+   - pkg: install_httpd
+  - watch:
+    - file: httpd_conf
+	
+httpd配置文件管理:
+[root@120 httpd]# vim cat httpd_conf.sls
+httpd_conf:
+  file.managed:
+    - name: /etc/httpd/conf/httpd.conf
+    - source: salt://httpd/file/httpd.conf
+    - user: root
+    - group: root
+    - mode: 600
+	
+PHP模块
+init文件：
+[root@120 php]# vim init.sls
+include:
+  - .install_php
+  - .php_conf
+php软件安装：
+[root@120 php]# vim install_php.sls
+pkg.installed:
+  - name: php_all
+  - pkgs:
+    - php
+    - php-mysql
+    - php-common
+    - php-gd
+    - php-mbstring
+    - php-mcrypt
+    - php-devel
+    - php-xml
+PHP配置文件管理：
+[root@120 php]# vim php_config.sls
+php_conf:
+  file managed:
+    - name: /etc/php.ini
+    - source: salt://php/file/php.ini
+    - user: root
+    - group: root
+    - mode 600
+
+MySQL模块
+init文件：
+[root@120 mysql]# vim init.sls
+include:
+  - .install_mysql
+  - .mysql_running
+  - .mysql_conf
+MySQL软件安装：
+[root@120 mysql]# vim install_mysql.sls
+install_mysql:
+  pkg.installed:
+    - name: mysql
+    - pkgs:
+      - mysql
+      - mysql-server
+      - mysql-devel
+MySQL服务管理：
+[root@120 mysql]# vim mysql_running.sls
+mysql_running:
+  service.running:
+    - name: mysqld
+    - ebable: True
+    - require:
+      - pkg: install_mysql
+    - watch:
+      - file: mysql_conf
+	  
+MySQL配置文件管理：
+[root@120 mysql]# vim mysql_conf.sls
+mysql_conf:
+  file.managed:
+    - name: /etc/my.cnf
+    -source: salt://mysql/file/my.cnf
+    - user: root
+    - group: root
+    - mode: 600
+	
+	
+修改top.sls文件：
+[root@120 salt]# vim top.sls
+base:
+  "minion-one":
+    - nginx
+  "minion-two":
+    - match: list
+    - httpd
+    - php
+    - mysql
+执行：
+[root@120 salt]# salt "*" state.highstate
 
 
+
+三、多环境的配置和管理
+修改/etc/salt/master配置文件，指定salt环境目录
+[root@120 salt]# vim /etc/salt/master
+file_roots:
+  base:
+    - /srv/salt/
+  dev:
+    - /srv/salt/dev/services
+    - /srv/salt/dev/states
+  prod:
+    - /srv/salt/prod/services
+    - /srv/salt/prod/states
+	
+重启salt-master,再指定的目录中建立对应的状态配置模块，再top.sls中对所有环境的管理做统一入口，完成不同环境的管理和隔离
+[root@120 salt]# vim top.sls
+base:
+  "minion-one":
+    - nginx
+  "minion-two":
+    - match: list
+	- lamp.lamp
+    - httpd
+    - php
+    - mysql
+dev:
+  "test-*"
+    - httpd
+
+prod:
+  "prod-*":
+    - httpd
+	- php 
+	- mysql
+
+最后执行以下命令：
+[root@120 nginx]# salt "*" state.highstate
+四、构建keepliveed+redis高可用架构
+
+通过keepliveed可以实现VIP的切换以及Redis进程监控，并控制redis主从同步状态
+server(192.168.0.92) ---- VIP(192.168.0.66) ---- server(192.168.0.91)
+环境：
+Master: 192.168.0.92
+Slave: 192.168.0.91
+Virtural IP Address: 192.168.0.66
+
+设计原理：
+(1)当master与slave都运行正常，master负责服务，salve负责standby
+(2)当master挂掉，salve接管服务，关闭主从复制
+(3)master恢复正常后，从salve同步数据，但是salve的从不会切为主
+(4)salve挂掉后，master才恢复成主
+
+设置master的Grains，指定role和redis的master_ip:
+[root@120 salt]# salt "192.168.0.92" grains.setvals "{'role':'master','vip':'192.168.0.66','master_ip':'192.168.0.91'}"
+192.168.0.92:
+    ----------
+    master_ip:
+        192.168.0.91
+    role:
+        master
+    vip:
+        192.168.0.66
+
+设置slave的Grains，指定role和redis的master_ip:		
+[root@120 salt]# salt "192.168.0.91" grains.setvals "{'role':'slave','vip':'192.168.0.66','master_ip':'192.168.0.92'}"
+ 
+192.168.0.91:
+    ----------
+    master_ip:
+        192.168.0.92
+    role:
+        slave
+    vip:
+        192.168.0.66
+
+设置入口文件：
+以list匹配方式对两台主题应用对应模块：
+[root@120 salt]# vim top.sls
+base:
+  "192.168.0.92,192.168.0.91":
+    - match: list
+    - redis
+    - keepalived
+
+	部署redis
+安装redis并下发配置模板文件：
+redis安装入口文件：
+[root@120 redis]# vim init.sls
+include:
+  - .install_redis
+  - .redis.running
+  - . redis_conf
+
+ 安装redis软件：
+ [root@120 redis]# vim install_redis.sls
+install_redis:
+  pkg.installed:
+    - name: redis
+
+redis配置下发以及创建目录：
+[root@120 redis]# vim redis_conf.sls
+redis_conf:
+  file.managed:
+    - name: /etc/redis.conf
+    - source: salt://redis/templates/redis.j2
+    - user: root
+    - group: root
+    - template: jinja
+    - mode: 644
+    - require:
+      - pkg: install_redis
+
+redis_dir:
+  cmd.run:
+    - name: mkdir -p /data/redis && chown redis.redis /data/redis
+    - unless: test -d /data/redis
+redis服务启动控制：
+[root@120 redis]# vim redis_running.sls
+redis_running:
+  service.running:
+    - name: redis
+    - enable: True
+    - require:
+      - pkg: install_redis
+    - watch:
+      - file: redis_conf
+	  
+redis模板文件：
+[root@120 templates]# vim redis.j2
+dir /data/craft/redis/gamesrv/gs1/3021
+bind 0.0.0.0
+pidfile ./run/redis.pid
+logfile ./logs/stdout.log
+dbfilename ./data/dump.rdb
+daemonize yes
+requirepass Ifeng2017
+databases 16
+port 3021
+timeout 0
+loglevel verbose
+save 900 1
+save 300 10
+save 60 10000
+rdbcompression yes
+{% if grains['role'] == slace"" %}
+slaveof {{grains['master_ip']}} 6379
+{% endif %}
+slave-serve-stale-data yes
+appendonly yes
+appendfsync everysec
+appendfilename ./data/appendonly.aof
+no-appendfsync-on-rewrite no
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+slowlog-log-slower-than 10000
+slowlog-max-len 1024
+vm-enabled no
+vm-swap-file /tmp/redis.swap
+vm-max-memory 0
+vm-page-size 32
+vm-pages 134217728
+vm-max-threads 4
+hash-max-zipmap-entries 512
+hash-max-zipmap-value 64
+list-max-ziplist-entries 512
+list-max-ziplist-value 64
+set-max-intset-entries 512
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+activerehashing yes
+maxmemory 4g
+
+
+部署keepalived
+keepalived安装入口文件：
+keepalived软件包的安装：
+keepalived配置文件下发以及创建目录：
+keepalived服务启动控制:
+keepalived模板文件以及脚本文件:
+keepalived.conf主配置文件根据role值动态下发：
+
+keepalived配置脚本
 
 
 
