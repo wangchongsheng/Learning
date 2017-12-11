@@ -1,0 +1,49 @@
+一. Salt master配置详解
+
+Salt master配置包含以下几个部分：
+（1）主要配置文件
+（2）安全设置
+（3）master模块管理
+（4）状态系统设置
+（5）文件服务器设置
+（6）Pillar设置
+（7）Syndic设置
+（8）日志设置
+
+二. Salt minion配置详解
+
+Salt minion配置包含以下几个部分：
+（1）主要配置文件
+（2）minion模块管理
+（3）状态系统设置
+（4）文件目录设置
+（5）安全设置
+（6）线程设置
+（7）日志设置
+（8）模块设置
+（9）Keepalived设置
+
+三. SaltStack参数优化
+
+Salt master 配置修改
+1. 目录和文件
+salt master主要使用以下几个目录：
+pki_dir: /etc/salt/pki/master
+sock_dir: /var/lib/salt/master
+cache_dir: /var/cache/salt/master
+
+2. 性能方面
+Salt master 性能相关的参数有以下几个：
+worker_threads: 5        # 设置工作进程数
+max_open_files: 100000   # 设置最大打开文件数量
+timeout: 5               # salt和API的默认超时时间
+
+3. 安全方面
+维护主机较多时，可以开启自动签发，
+auto_accept: true
+设置自动签发文件后，配合/etc/salt/autosign.conf规则文件可以完成新安装minion端的服务器自动注册。
+
+4. 文件服务器设置
+通过修改以下两个值，可以改变salt和pillar存储位置
+file_roots
+pillar_roots

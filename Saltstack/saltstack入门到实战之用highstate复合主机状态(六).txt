@@ -16,7 +16,7 @@
 │   ├── nginx.sls
 │   └── vhost.conf
 
-编写tip.sls入口文件
+编写top.sls入口文件
 [root@120 salt]# vim top.sls
 base:
   "minion-one":
@@ -41,7 +41,7 @@ base:
 建立sls文件：
 [root@120 salt]# touch nginx/{initial，install_nginx,nginx_conf，nginx_running，vhost.conf}.sls
 
-用init文件做入口文件：
+编辑init.sls文件：
 [root@120 nginx]# vim init.sls
 include：
   - .install_nginx
@@ -292,8 +292,7 @@ Virtural IP Address: 192.168.0.66
     vip:
         192.168.0.66
 
-设置入口文件：
-以list匹配方式对两台主题应用对应模块：
+设置top.sls文件，以list匹配方式对两台主题应用对应模块：
 [root@120 salt]# vim top.sls
 base:
   "192.168.0.92,192.168.0.91":
@@ -301,8 +300,7 @@ base:
     - redis
     - keepalived
 
-	部署redis
-安装redis并下发配置模板文件：
+	部署redis，安装redis并下发配置模板文件：
 redis安装入口文件：
 [root@120 redis]# vim init.sls
 include:
@@ -487,6 +485,17 @@ vrrp_instance VI_1 {
 
 keepalived配置脚本
 redis检测脚本：
+[root@120 scripts]# vim redis_check.sh
+#!/bin/bash
+
+ALIVE=`/usr/bin/redis-cli PING`
+if [ "$ALIVE" == "PONG" ]; then
+  echo $ALIVE
+  exit 0
+else
+  echo $ALIVE
+  exit 1
+fi
 
 master切换触发文件：
 [root@120 scripts]# vim redis.master.sh
@@ -518,7 +527,7 @@ $REDISCLI SLAVEOF {{ grains['master_ip'] }} 6379 >> $LOGFILE 2>&1
 LOGFILE="/var/log/keepalived-redis-state.log"
 echo "[fault]" >> $LOGFILE
 date >> $LOGFILE
-keepalived进程停止时执行文件：
+keepalived进程停止时执行的文件：
 [root@120 scripts]# vim redis_stop.sh
 #!/bin/bash
 LOGFILE="/var/log/keepalived-redis-state.log"
@@ -532,6 +541,7 @@ date >> $LOGFILE
 查看VIP，切换redis进程查看状态。
 
 五、部署MooseFS分布式文件系统
+
 
 
 
