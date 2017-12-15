@@ -1,0 +1,81 @@
+1.Salt多master高可用架构
+master-one：192.168.0.100
+master-two：192.168.0.101
+
+首先，再另外一台服务器上安装Salt-master,把主机名命名为server-two，把之前的master主机名命名为server-one
+yum -y install salt-master
+
+执行以下命令，同步之前master的配置文件、状态文件和密钥文件到master-two。
+
+同步配置文件
+
+rsync -av /etc/salt/master 192.168.0.101:/etc/salt/
+
+同步状态文件：
+
+rsync -av /srv  192.168.0.101:/
+
+同步密钥文件：
+
+rsync -av /etc/salt/pki/master 192.168.0.101:/etc/salt/pki
+
+修改minion的master配置文件，并重启minion
+[root@minion-one ~]# vim /etc/salt/minion
+master:
+  - server-one
+  - server-two
+  
+[root@minion-one ~]# service salt-minion restart
+
+在master-two上重启salt-master服务
+[root@master-two ~]# service salt-master restart
+
+然后在master-two上查看minion并运行命令
+[root@master-two ~]# salt "minion-one" test.ping
+minion-one:
+    True
+	
+[root@master-two ~]# salt "minion-one" cmd.run "whoami"
+minion-one:
+	Root
+	
+到此Salt的多master架构配置就完成了，需要注意的是生产环境中master之间的文件同步可以采用rsync+inotify或sersync完成实时同步
+
+2.syndic 方式扩展salt的管理架构
+其原理是，syndic作为一个中间层，用来接受master的任务，然后将任务下发给所有由syndic管理的minion机器。由此就可以减轻master的压力，不需要master和每一台minion直接通信。
+
+配置syndic服务器
+首先，在syndic服务器上安装配置syndic，执行以下命令：
+yum -y install salt-syndic salt-master
+
+修改配置文件：
+vim /etc/salt/master
+syndic_master: server-one
+
+启动syndic服务器上的salt-master服务
+
+[root@192 ~]# service salt-master start
+Redirecting to /bin/systemctl start salt-master.service
+
+启动syndic服务：
+
+[root@192 ~]# service salt-syndic start
+Redirecting to /bin/systemctl start salt-syndic.service
+
+2.配置上级master服务器
+开启上级master的older_master设置，在server-one中执行如下命令：
+
+[root@master-one ~]#vim /etc/salt/master
+order_masters: True
+
+重启master服务：
+[root@master-one ~]# service salt-master restart
+
+配置下级minion服务器
+[root@minion-one ~]# vim /etc/salt/minion
+master: syndic-one
+[root@minion-one ~]#  service salt-minion restart
+
+测试：
+
+

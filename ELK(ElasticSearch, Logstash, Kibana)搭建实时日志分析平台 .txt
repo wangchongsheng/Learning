@@ -28,12 +28,27 @@ useradd elsearch -g elsearch -p elasticsearch
 [root@172 local]# mv elasticsearch-6.0.1 elasticsearch
 [root@172 local]# chown elsearch.elsearch elasticsearch
 
+修改配置文件：
+$vim /etc/elasticsearch/elasticsearch.yml
+
+path.data: /data/elasticsearch     #日志存储目录
+path.logs: /data/elasticsearch/log #elasticsearch启动日志路径
+network.host: elk1        #这里是主机IP,我写了hosts
+node.name: "node-2"       #节点名字,不同节点名字要改为不一样
+http.port: 9200           #api接口url
+node.master: true         #主节点
+node.data: true           #是否存储数据
+    
+#手动发现节点,我这里有两个节点加入到elk集群
+discovery.zen.ping.unicast.hosts: [elk1, elk2]
+
 （3）切换到elsearch用户，启动ElasticSearch
 [elsearch@172 home]$ cd /usr/local/sygamer/elasticsearch
 [elsearch@172 elasticsearch]$ bin/elasticsearch
 
 （4）以daemon方式启动
 [elsearch@172 elasticsearch]$./bin/elasticsearch -d -p pid
+[elsearch@172 elasticsearch]$kill `cat pid`
 
 
 
@@ -98,10 +113,11 @@ type=rpm-md
 
 执行以下命令安装logstash:
 [root@172 ~]# yum clean all && yum makecache
-[root@172 ~]# yum install logstash
+[root@172 ~]# yum -y install logstash
 
 启动logstash：
 [root@172 ~]#service logstash start
+
 
 
 Kibana
@@ -141,7 +157,7 @@ type=rpm-md
 
 执行以下命令安装logstash:
 [root@172 ~]# yum clean all && yum makecache
-[root@172 ~]# yum install filebeat
+[root@172 ~]# yum -y install filebeat
 
 
 https://www.elastic.co/guide/en/logstash/6.0/advanced-pipeline.html#_configuring_logstash_for_filebeat_input
