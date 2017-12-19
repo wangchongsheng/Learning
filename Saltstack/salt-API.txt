@@ -1,0 +1,64 @@
+用local.cmd_async批量异步执行远程模块：
+>>> import salt.client               
+>>> local = salt.client.LocalClient()
+>>> local.cmd("*", 'test.sleep',[300])
+
+4.Caller
+Caller API 类似于无主机模式，在minion本地执行模块不需要链接salt msater.
+>>> import salt.client           
+>>> caller = salt.client.Caller()
+>>> caller.sminion.functions['cmd.run']('ls -l /')
+下面是function函数的参数选项
+function(fun,*args,**kwargs)
+
+5.RunnerClient
+>>> opts = salt.config.master_config('/etc/salt/master')
+>>> runner = salt.runner.RunnerClient(opts)
+>>> runner.cmd('jobs.list_jobs',[])
+20171219172509666420:
+    ----------
+    Arguments:
+        - 10
+    Function:
+        test.fib
+    StartTime:
+        2017, Dec 19 17:25:09.666420
+    Target:
+        *
+    Target-type:
+        glob
+    User:
+        root
+20171219172514714071:
+    ----------
+    Arguments:
+        - 20171219172509666420
+    Function:
+        saltutil.find_job
+    StartTime:
+        2017, Dec 19 17:25:14.714071
+    Target:
+        - minion-two
+        - 192.168.0.91
+        - 192.168.0.92
+        - minion-one
+    Target-type:
+        list
+    User:
+        root
+20171219172559585052:
+    ----------
+    Arguments:
+        - 300
+    Function:
+        test.sleep
+    StartTime:
+        2017, Dec 19 17:25:59.585052
+    Target:
+        *
+    Target-type:
+        glob
+    User:
+        root
+		
+	
