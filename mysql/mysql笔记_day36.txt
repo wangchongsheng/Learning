@@ -144,6 +144,7 @@ Day 36
 		
 		13、向SC表中插入一些记录，这些记录符合一下要求：①没有上过编号“002”课程的同学学号，②插入“002”号课程的平均成绩
 			
+		
 		14、按平均成绩从低到高显示所有学生的课程成绩，按如下形式显示： 学生ID,语文,数学,英语,有效课程数,有效平均分；
 			SELECT *FROM (
 			SELECT student_id,COUNT(course_id),AVG(num) AS a from score
