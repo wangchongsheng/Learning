@@ -44,7 +44,7 @@ minion-one:
 2.syndic 方式扩展salt的管理架构
 其原理是，syndic作为一个中间层，用来接受master的任务，然后将任务下发给所有由syndic管理的minion机器。由此就可以减轻master的压力，不需要master和每一台minion直接通信。
 
-配置syndic服务器
+1.配置syndic服务器
 首先，在syndic服务器上安装配置syndic，执行以下命令：
 yum -y install salt-syndic salt-master
 
@@ -77,5 +77,9 @@ master: syndic-one
 [root@minion-one ~]#  service salt-minion restart
 
 测试：
-
-
+[root@master-one ~]#salt "*" test.ping
+minion-one:
+    True
+[root@master-one ~]#salt "minion-one" cmd.run "whoami"
+minion-one:
+    root 
