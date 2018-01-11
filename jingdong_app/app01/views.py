@@ -7,4 +7,6 @@ from django.shortcuts import render
 
 def csking(req):
 
+    print('前端数据',req.GET)
+
     return  render(req,'index.html')
