@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>zabbix</title>
+</head>
+<link type="text/css" href="style.css"/>
+<script>
+    function getZabbixAlert(){
+    $.get('/jguser/zabbixalert/',{},function(result){
+        $("#zabbixalert").html('');
+	//发生错误时显示错误信息
+        if (result.code) {
+            $("#zabbixerror").attr('display', 'none');
+        }else{
+            $("#zabbixerror").html(result.errmsg);
+            $("#zabbixerror").attr('display', 'block');
+        }
+        if (result.alertmsg.length>0) {
+	   //对不同的告警级别用不同的颜色展示
+            result.alertmsg.forEach(function(val,index,arr){
+                if (val.indexOf('警告')>=0) {
+                    alerthtml='<div class="alert alert-block alert-warning fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>';
+
+                }else if (val.indexOf('严重')>=0) {
+                    alerthtml='<div class="alert alert-block alert-danger fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>' ;
+                }else if (val.indexOf('灾难')>=0) {
+                    alerthtml='<div class="alert alert-block alert-danger fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>';
+                }else if (val.indexOf('信息')>=0) {
+                    alerthtml='<div class="alert alert-block alert-info fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>';
+                }else{
+                    alerthtml='<div class="alert alert-block alert-success fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>';
+                }
+                $('#zabbixalert').append(alerthtml)
+
+            });
+        }else{
+            alerthtml='<div class="alert alert-block alert-info fade in">'+
+                        '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                        '<p>目前没有告警！</p>'+'</div>' ;
+            $('#zabbixalert').append(alerthtml)
+        }
+    });
+}
+</script>
+<body>
+                <div class="col-md-6">
+                    <div id="zabbixerror" class="alert alert-danger" style="display: none;">error</div>
+                    <div class="box border red">
+                        <div class="box-title">
+                            <h4><i class="fa fa-exclamation"></i>ZABBIX Alerts</h4>
+                            <div class="tools">
+                                <a href="javascript:;" class="reload">
+                                    <i class="fa fa-refresh"></i>
+                                </a>
+                                <a href="javascript:;" class="collapse">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a href="javascript:;" class="remove">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="box-body" id='zabbixalert'>
+
+                        </div>
+                    </div>
+                </div>
+</body>
+<script>
+    function getZabbixAlert(){
+    $.get('/jguser/zabbixalert/',{},function(result){
+        $("#zabbixalert").html('');
+	//发生错误时显示错误信息
+        if (result.code) {
+            $("#zabbixerror").attr('display', 'none');
+        }else{
+            $("#zabbixerror").html(result.errmsg);
+            $("#zabbixerror").attr('display', 'block');
+        }
+        if (result.alertmsg.length>0) {
+	   //对不同的告警级别用不同的颜色展示
+            result.alertmsg.forEach(function(val,index,arr){
+                if (val.indexOf('警告')>=0) {
+                    alerthtml='<div class="alert alert-block alert-warning fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>';
+
+                }else if (val.indexOf('严重')>=0) {
+                    alerthtml='<div class="alert alert-block alert-danger fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>' ;
+                }else if (val.indexOf('灾难')>=0) {
+                    alerthtml='<div class="alert alert-block alert-danger fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>';
+                }else if (val.indexOf('信息')>=0) {
+                    alerthtml='<div class="alert alert-block alert-info fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>';
+                }else{
+                    alerthtml='<div class="alert alert-block alert-success fade in">'+
+                                '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                                '<p>'+val+'</p>'+'</div>';
+                }
+                $('#zabbixalert').append(alerthtml)
+
+            });
+        }else{
+            alerthtml='<div class="alert alert-block alert-info fade in">'+
+                        '<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>'+
+                        '<p>目前没有告警！</p>'+'</div>' ;
+            $('#zabbixalert').append(alerthtml)
+        }
+    });
+}
+</script>
+</html>

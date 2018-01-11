@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>zabbix_moniter</title>
+</head>
+<body>
+ <table border="1">
+    <tr>
+      <th>NAME</th>
+      <th>IPADDR</th>
+      <th>PING</th>
+      <th>C:Usage</th>
+      <th>D:Usage</th>
+    </tr>
+    {% for i in pos %}
+    <tr>
+      <td>{{ i.name }}</td>
+      <td>{{ i.ip }}</td>
+      <td>{{ i.ping }}</td>
+      <td>{{ i.disk }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

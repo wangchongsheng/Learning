@@ -1,0 +1,52 @@
+1.Salt配置文件信息获取
+获取minion配置文件字典
+进入python控制台界面：
+[root@120 ~]# python
+Python 2.7.5 (default, Nov  6 2016, 00:28:07) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-11)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> import salt.config
+>>> master_opts = salt.config.client_config('/etc/salt/master')
+>>> type(master_opts)
+
+
+查看字典的全部内容：
+master_opts
+
+获取master 配置文件字典
+进去Python程序交互界面：
+>>> import salt.config
+>>> minion_opts = salt.config.minion_config('/etc/salt/minion')     
+>>> type(minion_opts)
+<type 'dict'>
+>>> 
+
+查看字典全部内容：
+>>> minion_opts
+
+2.Salt 的 Loader API
+通过Loader API加载Salt的执行模块，可以获取Salt的Grains等数据信息，Salt Loader API 提供以下很多函数：
+
+获取Grains信息：
+import salt.config
+import salt.loader
+__opts__ = salt.config.minion_config('/etc/salt/minion')
+__grains__ = salt.loader.grains(__opts__)
+
+加载执行模块：
+import salt.config
+import salt.loader
+__opts__ = salt.config.minion_config('/etc/salt/minion')
+ __salt__ = salt.loader.minion_mods(__opts__)
+__salt__['cmd.run']{"ls /"}
+
+3.LocalClient
+LocalClient是最为常用和重要的Slat API之一，通过LocalClient的cmd等方法我们可以实现salt执行远程模块的功能。
+
+用local.cmd批量执行远程模块:
+>>> import salt.client
+>>> local = salt.client.LocalClient()
+>>> local.cmd('*', 'test.fib', [10])
+
+cmd函数的参数选项：

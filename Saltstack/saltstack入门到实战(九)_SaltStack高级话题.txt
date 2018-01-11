@@ -1,0 +1,213 @@
+1.Salt runners系统
+
+(1) minion管理
+我们之前检测minion是否存活，经常会用到以下命令：
+salt "*" test.ping
+
+然而我们用runner也可以实现同样的功能，不同的是runner不需要匹配目标，minion.
+[root@120 ~]# salt-run manage.up
+- minion-one
+- minion-two
+执行关闭minion
+[root@120 ~]# salt-run manage.down
+- minion-one
+- minion-two
+
+(2)Job管理
+通过runner对job进行管理
+[root@120 ~]# salt-run -d |grep job
+
+列出24小时内的所有job
+[root@120 ~]# salt-run jobs.list_jobs
+20171215155621049228:
+    ----------
+    Arguments:
+    Function:
+        test.ping
+    StartTime:
+        2017, Dec 15 15:56:21.049228
+    Target:
+        minion-one
+    Target-type:
+        glob
+    User:
+        root
+		
+查看一个特定的job
+	首先创建一个长时间的任务，然后按下Crtl+C结束：
+[root@120 ~]# salt "192.168.0.92" cmd.run "sleep 100"
+^C
+Exiting gracefully on Ctrl-c
+This job's jid is: 20171215225517411044
+The minions may not have all finished running and any remaining minions will return upon completion. To look up the return data for this job later, run the following command:
+
+salt-run jobs.lookup_jid 20171215225517411044
+	然后执行下面命令九可以看到job具体情况：
+[root@120 ~]# salt-run jobs.list_job 20171215225517411044  
+Arguments:
+    - sleep 100
+Function:
+    cmd.run
+Minions:
+    - 192.168.0.92
+Result:
+    ----------
+StartTime:
+    2017, Dec 15 22:55:17.411044
+Target:
+    192.168.0.92
+Target-type:
+    glob
+User:
+    root
+jid:
+    20171215225517411044
+
+	
+
+二. Event系统和Reactor系统
+
+1.Event系统
+
+	Event是Salt通讯的核心，通过订阅ipc:///var/run/salt/master/master_event_pub.ipc可以查看master上所有的event，每一个event可以认为是Salt的一个执行单元，比Job要宽泛，Job可以看成一种特殊的Event。
+
+（1）通过一个python脚本监听master的Event.
+
+首先创建脚本：
+[root@120 ~]#vim eventlisten.py
+# _*_ coding: utf-8 _*_
+'''
+Use this script dump the event data out to the terminal.It needs to know what the socke_dir is.
+This script is a generic tool to test enent output
+'''
+
+# Import python libs
+from __future__ import  absolute_import, print_function
+import  optparse
+import  pprint
+import  time
+import os
+
+# Import Salt libs
+import salt.utils.event
+
+# Import 3rd-party libs
+import salt.ext.six as six
+
+def parse():
+    '''
+    Parse the script command line inputs
+    '''
+    parser = optparse.OptionParser()
+
+    parser.add_option(
+        '-s',
+        '--sock-dir',
+        dest='sock_dir',
+        default='/var/run/salt',
+        help=('Statically define the directory holding the salt unix socket for communication')
+    )
+    parser.add_option(
+        '-n',
+        '--node',
+        dest='node',
+        default='master',
+        help=('State if the listener will attach to a master or a minion deemon,pass "master"or"minion"')
+    )
+    parser.add_option(
+        '-f',
+        '--func_count',
+        default='',
+        help=('Return a count of the number of minions whicj have replied to a job with a give func.')
+    )
+    parser.add_option(
+        '-i',
+        '--id',
+        default='',
+        help=('If connecting to a live master or minion,pass in the id')
+    )
+    parser.add_option(
+        '-t',
+        '--transport',
+        default='zeromq',
+        help=('Transport to use.(Defailt: \'zeromq\')')
+    )
+
+    options,args = parser.parse_args()
+
+    opts = {}
+
+    for k,v in six.iteritems(options.__dict__):
+        if v is not None:
+            opts[k] = v
+    opts['sock_dir'] = os.path.join(opts['sock_dir'],opts['node'])
+
+    if 'minion' in options.node:
+        if args:
+            opts['id'] = args[0]
+            return opts
+        if options.id:
+            opts['id'] = options.id
+        else:
+            opts['id'] = options.node
+
+    return
+
+def check_access_and_print_warning(sock_dir):
+    '''
+    Check if this user is able to access the socket
+    directory and print a warning if not
+    :param sock_dir:
+    :return:
+    '''
+    if (os.access(sock_dir, os.R_OK) and
+            os.access(sock_dir, os.W_OK) and
+            os.access(sock_dir, os.X_OK)):
+        return
+    else:
+        print('WARNING:Events will not be reported (not able to access {0})'.format(sock_dir))
+
+def listen(opts):
+    '''
+    Attach to the pub socket and grab messages
+    :param opts:
+    :return:
+    '''
+    event = salt.utils.event.get_event(
+        opts['node'],
+        sock_dir=opts['sock_dir'],
+        transport = opts['transport'],
+        opts=opts,
+        listen=True
+    )
+    check_access_and_print_warning(opts['sock_dir'])
+    print(event.puburi)
+    jib_counter = 0
+    found_minions = []
+    while True:
+        ret = event.get_event(full=True)
+        if ret is None:
+            continue
+        if opts['fun_count']:
+            data = ret.get('data',False)
+            if data:
+                if 'id' in six.iteritems(data) and data.get('id',False) not in found_minions:
+                    if data['run'] == opts['func_count']:
+                        jib_counter +=1
+                        found_minions.append(data['id'])
+                        print('Reply received from [{0}].Total replies now:[{1}].'.format(ret['data']['id'],jib_counter))
+                    continue
+        else:
+            print('Event filred at {0}'.format(time.asctime()))
+            print('*'* 25)
+            print('Tag: {0}'.format(ret['tag']))
+            print('Data:')
+            pprint.pprint(ret['data'])
+
+if __name__ == '__main__':
+    opts = parse()
+license(opts)
+
+在master端执行：
+[root@120 ~]#python eventlisten.py
+

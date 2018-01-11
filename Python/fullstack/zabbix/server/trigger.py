@@ -1,4 +1,6 @@
+# --encoding=utf-8
 from pyzabbix import ZabbixAPI
+import  time
 
 
 ###pyzabbix
@@ -7,7 +9,7 @@ class pyzabbixAPI(object):
         self.prioritytostr = {'0': 'ok', '1': '信息', '2': '警告', '3': '严重'}  # 告警级别
 
     def login(self):
-        '''''
+        '''
         进行认证
         返回 api 接口
         '''
@@ -16,7 +18,7 @@ class pyzabbixAPI(object):
         return zapi
 
     def getCurIssue(self, zapi):
-        '''''
+        '''
         获取所有最近有问题的trigger
         返回trigger的信息列表： ['trigger1','trigger2',......]
         '''
@@ -45,7 +47,7 @@ class pyzabbixAPI(object):
         for t in triggers:
             t['unacknowledged'] = True if t['triggerid'] in unack_trigger_ids else False
 
-            # 每个trigger信息格式 ：[时间] 级别：ip - 详情 是否确认
+        # 每个trigger信息格式 ：[时间] 级别：ip - 详情 是否确认
         triggerlist = []
         for t in triggers:
             if int(t['value']) == 1:
@@ -61,7 +63,7 @@ class pyzabbixAPI(object):
         return triggerlist
 
     def getHostgroupName(self, zapi, hostname):
-        '''''
+        '''
         通过hostname(即ip)获取host所在的监控组名
         返回由组名组成的字符串
         '''
