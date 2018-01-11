@@ -7,17 +7,18 @@
 <body>
 <h1>hello csking</h1>
 
-<form action="http://127.0.0.1:800/csking" method="get">
+<form action="http://127.0.0.1:800/csking" method="post" enctype="multipart/form-data">
     <p>用户名：<input type="text" name="username"></p>
-    <p>密  码：<input type="password" name="passwd"></p>
+    <p>密码：<input type="password" name="passwd"></p>
 
     <p>性别：男<input type="radio" name="sex" value="0">
             女<input type="radio" name="sex" value="1"></p>
 
     <p>爱好：篮球<input type="checkbox" name="hoppy" value=basketball>
             足球<input type="checkbox" name="hoppy" value="football"></p>
-
+    <p><input type="file" name="alice"></p>
     <p> <input type="submit" value="发送"></p>
+
 
 </form>
 </body>
