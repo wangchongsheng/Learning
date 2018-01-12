@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="style.css">
+    <style>
+        #p1{
+            font-style: italic;
+            font-size: 46px;
+            background-color: #5e87b0;
+        }
+        .c1{
+            background-color: #9785c6;
+        }
+        div .c1{
+            background-color: #d43f3a;
+            font-size: 30px;
+        }
+        #outer{
+            color: green;
+        }
+        #outer>.c1{
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+
+
+<p class="c1">hello p1</p>
+<div id="outer">
+    <span>Hello div</span>
+    <p id="p1">p2</p>
+    <p class="c1">p3</p>
+    <div class="c2">
+        <p class="c1">p4....</p>
+    </div>
+</div>
+<div class="c1">div3</div>
+
+</body>
+</html>

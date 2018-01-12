@@ -1,0 +1,12 @@
+wordess主题  Fashionate
+插件  	
+Crayon Syntax Highlighter
+WP-Syntax
+蜀ICP备17027599号-1
+ss_network@163.com
+
+
+if [ inp_num == 1 ];then
+	wget https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.20-linux-glibc2.12-x86_64.tar.gz 
+elif [ inp_num == 2 ]; then
+
