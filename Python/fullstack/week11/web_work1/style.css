@@ -1,0 +1,113 @@
+input{
+    width: 150px;
+    height: 30px;
+}
+.div_header {
+    background-color: royalblue;
+}
+
+.banner {
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid red;
+    width: 1024px;
+    height: 40px;
+    /*background-color: #6f6f6f;*/
+}
+
+.banner_left {
+    margin-top: 5px;
+    width: 694px;
+    float: left;
+    /*background-color: #c4c4c4;*/
+}
+
+.menu_index {
+    width: 150px;
+    float: left;
+}
+
+.menu_all {
+    width: 50px;
+    float: left;
+}
+
+.menu_42 {
+    width: 50px;
+    float: left;
+}
+
+.menu_dz {
+    width: 50px;
+    float: left;
+}
+
+.menu_img {
+    width: 50px;
+    float: left;
+}
+
+.menu_1024 {
+    width: 100px;
+    float: left;
+}
+
+.menu_ui {
+    width: 100px;
+    float: left;
+}
+
+.banner_right {
+    margin-top: 5px;
+    width: 328px;
+    /*background-color: #9db36a;*/
+    float: left;
+}
+
+.register {
+    width: 50px;
+    float: right;
+    /*background-color: #eaeaea;*/
+}
+
+.login {
+    width: 50px;
+    float: right;
+    /*background-color: #5ea5bd;*/
+}
+
+.search {
+    width: 150px;
+    float: right;
+    /*border: 1px solid yellow;*/
+    /*background-color: #d9534f;*/
+}
+input{
+    display: inline-block;
+}
+
+.div_content {
+    margin: 0 auto;
+    height: 768px;
+    width: 1024px;
+    background-color: #9785c6;
+}
+.content_left{
+    height: 768px;
+    width: 70%;
+    background-color: #5ea5bd;
+    float: left;
+}
+.content_right{
+    height: 768px;
+    width: 30%;
+    background-color: #507aa4;
+    float: left;
+}
+.div_bottom {
+    margin: 0 auto;
+    height: 50px;
+    width: 1024px;
+    background-color: #5e87b0;
+    text-align: center;
+}

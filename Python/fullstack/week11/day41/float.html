@@ -8,25 +8,61 @@
             background: rebeccapurple;
             width: 100px;
             height: 100px;
-            float: left;
         }
         .div2{
             background: green;
             width: 100px;
             height: 100px;
-            float: left;
+            /*float: left;*/
+            float: right;
         }
         .div3{
             background: yellow;
             width: 200px;
             height: 200px;
+            /*clear: left;*/
+            /*clear: right;*/
         }
+        .outer{
+            background-color: #6f6f6f;
+        }
+        .menu1{
+            width: 100px;
+            height: 30px;
+            background-color: #9db36a;
+            float: left;
+        }
+        .menu2{
+            width: 100px;
+            height: 30px;
+            background-color: #5e87b0;
+            float: left;
+
+        }
+        .clear{
+            clear: left;
+        }
+
+        .bottom{
+            background-color: #9785c6;
+            height: 30px;
+            text-align: center;
+            /*clear: left;*/
+        }
+
     </style>
 </head>
 <body>
 
-<div class="div1"></div>
-<div class="div2"></div>
-<div class="div3"></div>
+<!--<div class="div1">111</div>-->
+<!--<div class="div2">222</div>-->
+<!--<div class="div3">333</div>-->
+
+<div class="outer">
+    <div class="menu1">菜单一</div>
+    <div class="menu2">菜单2</div>
+    <div class="clear"></div>
+</div>
+<div class="bottom">底部</div>
 </body>
 </html>
