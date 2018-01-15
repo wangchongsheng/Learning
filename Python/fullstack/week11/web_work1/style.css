@@ -1,88 +1,100 @@
-input{
+input {
     width: 150px;
     height: 30px;
 }
+
 .div_header {
-    background-color: royalblue;
+    background-color: #2459a2;
 }
 
 .banner {
     margin: 0 auto;
     text-align: center;
-    border: 1px solid red;
     width: 1024px;
     height: 40px;
-    /*background-color: #6f6f6f;*/
 }
 
 .banner_left {
-    margin-top: 5px;
     width: 694px;
     float: left;
-    /*background-color: #c4c4c4;*/
+    color: white;
 }
 
 .menu_index {
     width: 150px;
     float: left;
+    display: inline-block;
+    margin-top: 8px;
 }
 
 .menu_all {
-    width: 50px;
+    background-color: #2459a2; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
     float: left;
 }
 
-.menu_42 {
-    width: 50px;
+.menu_all:hover {
+    background-color: cornflowerblue; /* Green */
+    color: white;
+}
+
+.menu_alt {
+    background-color: #2459a2; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
     float: left;
 }
 
-.menu_dz {
-    width: 50px;
-    float: left;
-}
-
-.menu_img {
-    width: 50px;
-    float: left;
-}
-
-.menu_1024 {
-    width: 100px;
-    float: left;
-}
-
-.menu_ui {
-    width: 100px;
-    float: left;
+.menu_alt:hover {
+    background-color: cornflowerblue; /* Green */
+    color: white;
 }
 
 .banner_right {
-    margin-top: 5px;
     width: 328px;
     /*background-color: #9db36a;*/
     float: left;
 }
 
-.register {
-    width: 50px;
+.login {
+    background-color: #2459a2; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
     float: right;
-    /*background-color: #eaeaea;*/
 }
 
-.login {
-    width: 50px;
-    float: right;
-    /*background-color: #5ea5bd;*/
+.login:hover {
+    background-color: cornflowerblue; /* Green */
+    color: white;
 }
 
 .search {
     width: 150px;
     float: right;
-    /*border: 1px solid yellow;*/
-    /*background-color: #d9534f;*/
+    margin-top: 5px;
+    border-color: #5e87b0;
 }
-input{
+
+input {
     display: inline-block;
 }
 
@@ -90,20 +102,134 @@ input{
     margin: 0 auto;
     height: 768px;
     width: 1024px;
-    background-color: #9785c6;
+    /*background-color: #9785c6;*/
 }
-.content_left{
+
+.content_left {
     height: 768px;
     width: 70%;
-    background-color: #5ea5bd;
+    /*background-color: #5ea5bd;*/
     float: left;
 }
-.content_right{
+
+.option {
+    align-content: center;
+    height: 50px;
+    border-bottom: 1px solid #6f6f6f;
+
+}
+
+.left_option {
+    width: 250px;
+    /*margin-right: 45px;*/
+    margin-top: 10px;
+    float: left;
+}
+
+.option_hot {
+    border: 1px solid #5e87b0;
+    color: black;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    font-size: 12px;
+    padding: 5px 20px;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px;
+    font-weight: 900;
+}
+
+.option_found {
+    width: 50px;
+    color: darkblue;
+    font-size: 12px;
+    padding: 20px 0;
+    margin: 5px;
+    font-weight: 900;
+}
+
+.option_release {
+    width: 50px;
+    color: darkblue;
+    font-size: 12px;
+    padding: 20px 0;
+    margin: 5px;
+    font-weight: 900;
+}
+
+.right_option {
+    width: 300px;
+    float: right;
+    margin-right: 30px;
+    /*margin-top: 10px;*/
+}
+
+.option_now {
+    width: 60px;
+    color: #919191;
+    font-size: 12px;
+    padding: 20px 0;
+    margin: 5px;
+}
+
+.option_24h {
+    width: 50px;
+    color: green;
+    font-size: 12px;
+    padding: 20px 0;
+    margin: 5px;
+}
+
+.option_3day {
+    width: 40px;
+    color: green;
+    font-size: 12px;
+    padding: 20px 0;
+    margin: 5px;
+}
+
+.option_botton {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 6px 48px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    /*float: right;*/
+}
+
+.left_content_area {
+    height: 100px;
+    border-bottom: 1px solid #6f6f6f;
+}
+
+.left_content_text {
+    margin-top: 15px;
+    width: 600px;
+    margin-right: 14px;
+    border: 1px solid red;
+    float: left;
+}
+
+.left_content_img {
+    width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    border: 1px solid red;
+    float: left;
+}
+
+.content_right {
     height: 768px;
     width: 30%;
     background-color: #507aa4;
     float: left;
 }
+
 .div_bottom {
     margin: 0 auto;
     height: 50px;
