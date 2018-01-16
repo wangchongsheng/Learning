@@ -8,7 +8,56 @@
 
 
 <script>
+//Javascript三种对象方式
+//    1.ECMAScript
+//    1.1 native object
+//    1.2 host object
+//    2.DOM
+//    3.BOM
 
+// ------------function对象------------
+
+// function创建方式1 (推荐方式)
+//    function func1() {
+//        alert(123);
+//        return 8
+//    }
+//    var ret=func1()
+//    alert(ret)
+
+//    var func2=new Function ("参数1","参数n","函数体");
+
+//    var add=new Function("a","b","alert(a+b)");
+//   alert(void(add(1,2)));
+//
+//    alert(add.length)
+
+// --------------function属性和方法---------------------
+
+//function f(){
+//        return 8;
+//}
+//alert(void (f()))
+//function func1() {
+////    var b=3;(尽量采用局部变量)
+//    b=4;
+//}
+//func1();
+//alert(b)
+
+//var ret=0;
+//function func1(a,b){
+//    ret=a+b;
+//    return ret
+//}
+//alert(func1(1,5,6))
+
+    function a(a,b) {
+        alert(a+b);
+    }
+    var a=1;
+    var b=2;
+    a(a,b)
 </script>
 </body>
 </html>
