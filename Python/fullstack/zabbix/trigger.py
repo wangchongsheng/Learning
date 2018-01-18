@@ -1,4 +1,5 @@
 from pyzabbix import ZabbixAPI
+import time
 
 
 ###pyzabbix
@@ -11,8 +12,8 @@ class pyzabbixAPI(object):
         进行认证
         返回 api 接口
         '''
-        zapi = ZabbixAPI('http://zabbixdomain.com')
-        zapi.login('user', 'pwd')
+        zapi = ZabbixAPI('http://120.27.232.133:20000/zabbix')
+        zapi.login('Admin', 'zabbix')
         return zapi
 
     def getCurIssue(self, zapi):
@@ -72,3 +73,9 @@ class pyzabbixAPI(object):
         )[0]['groups']
         groupname = [group['name'] for group in groups]
         return ' '.join(groupname)
+
+if __name__ == '__main__':
+    papi = pyzabbixAPI()
+    zapi = papi.login()
+    # print ('\n'.join(papi.getCurIssue(zapi)))
+    print (papi.getHostgroupName(zapi,"2"))

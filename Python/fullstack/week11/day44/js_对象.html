@@ -52,12 +52,35 @@
 //}
 //alert(func1(1,5,6))
 
-    function a(a,b) {
-        alert(a+b);
+//    function a(a,b) {
+//        alert(a+b);
+//    }
+//    var a=1;
+//    var b=2;
+//    a(a,b)
+
+
+
+    // ---------arguments对象-----------
+//    var ret=0;
+//    function add() {
+//        alert(arguments.length)
+//        console.log(arguments.length);
+//        console.log(arguments);
+//        for (var i in arguments){
+//            ret+=arguments[i];
+//
+//        }
+//        return ret;
+//    }
+//    alert(add(1,2,3,4,5))
+
+    function func2() {
+        if (arguments.length!=3){
+            throw new Error("param should be 3")
+        }
     }
-    var a=1;
-    var b=2;
-    a(a,b)
+    func2(1,2,3,45)
 </script>
 </body>
 </html>

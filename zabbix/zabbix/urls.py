@@ -19,6 +19,6 @@ from moniter import views as m_views
 
 
 urlpatterns = [
-    path('dmin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('home/', m_views.home,name='home'),
 ]

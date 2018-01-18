@@ -23,7 +23,7 @@ class get_hostinfo:
                     "password": "zabbix"  # zabbix的管理员密码
                 },
                 "id": 0
-            }).encode('utf-8')
+            }).encode(encoding=('utf-8'))
         request = Request(self.url, data)
         for key in self.header:
             request.add_header(key, self.header[key])
@@ -71,7 +71,7 @@ class get_hostinfo:
                 },
                 "auth": self.authID,
                 "id": 2
-            }).encode('utf-8')
+            }).encode(encoding=('utf-8'))
         res = self.get_data(data)['result']
         hostids = []
         for i in range(len(res)):
@@ -96,7 +96,7 @@ class get_hostinfo:
                     },
                     "auth": self.authID,
                     "id": 2
-                },).encode('utf-8')
+                },).encode(encoding=('utf-8'))
             res = self.get_data(data)['result']
             hostinfos.append(res[0][info]) if len(res) != 0 else hostinfos.append("0")
         return hostinfos
@@ -105,7 +105,7 @@ class get_hostinfo:
         global zabbix_moniter
         zabbix_moniter, create = Zabbix_moniter.objects.update_or_create(
             ip=ipaddr, defaults={
-                "name": name, 'ping': int(ping), 'disk': float(disk)
+                "name": name, 'ping': int(ping)
             })
 
 
@@ -114,16 +114,13 @@ def main():
     zbx = get_hostinfo()
     zbx.login()
 
-    names = zbx.get_info("24", "host.get", "name")
+    names = zbx.get_info("9", "host.get", "name")
 
-    ips = zbx.get_info("24", "hostinterface.get", "ip")
+    ips = zbx.get_info("9", "hostinterface.get", "ip")
 
-    pings = zbx.get_info("24", "item.get", "lastvalue", "icmpping")
-
-    disk = zbx.get_info("24", "item.get", "lastvalue", "hrStorageUsage2")
-    for a, b, c, d in zip(names, ips, pings, disk):
-        print(a,b,c,d)
-
+    pings = zbx.get_info("9", "item.get", "lastvalue", "icmpping")
+    for a, b, c in zip(names, ips, pings):
+        print(a,b,c)
 
 if __name__ == '__main__':
     main()

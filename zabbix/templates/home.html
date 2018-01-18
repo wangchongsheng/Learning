@@ -1,26 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>zabbix_moniter</title>
-</head>
-<body>
- <table border="1">
+{% load staticfiles %}
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+    <script src="{% static '/scripts/jquery.min.js' %]"></script>    <!--引入jquery模块 -->
+    <script src="{% static '/bootstrap/js/bootstrap.min.js' %]"></script>   <!--引入bootstrap的js模块 -->
+    <title>首页</title>
+  </head>
+<body onload="onload()">   <!--页面加载完成时调用function -->
+  <p class="text-center">
+    <span class="label label-default">NotMoniterd</span>  <!--图例 -->
+    <span class="label label-warning">Warning</span>
+    <span class="label label-danger">Criticl</span>
+  </p>
+  <table id="t1" border="1" class="table table-striped">
     <tr>
-      <th>NAME</th>
-      <th>IPADDR</th>
+      <th>SERVERNAME</th>
+      <th>IPADDRESS</th>
       <th>PING</th>
       <th>C:Usage</th>
       <th>D:Usage</th>
     </tr>
     {% for i in pos %}
     <tr>
-      <td>{{ i.name }}</td>
+      <td><a href="/draw/?uid={{ i.uid }}" target="_blank">{{ i.name }}</a></td>   <!--给链接带上post，接下来做图表时会用到 -->
       <td>{{ i.ip }}</td>
       <td>{{ i.ping }}</td>
-      <td>{{ i.disk }}</td>
+      <td>{{ i.diskc }}%</td>
+      <td>{{ i.diskd }}%</td>
     </tr>
     {% endfor %}
   </table>
+  <script type="text/javascript">
+    function onload(){
+      var NG = "0";    <!--PING的NG值，这个值是str -->
+      var NM = 0       <!--磁盘未监视的值 -->
+      var WAR = 80     <!--磁盘警告的值 -->
+      var CRI = 90     <!--磁盘严重的值 -->
+      var table = document.getElementById("t1")
+      for (var s = 0; s < table.rows.length; s ++){   <!--历遍表格 -->
+        rowObj = table.rows[s];
+        var t2 = rowObj.cells[2].innerHTML;
+        var t3 = rowObj.cells[3].innerHTML.slice(0,-2);  <!--slice用来去掉百分号 -->
+        var t4 = rowObj.cells[4].innerHTML.slice(0,-2);
+        if(t2 == NG){
+          rowObj.cells[2].style.backgroundColor="red";;  <!--PINGNG时显示红色 -->
+        }
+        if(t3 == NM ){
+          rowObj.cells[3].style.backgroundColor="grey";; <!--磁盘未监视时显示灰色，并修改文字为N/A -->
+          rowObj.cells[3].innerHTML="N/A";;
+        }
+        else if(t3 >= WAR && t3 < CRI){
+          rowObj.cells[3].style.backgroundColor="orange";; <!--磁盘80%-90%时显示橙色 -->
+        }
+        else if(t3 >= CRI){
+          rowObj.cells[3].style.backgroundColor="red";;   <!--磁盘大于90%时显示红色 -->
+        }
+        if(t4 == NM ){
+          rowObj.cells[4].style.backgroundColor="grey";;
+          rowObj.cells[4].innerHTML="N/A";;
+        }
+        else if(t4 >= WAR && t4 < CRI){
+          rowObj.cells[4].style.backgroundColor="orange";;
+        }
+        else if(t4 >= CRI){
+          rowObj.cells[4].style.backgroundColor="red";;
+        }
+      }
+    }
+  </script>
 </body>
 </html>
