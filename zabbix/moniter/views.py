@@ -2,8 +2,10 @@ from django.shortcuts import render
 from  .models import Zabbix_moniter
 
 # Create your views here.
-
+#
+# def home(request):
+#     return render(request,'home.html',{
+#         'zabbix':Zabbix_moniter.objects.all().order_by('name'),
+#     })
 def home(request):
-    return render(request,'home.html',{
-        'zabbix':Zabbix_moniter.objects.all().order_by('name'),
-    })
+    return render(request,'hello,word')

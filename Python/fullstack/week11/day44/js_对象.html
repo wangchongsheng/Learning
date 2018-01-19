@@ -75,12 +75,25 @@
 //    }
 //    alert(add(1,2,3,4,5))
 
-    function func2() {
-        if (arguments.length!=3){
-            throw new Error("param should be 3")
-        }
-    }
-    func2(1,2,3,45)
+//    function func2() {
+//        if (arguments.length!=3){
+//            throw new Error("param should be 3")
+//        }
+//    }
+//    func2(1,2,3,45)
+
+//-------------匿名函数----------------
+//var func3=function () {
+//    alert(123)
+//};
+//
+//func3()
+
+//    ----------------自执行函数------------
+(function (arg) {
+    console.log(arg)
+})('123')
+
 </script>
 </body>
 </html>

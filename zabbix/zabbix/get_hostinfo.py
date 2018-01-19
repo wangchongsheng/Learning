@@ -13,7 +13,7 @@ class Zapi():
         host_list=[]
         for host in self.zapi.host.get(output="extend"):
             # print(host['hostid'])
-            ret = host_list.append(host['hostid'])
+            host_list.append(host['hostid'])
 
         return host_list
 
@@ -65,12 +65,13 @@ class Zapi():
 '''
 def main():
     obj = Zapi()
-    ret = obj.group_list()
-    # obj.group_host_list(10)
-    # obj.get_items()
-    # obj.get_items_history()
-    # ret = obj.host_info()
-    print(ret)
+    obj.host_info()
+    obj.group_list()
+    obj.group_host_list(10)
+    obj.get_items()
+    obj.get_items_history()
+
+    # print(ret)
 
 if __name__ == '__main__':
     main()

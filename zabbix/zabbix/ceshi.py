@@ -13,7 +13,7 @@ class Zapi():
         host_list=[]
         for host in self.zapi.host.get(output="extend"):
             # print(host['hostid'])
-            ret = host_list.append(host['hostid'])
+            host_list.append(host['hostid'])
 
         return host_list
 
