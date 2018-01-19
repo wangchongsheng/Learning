@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    //创建方式一
+    var s='hEllo';
+    //创建方式二
+    var s2=new String("hello");
+
+//String对象的属性 length
+//    alert(s.length);
+
+    //遍历字符串：
+//    for (i in s){alert(console.log(s[i]))};
+
+//----------String方法---------
+    //编排方法
+//    document.write(s.italics());
+//    document.write(s.bold());
+//    document.write(s.anchor("Alice"));
+    //大小写转换：
+//     console.log(s.toUpperCase());
+//     console.log(s.toLowerCase());
+//    获取指定字符
+//    console.log(s.charAt(3));
+//    console.log(s.charCodeAt("3"))
+
+//  查询字符串: match(); search();
+//    console.log(s.search("l")); //返回的第一个匹配结果的索引值
+//    console.log(s.match("E")[0]); //返回数组，里面是所有匹配结果
+//    console.log(s.match("l")[1]); //返回数组，里面是所有匹配结果
+    console.log(s.indexOf('l'));
+    console.log(s.lastIndexOf("l"));
+//replace concat split
+//    console.log(s.replace("E","e"));
+//    console.log(s.split("E"));
+//    console.log(s.concat("world"))
+
+    // 截取字符串
+//    console.log(s.substr(1,1)); //按索引取值
+//    console.log(s.substring(1,3)); //按个数取值
+//    console.log(s.slice(1,-2)); //从起一个开始取，取到倒数第二个
+
+</script>
+</body>
+</html>

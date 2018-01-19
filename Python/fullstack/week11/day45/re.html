@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+//    var re_obj=new RegExp("\d+","gi")
+//    alert(re_obj.test("asafsf3asf4asf"))
+
+
+    var s="hello545dfsg4545463";
+    alert(s.match(/\d+/g)); //取出所有匹配的内容放到数组里
+    alert(s.search(/\d+/g)); //去除第一个结果的索引值
+
+    alert(s.split(/\d+/g)); //取出第一个结果的索引值
+    alert(s.replace(/\d+/g,"*")); //取出第一个结果的索引值
+</script>
+
+</body>
+</html>
