@@ -8,8 +8,17 @@
 <input type="text" id="clock" style="width: 260px">
 <input type="button" value="begin" onclick="begin_clock()">
 <input type="button" value="End" onclick="End()">
+<input type="button" value="timeout" onclick="ft()">
 
 <script>
+    function Timeout() {
+        alert(123);
+
+    }
+    function ft() {
+        setTimeout(Timeout,1000);
+    }
+
     function begin(){
         var stime=getTime();
         var ret=document.getElementById("clock");

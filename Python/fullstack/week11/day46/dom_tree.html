@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1">
+    <div>hello div</div>
+    <p>hello p</p>
+</div>
+
+<script>
+    var ele = document.getElementById("div1");
+
+//    var ele2=ele.firstChild;
+//        alert(ele2.nodeName);
+//    var ele3=ele.lastChild;
+//        alert(ele3.nodeName);
+
+//    var ele3=ele.childNodes;
+//    alert(ele3.length);
+
+//    console.log(ele.nodeName)
+//    console.log(ele.nodeType)
+//    console.log(ele.nodeValue)
+
+//    var ele_sons=ele.children;
+//    alert(ele_sons.lenth);
+//    alert(ele_sons[0]);
+
+//    for (var i=0;i<ele_sons.length;i++){
+//        console.log(ele_sons[i])
+//    }
+
+    var ele=document.getElementById("div1").firstElementChild;
+    var  sib=ele.nextElementSibling;
+    alert(sib.nodeName)
+
+    //这些属性是为了对文档树进行导航
+
+</script>
+
+</body>
+</html>
