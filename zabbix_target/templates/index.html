@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zabbix Moniter</title>
+    <meta http-equiv="refresh" content="30" />
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div class="left-div">
+        <div class="title_list">ZABBIX故障列表</div>
+        {% for i in target %}
+            {% if "信息" in i %}
+                <div class="target_info">{{ i }}</div>
+            {% elif "警告" in i%}
+                <div class="target_warning">{{ i }}</div>
+            {% elif "故障" in i %}
+                <div class="target_ave">{{ i }}</div>
+            {% elif "严重" in i %}
+                <div class="target_high">{{ i }}</div>
+            {% elif "灾难" in i %}
+                <div class="target_dis">{{ i }}</div>
+            {% else %}
+                <div class="target_ok">{{ i }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+<div class="right-div">
+    <div class="title_graph">流量图</div>
+</div>
+
+</body>
+</html>
