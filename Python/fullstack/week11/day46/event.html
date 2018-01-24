@@ -13,12 +13,12 @@
 <script>
     function  func1() {
 //        alert(111)
-        var ky=document.getElementsByClassName("keyword");
+        var ky=document.getElementsByClassName("keyword")[0];
         ky.value="";
     }
     function func2() {
-        var ky=document.getElementsByClassName("keyword");
-        if(ky.value.trim().length=0){
+        var ky=document.getElementsByClassName("keyword")[0];
+        if(ky.value.trim().length==0){
             ky.value="请输入用户名";
         }
 

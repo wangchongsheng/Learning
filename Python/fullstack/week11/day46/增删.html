@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            height: 200px;
+            background-color: #9db36a;
+        }
+    </style>
+</head>
+<body>
+
+<div id="div1">
+    <div id="div2">hello div2</div>
+    <p>hello p</p>
+</div>
+<input type="button" value="添加p" onclick="add();">
+
+
+<script>
+    function add() {
+        var ele=document.getElementById("div1");
+        var son=document.createElement("p");
+        son.innerHTML="hello pppppp";
+        ele.appendChild(son);
+    }
+</script>
+</body>
+</html>

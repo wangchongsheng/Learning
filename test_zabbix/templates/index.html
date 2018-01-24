@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zabbix Moniter</title>
+    <meta http-equiv="refresh" content="30" />
+</head>
+<body>
+<select>
+    {% for i in NodeInfo %}
+        <option>{{ i }}</option>
+    {% endfor %}
+</select>
+<select>
+    {% for Host in HostInfo %}
+    <option>{{ Host }}</option>
+    {% endfor %}
+</select>
+<div>
+    {% for ITEM in item %}
+    <div>{{ ITEM }}</div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

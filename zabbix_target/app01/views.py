@@ -78,7 +78,7 @@ class pyzabbixAPI(object):
         groupname = [group['name'] for group in groups]
         return ' '.join(groupname)
 
-def templates(request):
+def zabbix(request):
     # return  HttpResponse(main())
     papi = pyzabbixAPI()
     zapi = papi.login()

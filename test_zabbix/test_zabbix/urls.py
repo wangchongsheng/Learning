@@ -1,4 +1,4 @@
-"""zabbix_target URL Configuration
+"""test_zabbix URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -15,9 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app01 import views
-
+from moniter import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('zabbix', views.zabbix),
+    path('zabbix',views.zabbix)
 ]

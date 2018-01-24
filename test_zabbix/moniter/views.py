@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 #!/usr/bin/env python
 # Version = 3.5.2
 # __auth__ = '无名小妖'
@@ -197,7 +199,7 @@ class Zabbix:
         #     """
         #     return self.zb.host.delete(hostids)
 
-
+'''
 if __name__ == "__main__":
     zabbix_server = Zabbix()
     zabbix_list=[]
@@ -220,3 +222,28 @@ if __name__ == "__main__":
             # print(zabbix_server.host_del(10155))
             # print(zabbix_server.get_maintenance())
             # print(zabbix_server.del_maintenance(15)))
+'''
+def zabbix(request):
+    zabbix_server = Zabbix()
+    NodeInfo = []
+    HostInfo = []
+    item = []
+    for i in zabbix_server.get_hostgroup():
+        if i['groupid'] in ["1", "2", "5", "6", "7"]:
+            pass
+        else:
+            # NodeInfo.append("-------------------------------------------")
+            # NodeInfo.append("{0}{1}  {2}{3}".format("GroupID:", i["groupid"], "NodeName:", i['name']))
+            NodeInfo.append(i['name'])
+            for Host in zabbix_server.get_hostid(i["groupid"]):
+                # HostInfo.append("{0}{1}  {2}{3}".format("HostID:", Host['hostid'], "HostName:", Host['name']))
+                HostInfo.append(Host['name'])
+                # for moniter in zabbix_server.get_template():
+                    # if "10001" in moniter:
+                    # item.append(moniter)
+    item.append(zabbix_server.get_template())
+                # for moniter in zabbix_server.history_get():
+                #     item.append(moniter)
+
+    return render(request,'index.html',{'NodeInfo':NodeInfo,'HostInfo':HostInfo,'item':item})
+
