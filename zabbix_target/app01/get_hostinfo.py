@@ -1,7 +1,3 @@
-from django.shortcuts import render
-from django.http import  HttpResponse
-
-# Create your views here.
 from pyzabbix import ZabbixAPI
 import time
 
@@ -81,12 +77,3 @@ class pyzabbixAPI(object):
         )[0]['groups']
         groupname = [group['name'] for group in groups]
         return ' '.join(groupname)
-
-def zabbix(request):
-    # return  HttpResponse(main())
-    papi = pyzabbixAPI()
-    zapi = papi.login()
-    Host = papi.getCurIssue(zapi)[0][::-1]
-    target = papi.getCurIssue(zapi)[1][::-1] #列表倒序
-    Time = papi.getCurIssue(zapi)[2][::-1]
-    return render(request,'index.html',{'Host':Host,'target':target,"Time":Time})

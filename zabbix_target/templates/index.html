@@ -9,7 +9,13 @@
 <body>
     <div class="left-div">
         <div class="title_list">ZABBIX故障列表</div>
-        {% for i in target %}
+        <div style="width: 15%;float: left">
+            {% for Hostinfo in Host %}
+                <div class="target_info">{{ Hostinfo }}</div>
+            {% endfor %}
+        </div>
+        <div style="width: 65%;float: left">
+            {% for i in target %}
             {% if "信息" in i %}
                 <div class="target_info">{{ i }}</div>
             {% elif "警告" in i%}
@@ -23,7 +29,13 @@
             {% else %}
                 <div class="target_ok">{{ i }}</div>
             {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
+        <div style="width: 20%;float: left">
+            {% for timeinfo in Time %}
+                <div class="target_info">{{ timeinfo }}</div>
+            {% endfor %}
+        </div>
     </div>
 <div class="right-div">
     <div class="title_graph">

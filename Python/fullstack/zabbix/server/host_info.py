@@ -199,17 +199,48 @@ class Zabbix:
 
 
 if __name__ == "__main__":
+    # zabbix_server = Zabbix()
+    # zabbix_list=[]
+    # for i in zabbix_server.get_hostgroup():
+    #     if i['groupid'] in ["1","2","5","6","7"]:
+    #         pass
+    #     else:
+    #         zabbix_list.append("-------------------------------------------")
+    #         zabbix_list.append("{0}{1}  {2}{3}".format("GroupID:",i["groupid"],"NodeName:",i['name']))
+    #         for Host in zabbix_server.get_hostid(i["groupid"]):
+    #             zabbix_list.append("{0}{1}  {2}{3}".format("HostID:",Host['hostid'],"HostName:",Host['name']))
+    # print(zabbix_list)
     zabbix_server = Zabbix()
-    zabbix_list=[]
+    NodeInfo = []
+    HostInfo = []
+    item = []
     for i in zabbix_server.get_hostgroup():
-        if i['groupid'] in ["1","2","5","6","7"]:
+        if i['groupid'] in ["1", "2", "5", "6", "7"]:
             pass
         else:
-            zabbix_list.append("-------------------------------------------")
-            zabbix_list.append("{0}{1}  {2}{3}".format("GroupID:",i["groupid"],"NodeName:",i['name']))
+            # NodeInfo.append("-------------------------------------------")
+            # NodeInfo.append("{0}{1}  {2}{3}".format("GroupID:", i["groupid"], "NodeName:", i['name']))
+            NodeInfo.append(i['name'])
             for Host in zabbix_server.get_hostid(i["groupid"]):
-                zabbix_list.append("{0}{1}  {2}{3}".format("HostID:",Host['hostid'],"HostName:",Host['name']))
-    print(zabbix_list)
+                # HostInfo.append("{0}{1}  {2}{3}".format("HostID:", Host['hostid'], "HostName:", Host['name']))
+                HostInfo.append(Host['name'])
+                # for moniter in zabbix_server.get_template():
+                    # if "10001" in moniter:
+                    # item.append(moniter)
+    # dic = zabbix_server.get_template()
+    # for Item in dic:
+    #     if Item in ['Template OS Linux','Template App MySQL']:
+    #         item.append(dic[Item])
+    #         # print(dic[Item])
+    #     else:
+    #         pass
+    # for i in item:
+    data = zabbix_server.history_get(10001,0)
+    print(data[0]['Template OS Linux'])
+
+        # for ItemID in item:
+            # ret = zabbix_server.history_get(ItemID,4)
+            # print(ItemID)
             # print(zabbix_server.item_get())
             # data = zabbix_server.history_get("24889",0)
             # print(zabbix_server.add_zabbix_host())

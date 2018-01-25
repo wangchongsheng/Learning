@@ -241,7 +241,16 @@ def zabbix(request):
                 # for moniter in zabbix_server.get_template():
                     # if "10001" in moniter:
                     # item.append(moniter)
-    item.append(zabbix_server.get_template())
+    dic = zabbix_server.get_template()[0]
+    for Item in dic:
+        if Item in ['Template OS Linux', 'Template App MySQL']:
+            # item.append(dic[Item])
+            item.append(dic[Item])
+        else:
+            pass
+        for ItemID in item:
+            ret = zabbix_server.history_get(ItemID, 3)
+    # item.append(zabbix_server.get_template()[0])
                 # for moniter in zabbix_server.history_get():
                 #     item.append(moniter)
 
