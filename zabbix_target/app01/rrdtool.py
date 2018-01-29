@@ -1,26 +1,28 @@
 import numpy as np
+import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 
-ax = plt.subplot(111)
+np.random.seed(19680801)
 
-ax.spines['right'].set_color('none')
-ax.spines['top'].set_color('none')
-ax.xaxis.set_ticks_position('bottom')
-ax.spines['bottom'].set_position(('data', 0))
-ax.yaxis.set_ticks_position('left')
-ax.spines['left'].set_position(('data', 0))
+# example data
+mu = 100  # mean of distribution
+sigma = 15  # standard deviation of distribution
+x = mu + sigma * np.random.randn(437)
 
-x = np.linspace(-np.pi, np.pi, 256, endpoint=True)
-C, S = np.cos(x), np.sin(x)
+num_bins = 50
 
-plt.plot(x, C, color='red', linewidth=2.5, linestyle='-', label=r'$cos(t)$')
-plt.plot(x, S, color='blue', linewidth=2.5, linestyle='-', label=r'$sin(t)$')
+fig, ax = plt.subplots()
 
-plt.xlim(x.min() * 1.1, x.max() * 1.1)
-plt.xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi],
-           [r'$-\pi$', r'$-\pi/2$', r'$0$', r'$+\pi/2$', r'$+\pi$'])
+# the histogram of the data
+n, bins, patches = ax.hist(x, num_bins, normed=1)
 
-plt.ylim(C.min() * 1.1, C.max() * 1.1)
-plt.yticks([-1, 0, +1],
-           [r'$-1$', r'$0$', r'$+1$'])
+# add a 'best fit' line
+y = mlab.normpdf(bins, mu, sigma)
+ax.plot(bins, y, '--')
+ax.set_xlabel('Smarts')
+ax.set_ylabel('Probability density')
+ax.set_title(r'Histogram of IQ: $\mu=100$, $\sigma=15$')
+
+# Tweak spacing to prevent clipping of ylabel
+fig.tight_layout()
 plt.show()

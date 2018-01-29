@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bigger{
+            font-size: 40px;
+            color: #9785c6;
+        }
+        .small{
+            font-size: 10px;
+            color: #9db36a;
+        }
+    </style>
+</head>
+<body>
+
+<div id="div1">
+    asfsfasfasfasfgasfasgahgxfakl
+</div>
+<input type="button" onclick="change('bigger');" value="Big">
+<input type="button" onclick="change('small');" value="Small">
+
+
+<script>
+    function change(a) {
+        var ele=document.getElementById('div1');
+        ele.classList.add(a);
+    }
+
+
+//    function changeBig() {
+//        var ele=document.getElementById("div1");
+//
+//        ele.classList.add("bigger")
+//    }
+//    function changeSmall() {
+//        var ele=document.getElementById("div1");
+//
+//        ele.classList.add("small")
+//    }
+
+//    function changeBig(){
+//        var ele=document.getElementById('div1')
+//        ele.style.fontSize="30px";
+//    }
+//    function changeSmall(){
+//        var ele=document.getElementById('div1')
+//        ele.style.fontSize="15px";
+//    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--<a href="javascript:show()" >hello</a>-->
+<div>hello
+    <div>hello 2
+       <div onclick="show(this)" alice="123">asdf</div>
+        <p>fafa</p>
+    </div>
+    <a href="#">aaaaa</a>
+</div>
+
+<script>
+    function show(self) {
+        console.log(self.getAttribute("alice"));
+    }
+</script>
+</body>
+</html>

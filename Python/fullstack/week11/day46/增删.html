@@ -15,16 +15,27 @@
 <div id="div1">
     <div id="div2">hello div2</div>
     <p>hello p</p>
+
 </div>
 <input type="button" value="添加p" onclick="add();">
+<input type="button" value="删除P" onclick="remove();">
 
 
 <script>
     function add() {
         var ele=document.getElementById("div1");
         var son=document.createElement("p");
-        son.innerHTML="hello pppppp";
+        son.innerHTML="<em>hello pppppp</em>";
+//        son.innerText="<em>hello ppp</em>";
         ele.appendChild(son);
+    }
+    function remove() {
+        var ele=document.getElementById("div1");
+
+        var last_son=ele.lastChild;
+
+        ele.removeChild(last_son)
+
     }
 </script>
 </body>

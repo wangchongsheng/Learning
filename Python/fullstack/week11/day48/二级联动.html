@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<select id="province" onchange="func1(this)">
+
+</select>
+
+
+<select id="city">
+
+</select>
+
+
+<script>
+
+    data ={"河北省":["邯郸","廊坊"],"北京":["海淀","朝阳"],"山东省":["青岛","济南"]};
+    //方式一  动态创建
+    var pro=document.getElementById("province");
+
+    for (var i in data){
+        var option_pro=document.createElement("option")//<option></option>
+        option_pro.innerHTML=i;
+        pro.appendChild(option_pro)
+    }
+    function func1(self) {
+        alert(self.options[self.selectedIndex]).innerHTML)
+    }
+
+
+//    function func() {
+//        var pro = document.getElementById("province");
+//        console.log(pro.value)
+//    }
+</script>
+</body>
+</html>

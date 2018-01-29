@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 200px;
+            height:200px;
+            background-color: #9db36a;
+        }
+        #div2{
+            width: 100px;
+            height: 100px;
+            background-color: #9785c6;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" onclick="alert('div1')">
+    <div id="div2" onclick="func1(event)"></div>
+</div>
+
+<script>
+    function func1(e) {
+        alert('div2')
+        e.stopPropagation()  //阻止事件传播
+    }
+</script>
+</body>
+</html>

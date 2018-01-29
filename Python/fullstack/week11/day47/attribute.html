@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="div1">hello div
+<input id="add" type="button" value="add">
+</div>
+
+<script>
+    var ele=document.getElementById('add');
+
+    ele.onclick=function () {
+    var div1=document.getElementsByClassName('div1')[0];
+        var img=document.createElement("img");
+//        img.setAttribute("src",'222.jpg');
+//        img.src="222.jpg";  //dynamic html（动态html，增强型html）
+        div1.appendChild(img);
+
+    }
+</script>
+</body>
+</html>
