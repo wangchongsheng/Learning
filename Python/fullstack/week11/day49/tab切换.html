@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style></style>
+</head>
+<body>
+
+    <div class="tab_outer">
+        <ul class="menu">
+            <li  xxx="c1" class="current" onclick="tab(this);">菜单一</li>
+            <li  xxx="c2" onclick="tab(this);">菜单二</li>
+            <li  xxx="c3" onclick="tab(this);">菜单三</li>
+        </ul>
+        <div class="content">
+            <div id="c1">内容一</div>
+            <div id="c2" class="hide">内容二</div>
+            <div id="c3" class="hide">内容三</div>
+        </div>
+    </div>
+
+
+<script>
+    function tab(self) {
+        $(self).addClass("current");
+        $(self).siblings().removeClass("current");
+        $(self).addClass("current").siblings().removeClass("current");
+    }
+
+</script>
+</body>
+</html>

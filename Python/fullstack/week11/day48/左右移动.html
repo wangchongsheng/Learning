@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box_L,#choice,#box_R{
+            display:inline-block;
+        }
+
+        #choice{
+            /*position: absolute;*/
+        }
+
+    </style>
+</head>
+<body>
+<div id="box_L">
+    <select id="left" multiple size="10">
+        <option>选项1</option>
+        <option>选项2</option>
+        <option>选项3</option>
+        <option>选项4</option>
+        <option>选项5</option>
+        <option>选项6</option>
+    </select>
+</div>
+
+
+
+<div id="choice">
+    <input type="button" value="--->" onclick="add();"><br>
+    <input type="button" value="===>" onclick="addall();"><br>
+    <input type="button" value="<---" onclick="remove()"><br>
+    <input type="button" value="<===" onclick="removeall()" ><br>
+</div>
+
+<div id="box_R">
+    <select multiple size="10" id="right">
+        <option>选项7</option>
+    </select>
+</div>
+
+
+
+<script>
+
+    var right=document.getElementById('right');
+    var left=document.getElementById('left');
+
+    function add(){
+        var options=left.children;
+        for (var i=0;i<options.length;i++){
+
+            if (options[i].selected==true){
+                options[i].selected==false;
+                right.appendChild(options[i])
+                i--;
+            }
+
+        }
+    }
+    function addall() {
+        var options=left.children;
+        for (var i=0;i<options.length;i++){
+
+                right.appendChild(options[i]);
+                i--;
+            }
+    }
+    function remove(){
+        var options=right.children;
+        for (var i=0;i<options.length;i++){
+
+            if (options[i].selected==true){
+                options[i].selected==false;
+                left.appendChild(options[i])
+                i--;
+            }
+
+        }
+    }
+    function removeall() {
+        var options=right.children;
+        for (var i=0;i<options.length;i++){
+
+                left.appendChild(options[i]);
+                i--;
+            }
+    }
+
+</script>
+
+</body>
+</html>

@@ -79,3 +79,4 @@ if __name__ == '__main__':
     zapi = papi.login()
     # print ('\n'.join(papi.getCurIssue(zapi)))
     print (papi.getHostgroupName(zapi,"2"))
+    print (papi.getHostgroupName(zapi,"4"))
