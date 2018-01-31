@@ -8,7 +8,7 @@
 </head>
 <body>
     <button onclick="selectall();">全选</button>
-    <button onclick="che();">取消</button>
+    <button onclick="cancel();">取消</button>
     <button onclick="reverse();">反选</button>
     <table border="1">
         <tr>
@@ -43,7 +43,22 @@
     
         function selectall() {
             $("table :checkbox").each(function () {
-                $(this).prop("checked","true")
+                $(this).attr("checked","true")
+            })
+        }
+        function cancel() {
+            $("table :checkbox").each(function () {
+                $(this).removeAttr("checked")
+            })
+        }
+        function reverse() {
+            $("table :checkbox").each(function () {
+                if($(this).attr("checked")){
+                    $(this).removeAttr("checked");
+                }
+                else {
+                    $(this).attr("checked","true")
+                }
             })
         }
     </script>
