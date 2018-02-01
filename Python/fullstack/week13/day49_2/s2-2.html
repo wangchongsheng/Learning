@@ -1,0 +1,91 @@
+<!--<!DOCTYPE html>-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .menu{
+            position: absolute;
+            left: 200px;
+            top: 48px;
+            bottom: 0;
+            width: 220px;
+            border: 1px solid red;
+
+        }
+        .fafafa{
+            position: fixed;
+            top: 0;
+        }
+        .menu a{
+            display: block;
+        }
+        .active{
+            background-color: #507aa4;
+            color: white;
+        }
+    </style>
+</head>
+<body onscroll="Gun();" style="margin: 0">
+    <div style="height: 48px;background-color: #9785c6"></div>
+    <div id="menu" class="menu">
+        <a b="1">菜单一</a>
+        <a b="2">菜单二</a>
+        <a b="3">菜单三</a>
+        <a b="4">菜单四</a>
+    </div>
+    <div id="content" style="position: absolute;left: 420px;right: 200px;top: 48px; bottom: 0;border: 1px solid green">
+        <div id="ii1" a="1" style="height: 500px;background-color: #9db36a"></div>
+        <div id="ii2" a="2" style="height: 900px;background-color: #6f6f6f"></div>
+        <div a="3" style="height: 1000px;background-color: #507aa4"></div>
+        <div a="4" style="height: 800px;background-color: #2459a2"></div>
+    </div>
+    <div onclick="GoTop()" style="cursor: pointer; position: fixed;right: 0;bottom: 0;width: 40px;background-color: #6f6f6f;color: white;border: 1px solid blue">返回顶部</div>
+    <script src="jquery-2.1.4.min.js"></script>
+    <script>
+        function GoTop() {
+            $(window).scrollTop(0);
+        }
+        function Gun() {
+           var scrollTop = $('body').scrollTop();
+//           var scrollTop = document.documentElement.scrollTop;
+           if(scrollTop>48){
+               $("#menu").addClass("fafafa");
+           }else {
+               $("#menu").removeClass("fafafa");
+           }
+//           var title=49;
+////           $("ii1").offset().top;
+//            var top = title - scrollTop;
+//           if(top<0){
+//               $("active1").addClass("active")
+//           }
+
+            $('#content').children().each(function () {
+                var eleTop=$(this).offset().top;
+                var winTop= eleTop - scrollTop;
+//                console.log(winTop);
+                var winBottomTop = eleTop + $(this).height() -scrollTop;
+
+                var docHeight= $(document).height();
+                var winHeight= $(window).height();
+                if(docHeight - winHeight == scrollTop){
+                    $('#menu a:last').addClass('active').siblings().removeClass('active')
+
+                }else {
+                   if(winTop<=0 && winBottomTop > 0){
+                    //当前内容对应菜单应该被选中
+                    var a = $(this).attr('a');
+//                    console.log(a)
+                    $('#menu a[b="'+a+'"]').addClass('active').siblings().removeClass('active');
+                    // 不再继续检查其他内容
+                    return;
+                    }
+                }
+            })
+        }
+
+    </script>
+</body>
+</html>

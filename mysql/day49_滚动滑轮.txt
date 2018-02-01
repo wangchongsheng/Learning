@@ -30,3 +30,11 @@
 	c. 如何获得某个标签到顶部的高度
 		$("xx").offset() 获取当前标签距离文档顶部高度
 		
+		$("xx").height() 		永远获取自己的高度； 		获取当前标签自己的高度
+		$("xx").innerHeight() 	永远获取自己高度+padding；	获取第一个匹配元素内部高度（包括补白，不包括边框）
+		$("xx").outerHeight() 	
+								参数一： false：
+									永远获取自己高度+padding+border； 获取第一个匹配元素外部高度（默认包括补白和边框）
+								参数二：
+									永远获取自己高度+padding+border+margin;
+		

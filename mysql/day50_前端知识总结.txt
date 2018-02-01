@@ -1,0 +1,53 @@
+1、 为什么要有HTML？
+	“Hello”
+	<h1>hello</h1>
+	 - 浏览器渲染时使用一套HTML规则
+	 - 学习规则
+2、 服务器写HTML时
+	在任何语言的WEB框架中：HTML就做模板
+		- .html
+		- .tpl  template
+		- .chtml
+		
+3、发送请求和相应请求时
+	请求：
+		请求头
+		
+		请求内容
+	
+	相应：
+		。。。。
+
+4、HTML规则
+	- html/head/body/title/meta
+	- div/p/a/h/span/b/br/hr/em/ul/ol/li/table
+	- input/from/textarea/select
+	- style/script/link
+	
+5、CSS
+	选择器：
+		#id {}
+		.class {}
+		div {}
+		
+		.c1 #id a {}
+			.c{
+				background-color:red;
+			}
+			.c1{
+				font-size: 56px;
+			}
+			.c2{
+				font-size: 18px;
+			}
+			
+		举例：
+			颜色、大小、高度、宽度、内外边距、边框、浮动、定位、字体、居中、超出、下划线、显示、分层、透明的
+			:hover,:after,:before,圆角
+			
+			重要：
+				float,	清除浮动 ：after
+				a. 已知外层高度
+					内元素浮动
+				b. 位置外层高度
+					- 原始：沉底位置 <div style='clear: both;'></div>
