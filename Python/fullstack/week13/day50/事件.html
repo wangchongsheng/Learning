@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p id="p1" onclick="func1(this)">hello p</p>
+
+<script>
+//    function func1(self) {
+//        alert(self.innerHTML)
+//    }
+
+    var ele = document.getElementById("p1")
+    ele.onclick=function () {
+        alert(this.innerHTML)
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div style="border: 1px solid #ddd;width: 600px;position: absolute;">
+        <div id="title" style="background-color: black;height: 40px;color: white;">
+            标题
+        </div>
+        <div style="height: 300px;">
+            内容
+        </div>
+    </div>
+<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+<script>
+    $("#title").mouseover(function () {
+        $(this).css("cursor","move")
+    })
+</script>
+</body>
+</html>
