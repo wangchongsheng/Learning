@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p>hello p</p>
+
+<script src="jquery-2.1.4.min.js"></script>
+<script>
+
+    //直接调用
+//    $.extend({
+//        getmax:function (a,b) {
+//            return a>b?a:b
+//        }
+//    });
+//
+//    alert($.getmax(5,8));
+
+
+//通过标签对象调用,私有域
+    (function ($) {
+        var num=13;
+       $.fn.extend({
+        print:function () {
+            console.log($(this).html())
+        }
+    });
+    })(jQuery);
+
+     $("p").print();
+
+</script>
+</body>
+</html>

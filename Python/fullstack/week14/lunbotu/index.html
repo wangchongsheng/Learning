@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style-type: none;
+        }
+        .outer{
+            margin: 50px auto;
+            height: 340px;
+            width: 790px;
+            position: relative;
+        }
+        img{
+          height: 340px;
+          width: 790px;
+        }
+        .img li{
+           position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .num{
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .num li{
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            background-color: gray;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 50%;
+            margin: 0 10px;
+
+        }
+
+        .btn{
+            position: absolute;
+            height: 60px;
+            width: 30px;
+            background-color: #6f6f6f;
+            color: white;
+            text-align: center;
+            line-height: 60px;
+            top: 50%;
+            margin-top: -30px;
+            display: none;
+        }
+        .left_btn{
+            left: 0;
+        }
+        .right_btn{
+            right: 0;
+        }
+        .outer:hover .btn{
+            display: block;
+        }
+        .current{
+            background-color: red!important; //优先级
+        }
+
+    </style>
+</head>
+<body>
+<div class="outer">
+    <ul class="img">
+        <li><a ><img src="img/1.jpg" alt=""></a></li>
+        <li><a ><img src="img/2.jpg" alt=""></a></li>
+        <li><a ><img src="img/3.jpg" alt=""></a></li>
+        <li><a ><img src="img/4.jpg" alt=""></a></li>
+    </ul>
+    <ul class="num">
+        <li class="current">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div class="left_btn btn"><</div>
+    <div class="right_btn btn">></div>
+</div>
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script>
+    $(".num li").mouseenter(function () {
+        $(this).addClass(current).siblings().removeClass(current)
+        var index=$(this).index()
+
+        $(".img li").eq(index).fadeIn(1000).siblings().fadeOut(1000)
+    });
+</script>
+</body>
+</html>

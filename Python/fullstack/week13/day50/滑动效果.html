@@ -7,8 +7,6 @@
 <body>
 
 <div id="div" style="display:none;width: 200px;height: 200px;background-color: #303a40;"></div>
-<div id="div1" style="display:none;width: 200px;height: 200px;background-color: red;"></div>
-<div id="div2" style="display:none;width: 200px;height: 200px;background-color: rebeccapurple;"></div>
 <input id="In" type="button" value="Down">
 <input id="Out" type="button" value="Up">
 <input id="Toggle" type="button" value="Toggle">
@@ -16,7 +14,7 @@
 <script src="jquery-2.1.4.min.js"></script>
 <script>
     $("#In").click(function () {
-        $("div").slideDown(2000);
+        $("div").slideDown(2000)
     });
     $("#Out").click(function () {
         $("div").slideUp(2000)
