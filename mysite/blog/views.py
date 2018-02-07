@@ -56,14 +56,15 @@ def index(req):
     return redirect("https://www.baidu.com")
 
 def login(req):
-
     if req.method=="POST":
         if 1:
-            return redirect("https://www.baidu.com")
+            return redirect("/home/")
 
-        return redirect("blog/login")
-
+            # render 不作页面跳转
+            # name="wcs"
+            # return render(req,'home.html',locals())
     return render(req,"login.html")
 
-def introduce(req):
-    return HttpResponse("OK")
+def home(req):
+    name="Csking"
+    return render(req,'home.html',{"name":name})

@@ -8,7 +8,7 @@ from django.urls import path, re_path, include
 from blog import views
 
 urlpatterns = [
-    path("new/store/",views.introduce),
+    # path("new/store/",views.introduce),
     path("pay/index/",views.index),
-    path("login",views.login),
+    # path("login",views.login),
     ]

@@ -19,7 +19,9 @@ from blog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include('blog.urls'))
+    # path('blog/', include('blog.urls')),
+    path('login/',views.login),
+    path('home/',views.home),
 
     # path('cur_time/',views.cur_time),
     # path("userInfo/",views.userInfo),

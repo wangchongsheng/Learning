@@ -16,6 +16,7 @@
             height: 340px;
             width: 790px;
             position: relative;
+            cursor: default;
         }
         img{
           height: 340px;
@@ -75,10 +76,10 @@
 <body>
 <div class="outer">
     <ul class="img">
-        <li><a ><img src="img/1.jpg" alt=""></a></li>
-        <li><a ><img src="img/2.jpg" alt=""></a></li>
-        <li><a ><img src="img/3.jpg" alt=""></a></li>
-        <li><a ><img src="img/4.jpg" alt=""></a></li>
+        <li><a ><img src="img/1.jpg" ></a></li>
+        <li><a ><img src="img/2.jpg" ></a></li>
+        <li><a ><img src="img/3.jpg" ></a></li>
+        <li><a ><img src="img/4.jpg" ></a></li>
     </ul>
     <ul class="num">
         <li class="current">1</li>
@@ -92,12 +93,44 @@
 
 <script src="js/jquery-2.1.4.min.js"></script>
 <script>
-    $(".num li").mouseenter(function () {
-        $(this).addClass(current).siblings().removeClass(current)
-        var index=$(this).index()
-
-        $(".img li").eq(index).fadeIn(1000).siblings().fadeOut(1000)
+    $(".num li").mouseover(function () {
+        $(this).addClass("current").siblings().removeClass("current");
+        var index=$(this).index();
+        var i = index;
+        $(".img li").eq(index).stop().fadeIn(1000).siblings().fadeOut(1000)
     });
+    var time=setInterval(move,1500);
+    var i =0;
+    function move() {
+        if(i==4){
+            i=-1;
+        }
+        i++;
+        $(".num li").eq(i).addClass("current").siblings().removeClass("current");
+        $(".img li").eq(i).stop().fadeIn(1000).siblings().fadeOut(1000)
+    }
+
+    function move_L(){
+        if(i==0){
+            i=4;
+        }
+        i--;
+        $(".num li").eq(i).addClass("current").siblings().removeClass("current");
+        $(".img li").eq(i).stop().fadeIn(1000).siblings().fadeOut(1000)
+    }
+
+    $(".outer").hover(function () {
+        clearInterval(time);
+    },function () {
+        time=setInterval(move,1500)
+    });
+
+    $(".right_btn").click(function(){
+        move();
+    });
+    $(".left_btn").click(function () {
+        move_L()
+    })
 </script>
 </body>
 </html>
