@@ -1,4 +1,4 @@
-"""mysite URL Configuration
+"""django_template URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -14,24 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path, include
-from blog import views
+from django.urls import path
+from app01 import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('blog/', include('blog.urls')),
-    path('login/',views.login),
-    path('home/',views.home),
-    path('cur_time/',views.cur_time),
-
-    # path('cur_time/',views.cur_time),
-    # path("userInfo/",views.userInfo),
-
-    # re_path(r'^articles/[0-9]{4}/$',views.special_case_2003),
-
-    # re_path(r'^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$',views.year_archive),
-
-    # path("index",views.index,{"name":"Alice"}),
-    # path("pay/index/",views.index,name="alice")
-
+    path('index/',views.index)
 ]
