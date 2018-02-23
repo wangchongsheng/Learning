@@ -5,14 +5,52 @@
     <title>Title</title>
 </head>
 <body>
-{# 模板没有[] #}
+<h1>Template</h1>
+{#模板语言#}
 
+{#{{ obj.2 }}#}
+{#{{ obj.username }}#}
 
+{#{{ obj }}<br>#}
+{#{{ obj.year }}<br>#}
+{#{{ obj.month }}<br>#}
+
+{#{{ obj.name }}#}
+{#{{ obj.age }}#}
 {#{{ obj }}#}
-{#{{ obj.year }}#}
-{#{{ obj.month }}#}
 
-{{ obj.name }}
-{{ obj.age }}
+{#{% if False %}#}
+{#    <p>hello world</p>#}
+{#{% elif obj %}#}
+{#    <p>hello2</p>#}
+{#{% endif %}#}
+
+{# 循环以及索引 #}
+{#{% for i in obj %}#}
+{#    <p>{{ forloop.counter }}:{{ i }}</p>#}
+{#    <p>{{ forloop.counter0 }}:{{ i }}</p>#}
+{#    <p>{{ forloop.revcounter }}:{{ i }}</p>#}
+{#{% endfor %}#}
+
+{# hello #}
+{#{{ obj|upper }}#}
+{#{{ obj|lower }}#}
+{#{{ obj|first }}#}
+{#{{ obj|capfirst }}#}
+
+{#{{ obj|add:5 }}#}
+
+
+{#{{ obj|default:'空' }}#}
+
+{#{<a href="#">跳转</a>}#}
+
+{% autoescape off %}
+    {{ obj }}
+{% endautoescape %}
+
+{{ obj|safe }}
+
+
 </body>
 </html>

@@ -155,7 +155,7 @@ enabled=1
 autorefresh=1
 type=rpm-md
 
-执行以下命令安装logstash:
+执行以下命令安装filebeat:
 [root@172 ~]# yum clean all && yum makecache
 [root@172 ~]# yum -y install filebeat
 

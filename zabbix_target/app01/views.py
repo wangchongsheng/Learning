@@ -16,7 +16,7 @@ class pyzabbixAPI(object):
         返回 api 接口
         '''
         zapi = ZabbixAPI('http://120.27.232.133:20000/zabbix')
-        zapi.login('Admin', 'zabbix')
+        zapi.login('Admin', 'shengyan777.com')
         return zapi
 
     def getCurIssue(self, zapi):
@@ -89,4 +89,5 @@ def zabbix(request):
     Host = papi.getCurIssue(zapi)[0][::-1]
     target = papi.getCurIssue(zapi)[1][::-1] #列表倒序
     Time = papi.getCurIssue(zapi)[2][::-1]
-    return render(request,'index.html',{'Host':Host,'target':target,"Time":Time})
+    # return render(request,'index.html',{'Host':Host,'target':target,"Time":Time})
+    return render(request,'index.html',locals())

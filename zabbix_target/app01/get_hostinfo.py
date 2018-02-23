@@ -12,7 +12,7 @@ class pyzabbixAPI(object):
         返回 api 接口
         '''
         zapi = ZabbixAPI('http://120.27.232.133:20000/zabbix')
-        zapi.login('Admin', 'zabbix')
+        zapi.login('Admin', 'shengyan777.com')
         return zapi
 
     def getCurIssue(self, zapi):
