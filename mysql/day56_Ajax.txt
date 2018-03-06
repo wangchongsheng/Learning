@@ -11,4 +11,27 @@
 
 3 基于jQuery的Ajax的实现
 
-	$.ajax()
+	$.ajax(
+	url:
+	type: "POST"
+	)
+	
+	$.get(,,,type:Json)
+	$.post()
+	$.getJson()
+	$.getScript() #实时加载
+	
+	------------------------
+	1 $.ajax({
+	url:"/ /",
+	
+	})
+	2 $.ajax("",{
+	
+	})
+	-------------------
+	$.ajax({
+	url:"",
+	type:"POST",
+	data:{},
+	})

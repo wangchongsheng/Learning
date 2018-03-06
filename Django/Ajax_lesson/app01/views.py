@@ -15,7 +15,20 @@ def ajax_receive(req):
 def ajax_register(req):
     if req.method=="POST":
         username=req.POST.get("username")
+        print(username)
         if username=="alex":
             return HttpResponse("1")
+
         return HttpResponse("0")
     return render(req,"register.html")
+
+
+def jquery_test(req):
+
+    return render(req,"ajax_jquery.html")
+
+def jquery_get(req):
+
+    print(req.POST)
+    return HttpResponse("OK")
+

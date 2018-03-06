@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="func1()">ajax提交</button>
+
+
+<script src="/static/jquery-2.1.4.min.js"></script>
+<script>
+    function func1(){
+        Test();
+    }
+
+    function Test() {
+        //$.get("/jquery_get/?a=123");
+        //$.get("/jquery_get/",{name:'alex'});
+        //$.post("/jquery_get/")
+
+        //回调函数
+       // $.post("/jquery_get/",{name:'alex'},function (data,stateText,obj) {
+            //console.log(arguments);
+        //    console.log(data);
+       //     console.log(stateText);
+     //       console.log(obj);
+         //   alert(data)
+      //  })
+
+
+       // $.getScript("/static/test.js",function () {
+         //   alert(add(2,5))
+        //})
+
+      $.ajax({
+          url:"/jquery_get/",
+          type:"POST",
+          data:{a:1,b:2},
+          processData:false
+      })
+
+    }
+</script>
+
+</body>
+</html>

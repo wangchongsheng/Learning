@@ -21,4 +21,6 @@ urlpatterns = [
     path('index/', views.index),
     path('ajax_receive/', views.ajax_receive),
     path('ajax_register/', views.ajax_register),
+    path('jquery_test/', views.jquery_test),
+    path('jquery_get/', views.jquery_get),
 ]

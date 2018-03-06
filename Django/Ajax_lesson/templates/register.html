@@ -6,26 +6,26 @@
 </head>
 <body>
 <form>
-    <p>用户名<input type="text" name="username" onblur="func1(this)">
+    <p>用户名<input type="text" name="username" onblur="func1(this)" value="">
         <span id="error"></span>
     </p>
     <p>密码<input type="password" name="pwd"></p>
     <input type="submit" value="submit">
 </form>
 
-<script type="application/javascript">
-    function func1(self) {
+<script>
 
+    function func1(self) {
 
         var username = self.value;
         var xmlhttp = createXMLHttpRequest();
         xmlhttp.open("POST", "/ajax_register/", true);
         xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        xmlhttp.send("username=" + username);
+        xmlhttp.send("username="+username);
 
         xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            if (xmlhttp.readyState==4 && xmlhttp.status == 200) {
                 var s=xmlhttp.responseText;
                 if (s=="1"){
                     alert("OK");
