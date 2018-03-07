@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponse
 
 # Create your views here.
-
+import json
 
 def index(req):
 
@@ -30,5 +30,9 @@ def jquery_test(req):
 def jquery_get(req):
 
     print(req.POST)
-    return HttpResponse("OK")
+    dic='"hello"'
+    # dic={'name':'alex'}
+    # HttpResponse.status_code='400'
+
+    return HttpResponse(dic)
 

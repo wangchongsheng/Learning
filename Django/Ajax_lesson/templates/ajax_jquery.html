@@ -15,30 +15,54 @@
     }
 
     function Test() {
+        {#dic={"name":"alex"};#}
+        {#console.log(dic['name']);#}
         //$.get("/jquery_get/?a=123");
         //$.get("/jquery_get/",{name:'alex'});
-        //$.post("/jquery_get/")
+
+        {#$.post("/jquery_get/",function (data) {#}
+        {#    console.log(data);#}
+        {#    console.log(typeof data);#}
+        {#    data=JSON.parse(data);#}
+        {#    console.log(typeof data);#}
+        {#    console.log(data["name"])#}
+        {#  });#}
+
+        {#$.post("/jquery_get/",{name:'alex'}#}
+
 
         //回调函数
-       // $.post("/jquery_get/",{name:'alex'},function (data,stateText,obj) {
-            //console.log(arguments);
-        //    console.log(data);
-       //     console.log(stateText);
-     //       console.log(obj);
-         //   alert(data)
-      //  })
+        {#$.post("/jquery_get/",{name:'alex'},function (data,stateText,obj) {#}
+        {#    //console.log(arguments);#}
+        {#    console.log(data);#}
+        {#    console.log(stateText);#}
+        {#    console.log(obj);#}
+        {#    alert(data)#}
+        {# }) #}
 
 
-       // $.getScript("/static/test.js",function () {
-         //   alert(add(2,5))
-        //})
+       {#$.getScript("/static/test.js",function () {#}
+       {#    alert(add(2,5))#}
+       {# })#}
 
       $.ajax({
           url:"/jquery_get/",
           type:"POST",
-          data:{a:1,b:2},
-          processData:false
-      })
+          data:{a:1,b:[3,4]},
+          {#traditional:true,#}
+          {#dataType:"json",#}
+          success:function (data) {
+              console.log(data);
+              console.log(typeof data)
+          },
+
+          error:function (data) {
+              console.log(arguments);
+              alert(data)
+          }
+          //processData:false
+          //contentType:text
+       })
 
     }
 </script>
