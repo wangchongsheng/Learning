@@ -10,6 +10,9 @@
 
 <script src="/static/jquery-2.1.4.min.js"></script>
 <script>
+
+    //jsonp:json+padding
+
     function func1(){
         Test();
     }
@@ -44,6 +47,8 @@
        {#$.getScript("/static/test.js",function () {#}
        {#    alert(add(2,5))#}
        {# })#}
+
+
 
       $.ajax({
           url:"/jquery_get/",
