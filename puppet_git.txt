@@ -1,0 +1,14 @@
+[root@192 opt]# cat install 
+1.cd puppet
+2.执行git pull
+3.修改文件内容
+4.执行git commit -am "修改内容日志"
+5.执行git push
+6.cd ../
+7.make
+[root@192 opt]# cat Makefile 
+PUPPETMASTER = 120.24.56.150
+SSH = ssh -t -A -p22 -lroot
+
+all: 
+        @$(SSH) $(PUPPETMASTER) 'cd /etc/puppet && git pull'
