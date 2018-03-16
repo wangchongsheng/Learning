@@ -19,7 +19,9 @@ from app01 import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login.html',views.login),
+    # path('login.html',views.login),
+    path('login.html',views.Login_as_view()),
+    path('logout.html',views.logout),
     path('index.html',views.index),
-    path('test.html',views.test)
+    path('classes.html',views.handle_classes)
 ]

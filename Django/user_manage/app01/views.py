@@ -32,6 +32,9 @@ def login(request):
             timeout = datetime.datetime.now()-datetime.timedelta(seconds=5)
             rep.set_cookie('username',user,expires=timeout) #设置cookie超时时间
             rep.set_cookie('email',user+'@live.com')
+
+            # rep.set_signed_cookie('username',user)
+            # rep.set_signed_cookie('pwd',pwd)
             return rep
 
         else:
@@ -49,3 +52,15 @@ def index(requst):
 
     # username="csking"
     # return render(requst,"index.html",{'username':username})
+
+from django import views
+
+class Login(views.View):
+    def get(self,request,*args,**kwargs):
+        msg=''
+        return render(request,'login.html',{'mag':msg})
+    def post(self,request,*args,**kwargs):
+        print(request.method, 'ffffffff')
+        pass
+
+
