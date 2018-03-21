@@ -4,6 +4,7 @@ from app01 import models
 
 # Create your views here.
 
+'''
 def test(request):
     obj = HttpResponse('OK')
     import datetime
@@ -48,19 +49,28 @@ def index(requst):
     if username:
         return render(requst,'index.html',{'username':username})
     else:
-        return redirect('/login.html')
+       return redirect('/login.html')
 
     # username="csking"
     # return render(requst,"index.html",{'username':username})
-
+'''
 from django import views
 
 class Login(views.View):
     def get(self,request,*args,**kwargs):
-        msg=''
-        return render(request,'login.html',{'mag':msg})
+        return render(request,'login.html',{'msg':''})
+
     def post(self,request,*args,**kwargs):
-        print(request.method, 'ffffffff')
-        pass
+        user = request.POST.get('user')
+        pwd = request.POST.get('pwd')
+        c = models.Administrator.objects.filter(username=user,password=pwd).count()
+        if c:
+            request.session['is_login'] = True
+            request.session['username'] = user
+            rep = redirect('index.html')
+            return rep
+        else:
+            message = "用户名或密码错误"
+            return render(request,'login.html',{'msg':message})
 
-
+# FBV
