@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .error-msg{
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Form提交数据</h1>
+    <form id="f1">
+        <p>
+            <input id="u" type="text" name="user" placeholder="用户名" />
+
+        </p>
+        <p>
+            <input id="e" type="text" name="email" placeholder="邮箱" />
+        </p>
+        <p>
+            <input id="p" type="text" name="pwd" placeholder="密码" />
+        </p>
+        <input id="ajax_submit" type="button" value="Ajax提交"  />
+    </form>
+    <script src="/static/jquery-2.1.4.min.js"></script>
+    <script>
+        $(function () {
+            $('#ajax_submit').click(function () {
+                $.ajax({
+                    url:"/login_ajax.html",
+                    //data: {user: $('#u').val(), email: $('#e').val(), pwd: $('#p').val()},
+                    data: $('#f1').serialize(),
+                    type: 'POST',
+                    success:function (arg) {
+
+                        $('.error-msg').remove();
+                        var v1 = JSON.parse(arg);
+                        console.log(v1);
+                        if(!v1.status){
+                            // var error_obj = JSON.parse(v1.error);
+                            var error_obj = v1.error;
+                            $.each(error_obj,function (k,v) {
+                                // k: user 或 email
+                                // v: [{}{}{},]
+                                var tag = document.createElement('span');
+                                tag.className = 'error-msg';
+                                tag.innerHTML = v[0].message;
+                                $("input[name='" + k +"']").after(tag);
+                            })
+                        }else{
+                            location.href = "/indeX.html/"
+                        }
+                        // { 'stauts': true, 'error':xx, 'data'：’‘}
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

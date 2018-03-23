@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Form提交数据</h1>
+    <form method="post" action="/login.html/"
+{#    <form method="post" action="/login.html">#}
+        <p>
+{#            <input type="text" name="user" placeholder="用户名" />#}
+            {{ oo.user }}
+            <span>{{ oo.errors.user.0 }}</span>
+        </p>
+        <p>
+{#            <input type="text" name="email" placeholder="邮箱" />#}
+            {{ oo.email }}
+            <span>{{ oo.errors.email.0 }}</span>
+        </p>
+
+        <p>
+            <input type="password" name="pwd" placeholder="密码" />
+        </p>
+        <input type="submit" value="提交" />
+        <input id="ajax_submit" type="submit" value="Ajax提交">
+    </form>
+    <script src="/static/jquery-2.1.4.min.js"></script>
+    <script>
+    </script>
+</body>
+</html>
