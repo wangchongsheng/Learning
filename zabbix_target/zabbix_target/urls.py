@@ -19,5 +19,5 @@ from app01 import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('zabbix', views.zabbix),
+    path('zabbix/', views.zabbix),
 ]
