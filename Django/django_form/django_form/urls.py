@@ -21,4 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login.html/', views.login),
     path('login_ajax.html', views.login_ajax),
+    path('detail.html', views.detail),
+    path('field.html', views.field),
+    path('widght.html', views.widght),
+    path('db.html', views.db),
 ]

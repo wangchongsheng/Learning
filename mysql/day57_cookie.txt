@@ -1,0 +1,50 @@
+Cookie是什么？
+	客户端浏览器上保存的键值对
+	设置：
+	    服务端设置的cookie
+			obj.set_cookie('k1','v1')
+			obj.set_cookie('k1','v1',max_age=10)
+			
+			v=datetime.datetime.utcnow()+datetime.timedelta(seconds=10)
+			obj.set_cookie('k1','v1',max_age=10,expires=v)
+			
+			path:
+					/		表示，全局生效
+					/xxxx/	表示，只有当前url生效
+					
+			domain:
+					obj.set_cookie('k4','v4',max_age=10,expires=v,domain='oldboy.com')
+					
+					obj.set_cookie('k1','v1')
+				
+			httponly: 仅仅HTTP网络传输使用
+		
+		客户端浏览器端设置cookie
+			dom			-->麻烦
+			jquery插件	-->
+							jquery.cookies.js
+							jquery.cookies.js
+						..
+						expires:
+
+						
+Cookie的三个重要点:
+		
+		- 客户
+		- 服务端
+		- 保存在客户端
+		
+Cookie的应用：
+	登陆认证：
+	  普通cookie
+		- 敏感信息（直接能看到），不宜放置在cookie中，敏感信息放在数据库，频繁操作数据库
+	  签名的cookie
+		- 敏感信息加密(可能会解密)
+		
+	  不宜放置在cookie中，敏感信息放在数据库，频繁操作数据库
+	    ====》 cookie做认证时候，将不敏感的信息放在cookie中，频繁操作数据库 =========
+		
+Session:
+	
+							
+		

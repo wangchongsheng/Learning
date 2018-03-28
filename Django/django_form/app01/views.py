@@ -69,3 +69,40 @@ class JsonCustonEncoder(json.JSONDecodeError):
             return {'code':field.code,'message':field.message}
         else:
             return json.JSONEncoder.default(self,field)
+
+def detail(request):
+    from app01 import forms
+    obj = forms.DetailForm()
+
+    return  render(request,'detail.html',{"obj":obj})
+
+def field(request):
+    from app01 import forms
+    if request.method == 'GET':
+        obj = forms.FieldForm()
+        return render(request, 'field.html', {'obj': obj})
+    elif request.method == 'POST':
+        obj = forms.FieldForm(request.POST)
+        obj.is_valid()
+        print(obj.clean())
+        print(obj.errors.as_json())
+        return render(request,'field.html',{'obj':obj})
+
+def widght(request):
+    from app01 import forms
+    if request.method == 'GET':
+        obj = forms.WidghtFrom()
+        return render(request, 'widght.html', {'obj': obj})
+    elif request.method == 'POST':
+        obj = forms.WidghtFrom(request.POST)
+        obj.is_valid()
+        print(obj.clean())
+        print(obj.errors.as_json())
+        return render(request,'widght.html',{'obj':obj})
+
+def db(request):
+    from app01 import forms
+    from app01 import models
+    if request.method == 'GET':
+        obj = forms.DBForm()
+        return render(request, 'db.html', {'obj': obj})
