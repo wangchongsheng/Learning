@@ -95,5 +95,11 @@
 			errors.as_data()
 			{'user':[Django对象(),]}
 			
+	d.
+		1. form表单验证的组件
+		2. 类、字段、插件
+		3. ChoiceField
+		4. 默认值(新URL编辑)
+		5. 重新构造方法来实现动态获取数据库
+
 		
-			

@@ -62,8 +62,27 @@ class FieldForm(DForms.Form):
 class WidghtFrom(DForms.Form):
     w1 = fields.CharField(widget=widgets.ClearableFileInput)
 
+from app01 import models
 class DBForm(DForms.Form):
     host = fields.CharField()
     host_type = fields.IntegerField(
-        widget=widgets.Select(choices=[(0,'SH'),(1,'BJ')])
+        # widget=widgets.Select(choices=[(0,'SH'),(1,'BJ')])
+        widget=widgets.Select(choices=[])
     )
+
+    def __init__(self,*args,**kwargs):
+        # 执行父类构造方法
+        super(DBForm,self).__init__(*args,**kwargs)
+        self.fields['host_type'].widget.choices = models.UserType.objects.all().values_list('id','caption')
+
+class InitialForm(DForms.Form):
+    username = fields.CharField()
+    user_type = fields.IntegerField(
+        widget=widgets.Select(choices=[])
+        # widget=widgets.SelectMultiple(choices=[])
+    )
+
+    def __init__(self,*args,**kwargs):
+        # 执行父类构造方法
+        super(InitialForm,self).__init__(*args,**kwargs)
+        self.fields['user_type'].widget.choices = models.UserType.objects.all().values_list('id','caption')

@@ -1,20 +1,21 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render, HttpResponse
 import json
 
 # Create your views here.
 from django import forms
+
+
 # 模板
 class LoginForm(forms.Form):
     # 模板中的元素
-    user = forms.CharField(min_length=6,error_messages={"required":"用户名不能为空","min_length":"用户名长度不能小于6位"})
-    email = forms.EmailField(error_messages={"required":"邮箱不能为空","invalid":"邮箱格式错误"})
-
+    user = forms.CharField(min_length=6, error_messages={"required": "用户名不能为空", "min_length": "用户名长度不能小于6位"})
+    email = forms.EmailField(error_messages={"required": "邮箱不能为空", "invalid": "邮箱格式错误"})
 
 
 def login(request):
     if request.method == "GET":
-        obj = LoginForm({"user":'test123','email':'test@qq.com'})
-        return render(request,'login.html',{'oo':obj})
+        obj = LoginForm({"user": 'test123', 'email': 'test@qq.com'})
+        return render(request, 'login.html', {'oo': obj})
     elif request.method == "POST":
         """
         obj =  LoginForm(request.POST)
@@ -38,13 +39,14 @@ def login(request):
             # error_obj = obj.errors
             # print(error_obj['email'][0])
             # print(error_obj['user'][0])
-        return render(request,'login.html',{'oo':obj})
+        return render(request, 'login.html', {'oo': obj})
+
 
 def login_ajax(request):
     if request.method == "GET":
-        return  render(request,'login_ajax.html')
+        return render(request, 'login_ajax.html')
     elif request.method == "POST":
-        ret = {'status':True,'error':None,'data':None}
+        ret = {'status': True, 'error': None, 'data': None}
         print(request.POST)
         obj = LoginForm(request.POST)
         if obj.is_valid():
@@ -60,21 +62,26 @@ def login_ajax(request):
             ret['status'] = False
             ret['error'] = obj.errors.as_data()
             # 一次反序列化
-        return HttpResponse(json.dumps(ret,cls=JsonCustonEncoder))
+        return HttpResponse(json.dumps(ret, cls=JsonCustonEncoder))
+
 
 from django.core.validators import ValidationError
+
+
 class JsonCustonEncoder(json.JSONDecodeError):
-    def default(self,field):
-        if isinstance(field,ValidationError):
-            return {'code':field.code,'message':field.message}
+    def default(self, field):
+        if isinstance(field, ValidationError):
+            return {'code': field.code, 'message': field.message}
         else:
-            return json.JSONEncoder.default(self,field)
+            return json.JSONEncoder.default(self, field)
+
 
 def detail(request):
     from app01 import forms
     obj = forms.DetailForm()
 
-    return  render(request,'detail.html',{"obj":obj})
+    return render(request, 'detail.html', {"obj": obj})
+
 
 def field(request):
     from app01 import forms
@@ -86,7 +93,8 @@ def field(request):
         obj.is_valid()
         print(obj.clean())
         print(obj.errors.as_json())
-        return render(request,'field.html',{'obj':obj})
+        return render(request, 'field.html', {'obj': obj})
+
 
 def widght(request):
     from app01 import forms
@@ -98,7 +106,8 @@ def widght(request):
         obj.is_valid()
         print(obj.clean())
         print(obj.errors.as_json())
-        return render(request,'widght.html',{'obj':obj})
+        return render(request, 'widght.html', {'obj': obj})
+
 
 def db(request):
     from app01 import forms
@@ -106,3 +115,15 @@ def db(request):
     if request.method == 'GET':
         obj = forms.DBForm()
         return render(request, 'db.html', {'obj': obj})
+
+
+def initial(request):
+    from app01 import forms
+    from app01 import models
+    if request.method == 'GET':
+        nid = request.GET.get('nid')
+        m = models.UserInfo.objects.filter(id=nid).first()
+        dic = {'username': m.name, 'user_type': m.ut_id, 'favor': [1, 2, 3]}
+        # dic = {'username': 'root', 'user_type': 2,}
+        obj = forms.InitialForm(dic)
+        return render(request, 'initial.html', {'obj': obj})

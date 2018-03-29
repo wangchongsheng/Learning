@@ -25,4 +25,5 @@ urlpatterns = [
     path('field.html', views.field),
     path('widght.html', views.widght),
     path('db.html', views.db),
+    path('initial.html', views.initial),
 ]
