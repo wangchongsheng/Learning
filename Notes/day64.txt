@@ -1,0 +1,59 @@
+1、基本表结构
+	class UserInfo(models.Model):
+		username = models.CharField(max_lenght=32,db_index=True) 
+		email	 = models.CharField(max_lenght=32,unique=True)
+		pwd		 = models.CharField(max_lenght=64)
+		ctime	 = models.DateTimeField(auto_add=True)
+		code  	 = models.CharField(max_length=6)
+		
+		"""
+		class Meta:
+			index_together = [
+				('username','pwd')
+			]
+			unique_together = [
+				('username','pwd')
+			]
+		"""
+	class SendMsg(models.Model):
+		email = models.CharField(max_lenght=32,unique=True)
+		code  = models.CharField(max_length=6)
+		stime = models.DateTimeField()
+		times = models.IntergarField()
+		
+	SendMsg.objects.create(email='11111',code='123',stime=datetime.now())
+	# 特殊语句
+	obj = SendMsg(email='1111',code='123',stime=datetime.now())
+	obj.clean()
+	obj.save()
+	# django Admin也是可以的
+	
+	
+	#djangod Models字段怎么验证？
+2、 登陆和注册
+	- ORM操作
+	- F 和 Q
+		filter(id_gt=1,name='root')
+		filter(**{"id_gt":1,...})
+		filter(Q(Q(id_gt=1)&Q(name="root"))|)
+			(邮箱&密码) | (用户名|密码)
+			
+	- 简单倒计时效果
+	- 验证码
+	- *** 逻辑性处理 ***
+	- 注册成功后自动登陆
+	
+	a. 分解注册
+		获取邮箱框中的内容，并发到后台（Ajax）
+		Form验证，只验证一个邮箱
+			class Foo(forms.Form):
+				email ...
+		ret = {'status':...}
+		不合法：
+			...
+		合法：
+			...
+			
+		success 回调函数
+		
+		
