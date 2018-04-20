@@ -1,0 +1,19 @@
+#ARCH  
+ARCH="`uname -s`"  
+  
+LINUX="Linux"  
+HP-UX="HP-UX"  
+  
+#Main build target  
+all:build  
+  
+build:  
+	@if [ $(ARCH) = $(LINUX) ]; \  
+	then \  
+		echo $(ARCH); \  
+	elif [ $(ARCH) = $(HP-UX) ]; \  
+	then \  
+		echo $(ARCH); \  
+	else \  
+		echo "ARCH unknow"; \  
+	fi  

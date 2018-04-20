@@ -1,0 +1,139 @@
+1、 为什么要有HTML？
+	“Hello”
+	<h1>hello</h1>
+	 - 浏览器渲染时使用一套HTML规则
+	 - 学习规则
+2、 服务器写HTML时
+	在任何语言的WEB框架中：HTML就做模板
+		- .html
+		- .tpl  template
+		- .chtml
+		
+3、发送请求和相应请求时
+	请求：
+		请求头
+		
+		请求内容
+	
+	相应：
+		。。。。
+
+4、HTML规则
+	- html/head/body/title/meta
+	- div/p/a/h/span/b/br/hr/em/ul/ol/li/table
+	- input/from/textarea/select
+	- style/script/link
+	
+5、CSS
+	选择器：
+		#id {}
+		.class {}
+		div {}
+		
+		.c1 #id a {}
+			.c{
+				background-color:red;
+			}
+			.c1{
+				font-size: 56px;
+			}
+			.c2{
+				font-size: 18px;
+			}
+			
+		举例：
+			颜色、大小、高度、宽度、内外边距、边框、浮动、定位、字体、居中、超出、下划线、显示、分层、透明的
+			:hover,:after,:before,圆角
+			
+			重要：
+				float,	清除浮动 ：after
+				a. 已知外层高度
+					内元素浮动
+				b. 位置外层高度
+					- 原始：沉底位置 <div style='clear: both;'></div>
+					- 牛逼：
+						.clearfix:after{
+							content:'.'
+							display: block;
+							clear: both;
+							visiblity: hidden;
+							height: 0;
+						}
+						<div class='afsd clearfix'>
+							<div class='float'></div>
+							<div class='float'></div>
+							<div class='float'></div>
+							<div class='float'></div>
+							<div class='float'></div>
+							<div class='float'></div>
+							<div class='float'></div>
+							<div class='float'></div>
+						</div>
+				c. hover的应用
+					.c1{
+						background-color: red;
+					}
+					.c1:hover{
+					background-color:pink;
+					}
+					//当鼠标放在c1上面时，c2才生效
+					.c1:hover .c2{
+					}
+
+6. JavaScript
+	a. 基本数据类型
+	b. var
+	c. 对象
+	d. 作用域，作用域链
+		- 作用域链在函数被解释的过程中已经创建(函数作为作用域)
+		- 提前声明
+	
+	//java
+	public void func(){
+		if(1==1){
+			string name="alex";
+		}
+		print(name)
+	}
+	#会直接报错， name未定义
+	#Java/C# 代码块作为作用域
+	
+	def func():
+		if 1==1:
+			name="alex"
+		print(name)
+	# Python 函数作为作用域
+	
+	function func(){
+	
+	}
+	############1、 JavaScript中以函数作为作用域##########
+	<script>
+		xo = 'alex';
+		
+		function f1(){
+		
+			var xo = 'eric'
+			
+			function f2(){
+			
+				console.log(xo)
+				
+			}
+			
+			retrun f2;
+		}
+	</script>
+	###############2、 JavaScript函数在被调用之前（解释器解释过程中），作用域链已经存在##########	
+
+
+
+
+	练习：作用域 + js知识
+	
+7、jQuery
+	- 找元素 （直接，间接）
+	- 操作		（属性。。）
+	
+
+					

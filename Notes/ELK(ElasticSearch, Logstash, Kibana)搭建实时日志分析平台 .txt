@@ -1,0 +1,163 @@
+ELK安装部署
+系统环境
+
+System: Centos release 7.3
+
+ElasticSearch: 6.0.1
+
+Logstash: 6.0.1
+
+Kibana: 6.0.1
+
+filebeat：6.0.1
+
+Java: openjdk version  "1.8.0_91"
+
+下载软件包：https://www.elastic.co/downloads
+
+1.ElasticSearch
+下载软件包：
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.0.1.tar.gz
+
+（1）创建elsearch用户组及elsearch用户
+groupadd elsearch
+useradd elsearch -g elsearch -p elasticsearch
+
+（2）配置ElasticSearch
+[root@172 local]# tar xvf elasticsearch-6.0.1.tar.gz  
+[root@172 local]# mv elasticsearch-6.0.1 elasticsearch
+[root@172 local]# chown elsearch.elsearch elasticsearch
+
+修改配置文件：
+$vim /etc/elasticsearch/elasticsearch.yml
+
+path.data: /data/elasticsearch     #日志存储目录
+path.logs: /data/elasticsearch/log #elasticsearch启动日志路径
+network.host: elk1        #这里是主机IP,我写了hosts
+node.name: "node-2"       #节点名字,不同节点名字要改为不一样
+http.port: 9200           #api接口url
+node.master: true         #主节点
+node.data: true           #是否存储数据
+    
+#手动发现节点,我这里有两个节点加入到elk集群
+discovery.zen.ping.unicast.hosts: [elk1, elk2]
+
+（3）切换到elsearch用户，启动ElasticSearch
+[elsearch@172 home]$ cd /usr/local/sygamer/elasticsearch
+[elsearch@172 elasticsearch]$ bin/elasticsearch
+
+（4）以daemon方式启动
+[elsearch@172 elasticsearch]$./bin/elasticsearch -d -p pid
+[elsearch@172 elasticsearch]$kill `cat pid`
+
+
+
+问题解决：
+（1）用户启动进程问题
+java.lang.RuntimeException: can not run elasticsearch as root
+为了安全起见，该进程不允许用root账号启动，需要建立一个elsearch的账号
+（2）文件打开数问题
+[2017-12-12T16:25:20,025][ERROR][o.e.b.Bootstrap          ] [NsM_BeF] node validation exception
+[2] bootstrap checks failed
+[1]: max file descriptors [65535] for elasticsearch process is too low, increase to at least [65536]
+[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+
+需要切换到root用户：添加以下内容：
+[root@172 ~]# vi /etc/security/limits.conf
+
+* soft nofile 65536
+
+* hard nofile 131072
+
+* soft nproc 2048
+
+* hard nproc 4096
+
+[root@172 ~]# vi /etc/security/limits.d/20-nproc.conf 
+修改如下内容：
+
+* soft nproc 1024
+
+#修改为
+
+* soft nproc 2048
+
+[root@172 ~]# 
+
+
+添加下面配置：
+[root@172 ~]# vi /etc/sysctl.conf 
+vm.max_map_count=655360
+
+然后执行：
+[root@172 ~]# sysctl -p
+最后重新启动ElasticSearch即可。
+
+
+
+Logstash
+
+下载Key文件：
+[root@172 ~]# rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+编辑repo文件:
+[root@172 ~]# vim /etc/yum.repos.d/logstash.repo
+[logstash-6.x]
+name=Elastic repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+
+执行以下命令安装logstash:
+[root@172 ~]# yum clean all && yum makecache
+[root@172 ~]# yum -y install logstash
+
+启动logstash：
+[root@172 ~]#service logstash start
+
+
+
+Kibana
+下载软件包：
+wget https://artifacts.elastic.co/downloads/kibana/kibana-6.0.1-linux-x86_64.tar.gz
+
+解压并文件：
+[root@172 local]# tar xvf kibana-6.0.1-linux-x86_64.tar.gz 
+[root@172 local]# mv kibana-6.0.1-linux-x86_64 kibana 
+
+修改config/kibana.yml文件，设置文件中的elasticsearch.url
+[root@172 kibana]# vim config/kibana.yml 
+server.host: "0.0.0.0"
+elasticsearch.url: "http://localhost:9200"
+
+执行以下命令运行kibana :
+[root@172 kibana]# bin/kibana
+然后再浏览器中输入http://IP:5061访问
+
+进程查询
+[root@172 kibana]# ps -ef |grep node
+
+filebeat
+下载Key文件：
+[root@172 ~]# rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+
+编辑repo文件:
+[root@172 ~]# vim /etc/yum.repos.d/elastic.repo
+[elastic-6.x]
+name=Elastic repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+
+执行以下命令安装filebeat:
+[root@172 ~]# yum clean all && yum makecache
+[root@172 ~]# yum -y install filebeat
+
+
+https://www.elastic.co/guide/en/logstash/6.0/advanced-pipeline.html#_configuring_logstash_for_filebeat_input

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片滚动轮播</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="outer">
+    <ul class="img">
+        <li><a><img src="img/11.jpg"></a></li>
+        <li><a><img src="img/22.jpg"></a></li>
+        <li><a><img src="img/33.jpg"></a></li>
+        <li><a><img src="img/44.jpg"></a></li>
+    </ul>
+    <ul class="num">
+        <li class="current">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div class="left_btn btn"><</div>
+    <div class="right_btn btn">></div>
+</div>
+<script rel="script" src="js/jquery-2.1.4.min.js"></script>
+<script>
+    $(".num li").mouseover(function () {
+        $(this).addClass("current").siblings().removeClass("current")
+        var index=$(this).index();
+        $(".img li").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+    });
+    var time=setInterval(move,1500)
+</script>
+</body>
+</html>

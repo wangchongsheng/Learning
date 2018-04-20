@@ -1,0 +1,12 @@
+    CMD (?<=\-\s)(\w+)(?=\-\>)
+    UID (?<=uid:)[A-Z0-9]{31,}
+    PID (?<=pid:)[a-z0-9]{31,}
+    CMD_SUB (?<=cmd:)\w+
+    SOURCE (?<=source:)\w+
+    SOURCENAME (?<=sourceName:).*?
+    DEST (?<=dest:)[a-z0-9]{31,}
+    TITLE (?<=title:)\w*
+    DATE_LOCAL %{YEAR}\-%{MONTHNUM}\-%{MONTHDAY}
+    DATESTAMP_LOCAL %{DATE_LOCAL}[- ]%{TIME}
+	
+

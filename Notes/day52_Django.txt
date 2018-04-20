@@ -1,0 +1,37 @@
+1.什么是模板语言?
+		html+逻辑控制语句
+		
+2.模板语言的作用？
+
+
+1  	{{ 变量 }}
+2  	万能的句点号.
+3	{% if %}
+	{% endif %}
+	{% for %}
+	{% endfor %}
+4	filter
+	
+def current_time(req):
+	now=datetime.datetime.now()
+	return render(req,'current_datetime.html',{'current_date':now})
+	
+	
+{{ var_name|filter }}
+
+addslashes
+
+{{ value|safe }}
+
+
+simple_tag #可以传多个参数  不能用于 if for语句
+filter     #最多两个参数
+
+settings: Installapps(app)
+
+文件名字： templatetags/tags
+.html 文件 最上面{% load tags%}
+
+继承 （extends）
+	
+	

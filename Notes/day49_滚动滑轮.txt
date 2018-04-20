@@ -1,0 +1,40 @@
+1、滚动滑轮的事件
+2、内容到窗口的距离
+3、position：absolute
+	定位：右下角
+	滚动：不固定
+	
+================后台管理的布局==============
+利用：absolute + overflow:auto;
+
+================滚动菜单的功能==============
+1、监听滑轮的滚动事件
+2、如何获取当前滚轮滑动的高度
+	$("body").scrollTop()
+	<div id="i1" style="height:100px">
+	</div>
+	
+	
+
+	
+1、回顾普通布局
+2、新布局
+	- overfow:auto;
+		用上，做菜单固定
+	- 无
+3、滚动菜单示例：
+	新布局（无）
+	a. onscroll事件
+	b. $(..).scrollTop()   $(..).scrollTop(10) =>..
+
+	c. 如何获得某个标签到顶部的高度
+		$("xx").offset() 获取当前标签距离文档顶部高度
+		
+		$("xx").height() 		永远获取自己的高度； 		获取当前标签自己的高度
+		$("xx").innerHeight() 	永远获取自己高度+padding；	获取第一个匹配元素内部高度（包括补白，不包括边框）
+		$("xx").outerHeight() 	
+								参数一： false：
+									永远获取自己高度+padding+border； 获取第一个匹配元素外部高度（默认包括补白和边框）
+								参数二：
+									永远获取自己高度+padding+border+margin;
+		

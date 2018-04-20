@@ -1,0 +1,171 @@
+rawData:
+2017-12-07 17:05:11.596 INFO  [pool-playerMgrLogicThread-thread-2] com.sy.craft.module.bo.impl.MailBOImpl.class - playerMailInfo->uid:41D0A9976C904E13A9EC7676660930EE,pid:7186e437aa9b482fa636f1e7febb6b90,cmd:receive,mailId:1,source:null,sourceName:盛焱游戏团队,dest:7186e437aa9b482fa636f1e7febb6b90,title:啊啊,createAt:2017-12-07 17:05:07,state:1,readTime:2000-10-20 00:00:00,awardTime:2000-10-01 00:00:00,items:[1,2,3,4],
+
+filter:
+%{CMD:Command}\-\>uid:%{UID:uid},pid:%{PID:pid},cmd:%{CMD_SUB:cmd},mailId:%{NUMBER:mailId:long},source:%{WORD:source},sourceName:%{DATA:sourceName},dest:%{DEST:dest},title:%{DATA:title},createAt:%{DATESTAMP_LOCAL:createAt},state:%{NUMBER:state},readTime:%{DATESTAMP_LOCAL:readTime},awardTime:%{DATESTAMP_LOCAL:awardTime},items:%{DATA:items},$
+
+(?:"(?:%{URI:referrer}|-)"|%
+
+2017-12-12 18:17:30.345 INFO  [pool-httpMsgRivceHandler-thread-2723] com.ifeng.service.impl.AccountSVImpl.class - login return,relCode:4 uid:08519171A5B44378B5B0666B28F70C08 token:dd174e89884116e5ad642cff06a880c6-4 srvid:1 srvip:www.sygamer.cn srvport:4011 tokenTimpstamp:1513073705747 sk:craft
+
+%{CMD:Command}\sreturn,relCode:%{NUMBER:relCode}\suid:%{UID:uid}\stoken:%{TID:token}\ssrvid:%{NUMBER:srvid}\ssrvip:%{HOSTNAME:srvip}\ssrvport:%{NUMBER:srvport}\stokenTimpstamp:%{NUMBER:tokenTimpstamp:}\ssk:%{WORD:sk}
+
+
+CMD (?<=\-\s)(\w+)
+WORD (?<=login\s)(?=$4)
+RET (?<return,)(?=4)
+UID (?<=uid:)[A-Z0-9]{31,}
+
+customRegex:
+CMD (?<=\-\s)(playerMailInfo)(?=\-\>)
+RET (?<return,)(?=4)
+UID (?<=uid:)[A-Z0-9]{31,}
+PID (?<=pid:)[a-z0-9]{31,}
+CMD_SUB (?<=cmd:)\w+
+SOURCE (?<=source:)\w+
+SOURCENAME (?<=sourceName:).*?
+DEST (?<=dest:)[a-z0-9]{31,}
+TITLE (?<=title:)\w*
+DATE_LOCAL %{YEAR}\-%{MONTHNUM}\-%{MONTHDAY}
+DATESTAMP_LOCAL %{DATE_LOCAL}[- ]%{TIME}
+
+filterResult：
+{
+  "Command": [
+    [
+      "playerMailInfo"
+    ]
+  ],
+  "uid": [
+    [
+      "41D0A9976C904E13A9EC7676660930EE"
+    ]
+  ],
+  "pid": [
+    [
+      "7186e437aa9b482fa636f1e7febb6b90"
+    ]
+  ],
+  "cmd": [
+    [
+      "receive"
+    ]
+  ],
+  "mailId": [
+    [
+      "1"
+    ]
+  ],
+  "BASE10NUM": [
+    [
+      "1",
+      "1"
+    ]
+  ],
+  "source": [
+    [
+      "null"
+    ]
+  ],
+  "sourceName": [
+    [
+      "盛焱游戏团队"
+    ]
+  ],
+  "dest": [
+    [
+      "7186e437aa9b482fa636f1e7febb6b90"
+    ]
+  ],
+  "title": [
+    [
+      "啊啊"
+    ]
+  ],
+  "createAt": [
+    [
+      "2017-12-07 17:05:07"
+    ]
+  ],
+  "DATE_LOCAL": [
+    [
+      "2017-12-07",
+      "2000-10-20",
+      "2000-10-01"
+    ]
+  ],
+  "YEAR": [
+    [
+      "2017",
+      "2000",
+      "2000"
+    ]
+  ],
+  "MONTHNUM": [
+    [
+      "12",
+      "10",
+      "10"
+    ]
+  ],
+  "MONTHDAY": [
+    [
+      "07",
+      "20",
+      "01"
+    ]
+  ],
+  "TIME": [
+    [
+      "17:05:07",
+      "00:00:00",
+      "00:00:00"
+    ]
+  ],
+  "HOUR": [
+    [
+      "17",
+      "00",
+      "00"
+    ]
+  ],
+  "MINUTE": [
+    [
+      "05",
+      "00",
+      "00"
+    ]
+  ],
+  "SECOND": [
+    [
+      "07",
+      "00",
+      "00"
+    ]
+  ],
+  "state": [
+    [
+      "1"
+    ]
+  ],
+  "readTime": [
+    [
+      "2000-10-20 00:00:00"
+    ]
+  ],
+  "awardTime": [
+    [
+      "2000-10-01 00:00:00"
+    ]
+  ],
+  "items": [
+    [
+      "[1,2,3,4]"
+    ]
+  ]
+}
+
+reference:
+https://grokdebug.herokuapp.com/
+
+https://grokdebug.herokuapp.com/patterns

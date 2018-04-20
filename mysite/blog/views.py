@@ -8,6 +8,7 @@ def cur_time(request):
 
     times=datetime.datetime.now()
 
+
     # return HttpResponse("<h1>AAAA</h1>")
     return render(request,"cur_time.html",{"time":times})
 

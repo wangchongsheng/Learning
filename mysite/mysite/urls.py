@@ -22,6 +22,7 @@ urlpatterns = [
     # path('blog/', include('blog.urls')),
     path('login/',views.login),
     path('home/',views.home),
+    path('cur_time/',views.cur_time),
 
     # path('cur_time/',views.cur_time),
     # path("userInfo/",views.userInfo),

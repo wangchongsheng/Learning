@@ -1,0 +1,37 @@
+1  基于JS的ajax的实现
+	step1:  var xmlhttp=XMLHttprequest()
+	
+	step2:	xmlhttp.open("")
+	
+	step3:	xmlhttp.send("name=alex")  #请求体的内容if GET请求： send(null)
+	
+	step4:	监听：xmlhttp(if == 4:{var context=xmlhttp:responetext})
+
+2 JSON和JSONP
+
+3 基于jQuery的Ajax的实现
+
+	$.ajax(
+	url:
+	type: "POST"
+	)
+	
+	$.get(,,,type:Json)
+	$.post()
+	$.getJson()
+	$.getScript() #实时加载
+	
+	------------------------
+	1 $.ajax({
+	url:"/ /",
+	
+	})
+	2 $.ajax("",{
+	
+	})
+	-------------------
+	$.ajax({
+	url:"",
+	type:"POST",
+	data:{},
+	})

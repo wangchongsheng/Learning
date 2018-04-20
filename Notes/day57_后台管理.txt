@@ -1,0 +1,44 @@
+简单后台管理：老男孩管理
+	1.登陆注册
+	2.
+		老师
+		班级管理
+		学员管理
+	3.增删改查
+
+Cookie：
+	就是保存在浏览器端的键值对
+	可以利用做登陆
+	
+	1、保存在用户浏览器端
+	2、可以主动清除
+	3、也可以被“伪造”
+	4、跨域名cookie不共享
+	5、浏览器设置不接受cookie
+	
+
+	
+开发：
+	1.定义数据库表结构
+		- 表结构关系
+		class Classes(models.Model):
+			caption = models.CharField(max_length=32)
+		
+		class Student(models.Model):
+			name = models.CharField(max_length=32)
+			cls = models.ForignKey('Classes')
+		
+		class Teacher(models.Model):
+			name = models.CharField(max_length=32)
+			
+			username = models.CharField(max_length=32)
+			password = models.CharField(max_length=32)
+			cls = models.ForignKey('classes')
+	2. 登陆、注册
+		提交表单：
+			- From
+			- Ajax
+			
+		- 登陆
+			- 成功： 记住状态 --- 保持会话
+			- 失败： 错误提示

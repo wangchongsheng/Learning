@@ -1,0 +1,65 @@
+创建单表
+
+
+创建关联表（foreignKey）
+
+	一对一
+	一对多	（重点）
+	多对多	（重点）
+
+-----ORM
+	创建表
+		单表：-----
+		关联表：-----
+				一对一  (OneToOne)
+				一对多	(ForeignKey)
+				多对多	(ManyToMany)
+				
+	
+	操作表：
+		增--create
+				# 方式一
+				models.Book.objects.create(title="Python",price=12)  
+				dic={"title":"Go","price":45}		
+				# 方式二（推荐）	
+				models.Book.objects.create(**dic)
+				
+				如果有外键：
+					一对多：
+						<1> 
+							models.Book.objects.create(title="Python",price=12,publish_id)
+						<2> (推荐)
+							models.Book.objects.create(title="Python",price=12,publish=obj)
+							# querySet OR object
+							
+					多对多：
+						add()	remove()
+						
+						----正向查询
+						book=models.Book.objects.filter(id=2)[0]
+						authors=models.Author.objects.filter(id__gt=2)
+						# book.author.add(*authors)
+						book.author.remove(*authors)
+						
+						----反向查询
+						author=models.Author.objects.filter(id=3)[0]
+						books=models.Book.objects.filter(id__gt=2)
+						# author.book_set.add(*books)
+						author.book_set.remove(*books)
+					
+					自己写第三张表：
+					
+						ManyToMany： 通过两个ForeignKey
+						OneToOne:	一个通过两个ForeignKey,unique=True
+			save
+				# 方式一
+				obj=Book(title="Python",price=12)
+				obj.save()
+				# 方式二
+				obj=Book()
+				obj.title="Go"
+				obj.price=45
+				obj.save()
+		删
+		改
+		查
