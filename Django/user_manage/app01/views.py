@@ -4,7 +4,7 @@ from app01 import models
 
 # Create your views here.
 
-'''
+
 def test(request):
     obj = HttpResponse('OK')
     import datetime
@@ -46,6 +46,7 @@ def index(requst):
     # 如果用户已经登陆，获取当前登陆的用户名
     # 否则返回登陆页面
     username = requst.COOKIES.get('username')
+    print(username)
     if username:
         return render(requst,'index.html',{'username':username})
     else:
@@ -67,10 +68,10 @@ class Login(views.View):
         if c:
             request.session['is_login'] = True
             request.session['username'] = user
-            rep = redirect('index.html')
+            rep = redirect('/index.html')
             return rep
         else:
             message = "用户名或密码错误"
             return render(request,'login.html',{'msg':message})
-
+'''
 # FBV

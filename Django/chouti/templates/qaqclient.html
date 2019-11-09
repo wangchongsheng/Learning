@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QAQ客户端信息收集</title>
+</head>
+<style type="text/css">
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    li {
+        float: left;
+        border-right: 1px solid #bbb;
+    }
+
+    li:last-child {
+        border-right: none;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
+
+    .active {
+        background-color: #4CAF50;
+    }
+</style>
+<body>
+
+<ul>
+    <li><a class="active" href="#home">主页</a></li>
+    <li><a href="http://119.23.221.153:8888/pdbs" id="pdbs" target="icontent">Dump</a></li>
+    <li><a href="http://119.23.221.153:8888/logs" id="logs" target="icontent">Logs</a></li>
+    <li style="float:right"><a href="#about">关于</a></li>
+</ul>
+<div id="content">
+    <iframe id="icontent" name="icontent" style="display: none; width: 0px; height: 0px;"></iframe>
+</div>
+<a href="http://119.23.221.153:8888/pdbs">客户端dump文件</a>
+<a href="http://119.23.221.153:8888/logs">客户端logs文件</a>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(function setIframeHeight() {
+        var iframe;//高度初始化600，为了14寸笔记本
+        iframe = document.getElementById('iframe');
+        iframe.height = document.getElementById("sidebar").offsetHeight - 56;
+    });
+</script>
+<script>
+    /*
+    $(document).ready(function () {
+        $("pdbs").click(function () {
+            $("#content").empty();
+            $.get("http://119.23.221.153:8888/pdbs", function (data, status) {
+                //alert("数据：" + data + "\n状态：" + status);
+                append(data).html()
+            });
+        });
+    });
+    $(document).ready(function () {
+        $("logs").click(function () {
+            $("#content").empty();
+            $.get("http://119.23.221.153:8888/pdbs", function (data, status) {
+                //alert("数据：" + data + "\n状态：" + status);
+                $("#content").append(data).html()
+            });
+        });
+    });
+    */
+</script>
+</body>
+</html>

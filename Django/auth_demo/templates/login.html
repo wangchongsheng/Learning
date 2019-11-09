@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>用户登录</h1>
+<form action="/login/" method="post">
+{% csrf_token %}
+    <p>
+        用户名:
+        <input type="text" name="username">
+    </p>
+    <p>
+        密码:
+        <input type="password" name="password">
+    </p>
+    <p>
+        <input type="submit" value="Login">
+    </p>
+</form>
+<p>没有账号？<a href="/register/">免费注册</a></p>
+<p>忘记密码？<a href="/setpasswd/">找回密码</a></p>
+</body>
+</html>
